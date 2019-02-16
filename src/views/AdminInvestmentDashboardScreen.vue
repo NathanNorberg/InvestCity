@@ -4,7 +4,6 @@
     <br>
     <br>
     <br>
-    <br>
     <AdminInvestmentDashboard />
   </div>
 </template>

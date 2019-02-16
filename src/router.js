@@ -13,7 +13,8 @@ import InvestorReportScreen from './views/InvestorReportScreen.vue'
 import AdminLoginScreen from './views/AdminLoginScreen.vue'
 import AdminDashboardScreen from './views/AdminDashboardScreen.vue'
 import AddNewsScreen from './views/AddNewsScreen.vue'
-import ViewNewsScreen from './views/ViewNewsScreen.vue'
+import ManageNewsScreen from './views/ManageNewsScreen.vue'
+import EditNewsScreen from './views/EditNewsScreen.vue'
   /* Add, View, Edit Investments */
 import AddInvestmentScreen from './views/AddInvestmentScreen.vue'
 import AdminInvestmentDashboardScreen from './views/AdminInvestmentDashboardScreen.vue'
@@ -45,7 +46,8 @@ export default new Router({
     { path: '/adminLogin', component: AdminLoginScreen },
     { path: '/adminDashboard', component: AdminDashboardScreen },
     { path: '/addNews', component: AddNewsScreen },
-    { path: '/viewNews', component: ViewNewsScreen },
+    { path: '/manageNews', component: ManageNewsScreen },
+    { path: '/editNews/:id', component: EditNewsScreen },
       /* Add, View, Edit Investments */
     { path: '/addInvestment', component: AddInvestmentScreen },
     { path: '/adminInvestmentDashboard', component: AdminInvestmentDashboardScreen },

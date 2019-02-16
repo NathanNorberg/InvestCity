@@ -13,6 +13,7 @@
               <p class="text-xs-left"><h3>Title</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Body of the news update</p>
+              <v-btn class="text-xs-right" color="warning" to="/editNews/1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>
@@ -24,6 +25,7 @@
               <p class="text-xs-left"><h3>Title</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Body of the news update</p>
+              <v-btn class="text-xs-right" color="warning" to="/editNews/1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>
@@ -35,6 +37,7 @@
               <p class="text-xs-left"><h3>Title</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Body of the news update</p>
+              <v-btn class="text-xs-right" color="warning" to="/editNews/1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>
@@ -46,6 +49,7 @@
               <p class="text-xs-left"><h3>Title</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Body of the news update</p>
+              <v-btn class="text-xs-right" color="warning" to="/editNews/1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>
@@ -57,6 +61,7 @@
               <p class="text-xs-left"><h3>Title</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Body of the news update</p>
+              <v-btn class="text-xs-right" color="warning" to="/editNews/1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>

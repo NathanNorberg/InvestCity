@@ -5,17 +5,17 @@
     <br>
     <br>
     <br>
-    <InvestmentDetails />
+    <EditNews />
   </div>
 </template>
 
 <script>
   import AdminNav from '../components/AdminNav.vue'
-  import InvestmentDetails from '../components/InvestmentDetails.vue'
+  import EditNews from '../components/EditNews.vue'
   export default {
     components: {
       'AdminNav': AdminNav,
-      'InvestmentDetails': InvestmentDetails,
+      'EditNews': EditNews,
     }
   }
 </script>

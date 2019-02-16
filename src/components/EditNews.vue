@@ -2,7 +2,7 @@
   <v-container>
     <v-card>
       <v-flex>
-        <h1 class="text-xs-center">Create News</h1>
+        <h1 class="text-xs-center">Edit News</h1>
         <v-container>
           <form>
             <v-text-field
@@ -17,9 +17,8 @@
 
             <v-flex xs8>
               <v-textarea
-                name="newsBody"
+                v-model="newsBody"
                 label="Body"
-                value=""
                 hint="Body"
                 v-validate="'required'"
                 :error-messages="errors.collect('newsBody')"
@@ -34,13 +33,13 @@
                 v-validate="'required'"
                 :error-messages="errors.collect('checkbox')"
                 value="1"
-                label="News Form Complete?"
+                label="News Update Complete?"
                 data-vv-name="checkbox"
                 type="checkbox"
                 required
               ></v-checkbox>
 
-            <v-btn color="success" @click="submit">submit</v-btn>
+            <v-btn color="success" @click="update">Update</v-btn>
           </form>
         </v-container>
       </v-flex>
@@ -60,8 +59,8 @@ export default {
   },
 
   data: () => ({
-    newsTitle: '',
-    newsBody: '',
+    newsTitle: 'Prefilled Title',
+    newsBody: 'Lots of Prefilled content from the original post',
     checkbox: null,
     dictionary: {
       attributes: {

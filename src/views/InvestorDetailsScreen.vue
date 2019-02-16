@@ -1,6 +1,6 @@
 <template>
   <div>
-    <InvestorNav />
+    <AdminNav />
     <br>
     <br>
     <br>
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-  import InvestorNav from '../components/InvestorNav.vue'
+  import AdminNav from '../components/AdminNav.vue'
   import InvestorDetails from '../components/InvestorDetails.vue'
   export default {
     components: {
-      'InvestorNav': InvestorNav,
+      'AdminNav': AdminNav,
       'InvestorDetails': InvestorDetails
     }
   }

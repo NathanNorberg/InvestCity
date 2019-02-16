@@ -24,10 +24,10 @@
         <v-flex>
           <v-list>
             <v-list-tile-title>
-              Name Here
+              CNI Admin
             </v-list-tile-title>
             <v-list-tile-sub-title>
-              Admin
+              Phoenix
             </v-list-tile-sub-title>
           </v-list>
         </v-flex>
@@ -55,7 +55,7 @@ export default {
       mini: true,
       links: [
         {name: 'Home', icon: 'home', route: '/adminDashboard'},
-        {name: 'View News', icon: 'chat', route: '/viewNews'},
+        {name: 'Manage News', icon: 'chat', route: '/manageNews'},
         {name: 'Add News', icon: '', route: '/addNews'},
         {name: 'Manage Investments', icon: 'dashboard', route: '/adminInvestmentDashboard'},
         {name: 'Add Investment', icon: '', route: '/addInvestment'},
