@@ -58,7 +58,7 @@ export default {
         {name: 'View News', icon: 'chat', route: '/viewNews'},
         {name: 'Add News', icon: '', route: '/addNews'},
         {name: 'Manage Investments', icon: 'dashboard', route: '/adminInvestmentDashboard'},
-        {name: 'Add Investments', icon: '', route: '/addInvestment'},
+        {name: 'Add Investment', icon: '', route: '/addInvestment'},
         {name: 'Manage Investors', icon: 'contacts', route: '/adminInvestorDashboard'},
         {name: 'Add Investor', icon: '', route: '/addInvestor'},
         {name: 'Profile Settings', icon: 'settings', route: '/'}
