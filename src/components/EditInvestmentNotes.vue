@@ -8,7 +8,7 @@
         <v-container>
           <form>
             <v-text-field
-            v-model="noteTitle"
+            v-model="adminInvestmentNotes.noteTitle"
             v-validate="'required|max:50'"
             :counter="50"
             :error-messages="errors.collect('noteTitle')"
@@ -19,7 +19,7 @@
 
             <v-flex xs8>
               <v-textarea
-                name="noteBody"
+                v-model="adminInvestmentNotes.noteBody"
                 label="Note Body"
                 value=""
                 hint="Note Body"
@@ -32,7 +32,7 @@
 
 
               <v-checkbox
-                v-model="checkbox"
+                v-model="adminInvestmentNotes.checkbox"
                 v-validate="'required'"
                 :error-messages="errors.collect('checkbox')"
                 value="1"
@@ -42,10 +42,10 @@
                 required
               ></v-checkbox>
 
-            <v-btn color="success" @click="submit">Submit</v-btn>
+            <v-btn color="success" @click="investorNoteUpdate">Update</v-btn>
             <v-btn color="warning" to="/investorInvestmentDetails/1">Cancel</v-btn>
             <v-container text-xs-right>
-              <v-btn color="error" >Delete Investment Note</v-btn>
+              <v-btn color="error" @click="investorNoteDelete">Delete Investment Note</v-btn>
             </v-container>
           </form>
         </v-container>
@@ -65,25 +65,36 @@ export default {
     validator: 'new'
   },
 
-  data: () => ({
-    noteTitle: 'Pre Filled Title',
-    noteBody: 'Pre Filled Body with lots of cool notes',
-    checkbox: null,
-    dictionary: {
-      attributes: {
-        // custom attributes
-      },
+  data (){
+    return{
+      adminInvestmentNotes:{
+        noteTitle: 'Prefilled',
+        noteBody: 'Prefilled',
+        checkbox: null,
+      }
     }
-  }),
+  },
 
   mounted () {
     this.$validator.localize('en', this.dictionary)
   },
 
   methods: {
-    submit () {
-      this.$validator.validateAll()
+    investorNoteUpdate () {
+      this.$http.patch('http://jsonplaceholder.typicode.com/posts/1',{
+        noteTitle: this.investorInvestmentNotes.noteTitle,
+        noteBody: this.investorInvestmentNotes.noteBody
+      }).then(function(data){
+        console.log(data)
+      })
     },
+
+    investorNoteDelete () {
+
+      console.log('Delete Has been fired')
+
+    }
+
   }
 }
 </script>

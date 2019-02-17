@@ -41,10 +41,10 @@
                 required
               ></v-checkbox>
 
-            <v-btn color="success" @click="update">Update</v-btn>
+            <v-btn color="success" @click="updateNews">Update</v-btn>
             <v-btn color="warning" to="/manageNews">Cancel</v-btn>
             <v-container text-xs-right>
-              <v-btn color="error" >Delete News</v-btn>
+              <v-btn color="error" @click="deleteNews" >Delete News</v-btn>
             </v-container>
           </form>
         </v-container>
@@ -64,26 +64,39 @@ export default {
     validator: 'new'
   },
 
-  data: () => ({
-    newsTitle: 'Prefilled Title',
-    newsBody: 'Lots of Prefilled content from the original post',
-    checkbox: null,
-    dictionary: {
-      attributes: {
-        // custom attributes
-      },
+  data (){
+    return{
+      adminNews:{
+        newsTitle: 'Prefilled Title',
+        newsBody: 'Prefilled Body',
+        checkbox: null,
+      }
     }
-  }),
+  },
 
   mounted () {
     this.$validator.localize('en', this.dictionary)
   },
 
   methods: {
-    submit () {
-      this.$validator.validateAll()
+    updateNews () {
+      this.$http.post('http://jsonplaceholder.typicode.com/posts/1',{
+        newsTitle: this.adminNews.newsTitle,
+        newsBody: this.adminNews.newsBody
+      }).then(function(data){
+        console.log(data)
+      })
     },
+
+    deleteNews () {
+
+      console.log('Delete Has been fired')
+
+    }
+
   }
+
+
 }
 </script>
 

@@ -8,7 +8,7 @@
         <v-container>
           <form>
             <v-text-field
-            v-model="name"
+            v-model="investors.name"
             v-validate="'required|max:50'"
             :counter="50"
             :error-messages="errors.collect('name')"
@@ -17,7 +17,7 @@
             required
             ></v-text-field>
             <v-text-field
-              v-model="entityName"
+              v-model="investors.entityName"
               v-validate="'required'"
               :error-messages="errors.collect('entityName')"
               label="Entity Name"
@@ -25,7 +25,7 @@
               required
             ></v-text-field>
             <v-text-field
-              v-model="emailAndLogin"
+              v-model="investors.emailAndLogin"
               v-validate="'required|emailAndLogin'"
               :error-messages="errors.collect('emailAndLogin')"
               label="Email / Login"
@@ -33,7 +33,7 @@
               required
             ></v-text-field>
             <v-text-field
-              v-model="password"
+              v-model="investors.password"
               v-validate="'required|password'"
               :error-messages="errors.collect('password')"
               label="Password"
@@ -41,7 +41,7 @@
               required
             ></v-text-field>
             <v-text-field
-              v-model="confirmPassword"
+              v-model="investors.confirmPassword"
               v-validate="'required|confirmPassword'"
               :error-messages="errors.collect('confirmPassword')"
               label="Confirm Password"
@@ -49,16 +49,16 @@
               required
             ></v-text-field>
             <v-select
-              v-model="state"
+              v-model="investors.state"
               v-validate="'required'"
-              :items="states"
+              :items="investors.states"
               :error-messages="errors.collect('state')"
               label="State"
               data-vv-name="state"
               required
               ></v-select>
               <v-text-field
-                v-model="county"
+                v-model="investors.county"
                 v-validate="'required|county'"
                 :error-messages="errors.collect('county')"
                 label="County"
@@ -66,7 +66,7 @@
                 required
               ></v-text-field>
               <v-text-field
-                v-model="city"
+                v-model="investors.city"
                 v-validate="'required|city'"
                 :error-messages="errors.collect('city')"
                 label="City"
@@ -75,7 +75,7 @@
               ></v-text-field>
               <v-flex xs8>
                 <v-textarea
-                  name="address"
+                  v-model="investors.address"
                   label="Address"
                   value=""
                   hint="Address"
@@ -85,7 +85,7 @@
                 ></v-textarea>
               </v-flex>
               <v-text-field
-                v-model="contactNumber"
+                v-model="investors.contactNumber"
                 v-validate="'required|contactNumber'"
                 :error-messages="errors.collect('contactNumber')"
                 label="Contact Number"
@@ -94,7 +94,7 @@
               ></v-text-field>
 
               <v-text-field
-                v-model="mobileNumber"
+                v-model="investors.mobileNumber"
                 v-validate="'required|mobileNumber'"
                 :error-messages="errors.collect('mobileNumber')"
                 label="Mobile Number"
@@ -104,7 +104,7 @@
 
               <v-flex xs8>
                 <v-textarea
-                  name="notesForInvestors"
+                  v-model="investors.notesForInvestors"
                   label="Investor Notes (Internal Use Only):"
                   value=""
                   hint="Investor Notes (Internal Use Only):"
@@ -115,7 +115,7 @@
               </v-flex>
 
               <v-checkbox
-                v-model="checkbox"
+                v-model="investors.checkbox"
                 v-validate="'required'"
                 :error-messages="errors.collect('checkbox')"
                 value="1"
@@ -145,103 +145,123 @@ export default {
     validator: 'new'
   },
 
-  data: () => ({
-    name: '',
-    select: null,
-    entityName: '',
-    emailAndLogin: '',
-    password: '',
-    confirmPassword: '',
-    states: [
-      'Alabama',
-      'Alaska',
-      'Arizona',
-      'Arkansas',
-      'California',
-      'Colorado',
-      'Connecticut',
-      'Delaware',
-      'Florida',
-      'Georgia',
-      'Hawaii',
-      'Idaho',
-      'Illinois',
-      'Indiana',
-      'Iowa',
-      'Kansas',
-      'Kentucky',
-      'Luisiana',
-      'Maine',
-      'Maryland',
-      'Massachusetts',
-      'Michigan',
-      'Minnesota',
-      'Mississippi',
-      'Missouri',
-      'Montana',
-      'Nebraska',
-      'Nevada',
-      'New Hampshire',
-      'New Jersey',
-      'New Mexico',
-      'New York',
-      'North Carolina',
-      'North Dakota',
-      'Ohio',
-      'Oklahoma',
-      'Oregon',
-      'Pennsylvania',
-      'Rhode Island',
-      'South Carolina',
-      'South Dakota',
-      'Tennessee',
-      'Texas',
-      'Utah',
-      'Vermont',
-      'Virginia',
-      'Washington',
-      'West Virginia',
-      'Wisconsin',
-      'Wyoming',
-    ],
-    county: '',
-    city: '',
-    address: '',
-    contactNumber: '',
-    mobileNumber: '',
-    status: [
-      'Active',
-      'Inactive',
-    ],
-    notesForInvestors: '',
-    checkbox: null,
-    dictionary: {
-      attributes: {
-        // custom attributes
-      },
-      custom: {
-        name: {
-          required: () => 'Name can not be empty',
-          max: 'The name field may not be greater than 50 characters'
-          // custom messages
-        },
-        state: {
-          required: 'Select field is required'
-        },
-        Category: {
-          required: 'Select field is required'
+  data(){
+    return{
+      investors:{
+        name: '',
+        select: null,
+        entityName: '',
+        emailAndLogin: '',
+        password: '',
+        confirmPassword: '',
+        states: [
+          'Alabama',
+          'Alaska',
+          'Arizona',
+          'Arkansas',
+          'California',
+          'Colorado',
+          'Connecticut',
+          'Delaware',
+          'Florida',
+          'Georgia',
+          'Hawaii',
+          'Idaho',
+          'Illinois',
+          'Indiana',
+          'Iowa',
+          'Kansas',
+          'Kentucky',
+          'Luisiana',
+          'Maine',
+          'Maryland',
+          'Massachusetts',
+          'Michigan',
+          'Minnesota',
+          'Mississippi',
+          'Missouri',
+          'Montana',
+          'Nebraska',
+          'Nevada',
+          'New Hampshire',
+          'New Jersey',
+          'New Mexico',
+          'New York',
+          'North Carolina',
+          'North Dakota',
+          'Ohio',
+          'Oklahoma',
+          'Oregon',
+          'Pennsylvania',
+          'Rhode Island',
+          'South Carolina',
+          'South Dakota',
+          'Tennessee',
+          'Texas',
+          'Utah',
+          'Vermont',
+          'Virginia',
+          'Washington',
+          'West Virginia',
+          'Wisconsin',
+          'Wyoming',
+        ],
+        county: '',
+        city: '',
+        address: '',
+        contactNumber: '',
+        mobileNumber: '',
+        status: [
+          'Active',
+          'Inactive',
+        ],
+        notesForInvestors: '',
+        checkbox: null,
+        dictionary: {
+          attributes: {
+            // custom attributes
+          },
+          custom: {
+            name: {
+              required: () => 'Name can not be empty',
+              max: 'The name field may not be greater than 50 characters'
+              // custom messages
+            },
+            state: {
+              required: 'Select field is required'
+            },
+            Category: {
+              required: 'Select field is required'
+            }
+          }
         }
       }
     }
-  }),
+  },
 
   mounted () {
     this.$validator.localize('en', this.dictionary)
   },
 
   methods: {
-    submit () {
+    post: function(){
       this.$validator.validateAll()
+      this.$http.post('http://jsonplaceholder.typicode.com/posts',{
+        name: this.investors.name,
+        entityName: this.investors.entityName,
+        emailAndLogin: this.investors.emailAndLogin,
+        password: this.investors.password,
+        confirmPassword: this.investors.confirmPassword,
+        states: this.investors.states,
+        county: this.investors.county,
+        city: this.investors.city,
+        contactNumber: this.investors.contactNumber,
+        mobileNumber: this.investors.mobileNumber,
+        status: this.investors.status,
+        notesForInvestors: this.investors.notesForInvestors,
+      }).then(function(data){
+        console.log(data)
+      })
     },
   }
 }

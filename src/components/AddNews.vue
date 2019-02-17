@@ -8,7 +8,7 @@
         <v-container>
           <form>
             <v-text-field
-            v-model="newsTitle"
+            v-model="adminNews.newsTitle"
             v-validate="'required|max:50'"
             :counter="50"
             :error-messages="errors.collect('newsTitle')"
@@ -19,7 +19,7 @@
 
             <v-flex xs8>
               <v-textarea
-                name="newsBody"
+                v-model="adminNews.newsBody"
                 label="Body"
                 value=""
                 hint="Body"
@@ -32,7 +32,7 @@
 
 
               <v-checkbox
-                v-model="checkbox"
+                v-model="adminNews.checkbox"
                 v-validate="'required'"
                 :error-messages="errors.collect('checkbox')"
                 value="1"
@@ -42,7 +42,7 @@
                 required
               ></v-checkbox>
 
-            <v-btn color="success" @click="submit">Submit</v-btn>
+            <v-btn color="success" v-on:click.prevent="post">Add Investment</v-btn>
             <v-btn color="warning" to="/manageNews">Cancel</v-btn>
           </form>
         </v-container>
@@ -62,16 +62,15 @@ export default {
     validator: 'new'
   },
 
-  data: () => ({
-    newsTitle: '',
-    newsBody: '',
-    checkbox: null,
-    dictionary: {
-      attributes: {
-        // custom attributes
-      },
+  data (){
+    return{
+      adminNews:{
+        newsTitle: '',
+        newsBody: '',
+        checkbox: null,
+      }
     }
-  }),
+  },
 
   mounted () {
     this.$validator.localize('en', this.dictionary)
@@ -79,9 +78,16 @@ export default {
 
   methods: {
     submit () {
-      this.$validator.validateAll()
+      this.$http.post('http://jsonplaceholder.typicode.com/posts/1',{
+        newsTitle: this.adminNews.newsTitle,
+        newsBody: this.adminNews.newsBody
+      }).then(function(data){
+        console.log(data)
+      })
     },
   }
+
+
 }
 </script>
 

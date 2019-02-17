@@ -96,7 +96,7 @@
                 required
               ></v-checkbox>
 
-            <v-btn color="success" @click="submit">Update</v-btn>
+            <v-btn color="success" @click="patch">Update</v-btn>
             <v-btn color="warning" to="/investorProfile">Cancel</v-btn>
           </form>
         </v-container>
@@ -116,96 +116,112 @@ export default {
     validator: 'new'
   },
 
-  data: () => ({
-    select: null,
-    emailAndLogin: 'Prefilled Email',
-    password: 'Prefilled Password',
-    confirmPassword: 'Prefilled Confirm Password',
-    states: [
-      'Alabama',
-      'Alaska',
-      'Arizona',
-      'Arkansas',
-      'California',
-      'Colorado',
-      'Connecticut',
-      'Delaware',
-      'Florida',
-      'Georgia',
-      'Hawaii',
-      'Idaho',
-      'Illinois',
-      'Indiana',
-      'Iowa',
-      'Kansas',
-      'Kentucky',
-      'Luisiana',
-      'Maine',
-      'Maryland',
-      'Massachusetts',
-      'Michigan',
-      'Minnesota',
-      'Mississippi',
-      'Missouri',
-      'Montana',
-      'Nebraska',
-      'Nevada',
-      'New Hampshire',
-      'New Jersey',
-      'New Mexico',
-      'New York',
-      'North Carolina',
-      'North Dakota',
-      'Ohio',
-      'Oklahoma',
-      'Oregon',
-      'Pennsylvania',
-      'Rhode Island',
-      'South Carolina',
-      'South Dakota',
-      'Tennessee',
-      'Texas',
-      'Utah',
-      'Vermont',
-      'Virginia',
-      'Washington',
-      'West Virginia',
-      'Wisconsin',
-      'Wyoming',
-    ],
-    county: 'Prefilled County',
-    city: 'Prefilled City',
-    address: 'Prefilled Address',
-    contactNumber: 'Prefilled Contact Number',
-    mobileNumber: 'Prefilled Mobile Number',
-    checkbox: null,
-    dictionary: {
-      attributes: {
-        // custom attributes
-      },
-      custom: {
-        name: {
-          required: () => 'Name can not be empty',
-          max: 'The name field may not be greater than 50 characters'
-          // custom messages
-        },
-        state: {
-          required: 'Select field is required'
-        },
-        Category: {
-          required: 'Select field is required'
+  data(){
+    return{
+      investors:{
+        select: null,
+        emailAndLogin: '',
+        password: '',
+        confirmPassword: '',
+        states: [
+          'Alabama',
+          'Alaska',
+          'Arizona',
+          'Arkansas',
+          'California',
+          'Colorado',
+          'Connecticut',
+          'Delaware',
+          'Florida',
+          'Georgia',
+          'Hawaii',
+          'Idaho',
+          'Illinois',
+          'Indiana',
+          'Iowa',
+          'Kansas',
+          'Kentucky',
+          'Luisiana',
+          'Maine',
+          'Maryland',
+          'Massachusetts',
+          'Michigan',
+          'Minnesota',
+          'Mississippi',
+          'Missouri',
+          'Montana',
+          'Nebraska',
+          'Nevada',
+          'New Hampshire',
+          'New Jersey',
+          'New Mexico',
+          'New York',
+          'North Carolina',
+          'North Dakota',
+          'Ohio',
+          'Oklahoma',
+          'Oregon',
+          'Pennsylvania',
+          'Rhode Island',
+          'South Carolina',
+          'South Dakota',
+          'Tennessee',
+          'Texas',
+          'Utah',
+          'Vermont',
+          'Virginia',
+          'Washington',
+          'West Virginia',
+          'Wisconsin',
+          'Wyoming',
+        ],
+        county: '',
+        city: '',
+        address: '',
+        contactNumber: '',
+        mobileNumber: '',
+        checkbox: null,
+        dictionary: {
+          attributes: {
+            // custom attributes
+          },
+          custom: {
+            name: {
+              required: () => 'Name can not be empty',
+              max: 'The name field may not be greater than 50 characters'
+              // custom messages
+            },
+            state: {
+              required: 'Select field is required'
+            },
+            Category: {
+              required: 'Select field is required'
+            }
+          }
         }
       }
     }
-  }),
+  },
 
   mounted () {
     this.$validator.localize('en', this.dictionary)
   },
 
   methods: {
-    submit () {
+    patch: function(){
       this.$validator.validateAll()
+      this.$http.patch('http://jsonplaceholder.typicode.com/posts/1',{
+        emailAndLogin: this.investors.emailAndLogin,
+        password: this.investors.password,
+        confirmPassword: this.investors.confirmPassword,
+        states: this.investors.states,
+        county: this.investors.county,
+        city: this.investors.city,
+        contactNumber: this.investors.contactNumber,
+        mobileNumber: this.investors.mobileNumber,
+      }).then(function(data){
+        console.log(data)
+      })
     },
   }
 }

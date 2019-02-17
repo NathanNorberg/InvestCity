@@ -8,7 +8,7 @@
         <v-container>
           <form>
             <v-text-field
-            v-model="noteTitle"
+            v-model="investorInvestmentNotes.noteTitle"
             v-validate="'required|max:50'"
             :counter="50"
             :error-messages="errors.collect('noteTitle')"
@@ -19,7 +19,7 @@
 
             <v-flex xs8>
               <v-textarea
-                name="noteBody"
+                v-model="investorInvestmentNotes.noteBody"
                 label="Note Body"
                 value=""
                 hint="Note Body"
@@ -32,7 +32,7 @@
 
 
               <v-checkbox
-                v-model="checkbox"
+                v-model="adminInvestmentNotes.checkbox"
                 v-validate="'required'"
                 :error-messages="errors.collect('checkbox')"
                 value="1"
@@ -62,16 +62,15 @@ export default {
     validator: 'new'
   },
 
-  data: () => ({
-    noteTitle: '',
-    noteBody: '',
-    checkbox: null,
-    dictionary: {
-      attributes: {
-        // custom attributes
-      },
+  data (){
+    return{
+      adminInvestmentNotes:{
+        noteTitle: '',
+        noteBody: '',
+        checkbox: null,
+      }
     }
-  }),
+  },
 
   mounted () {
     this.$validator.localize('en', this.dictionary)
@@ -79,8 +78,14 @@ export default {
 
   methods: {
     submit () {
-      this.$validator.validateAll()
+      this.$http.post('http://jsonplaceholder.typicode.com/posts/1',{
+        noteTitle: this.investorInvestmentNotes.noteTitle,
+        noteBody: this.investorInvestmentNotes.noteBody
+      }).then(function(data){
+        console.log(data)
+      })
     },
+
   }
 }
 </script>
