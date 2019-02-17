@@ -1,8 +1,10 @@
 <template>
   <v-container>
+    <v-container text-xs-center>
+      <h1>Update Project Name</h1>
+    </v-container>
     <v-card>
       <v-flex>
-        <h1 class="text-xs-center">Update Project Name</h1>
         <v-container>
           <form>
             <v-select
@@ -192,10 +194,14 @@
 
             <v-btn color="success" @click="submit">Update</v-btn>
             <v-btn color="warning" to="/investmentDetails/1">Cancel</v-btn>
+            <v-container text-xs-right>
+              <v-btn color="error" >Delete Investment Project</v-btn>
+            </v-container>
           </form>
         </v-container>
       </v-flex>
     </v-card>
+
   </v-container>
 </template>
 
@@ -322,6 +328,9 @@ export default {
 
   methods: {
     submit () {
+      this.$validator.validateAll()
+    },
+    delete () {
       this.$validator.validateAll()
     },
   }

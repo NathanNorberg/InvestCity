@@ -127,6 +127,9 @@
 
             <v-btn color="success" @click="submit">Update</v-btn>
             <v-btn color="warning" to="/investorDetails/1">Cancel</v-btn>
+            <v-container text-xs-right>
+              <v-btn color="error" >Delete Investor</v-btn>
+            </v-container>
           </form>
         </v-container>
       </v-flex>

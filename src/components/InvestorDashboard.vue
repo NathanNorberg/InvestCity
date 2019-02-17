@@ -23,11 +23,11 @@
         >
           <template slot="items" slot-scope="props">
             <td><router-link to="/investorInvestmentDetails/1">{{ props.item.name }}</router-link></td>
-            <td class="text-xs-right"><router-link to="/investorInvestmentDetails/1">{{ props.item.category }}</router-link></td>
-            <td class="text-xs-right"><router-link to="/investorInvestmentDetails/1">{{ props.item.grouping }}</router-link></td>
-            <td class="text-xs-right"><router-link to="/investorInvestmentDetails/1">{{ props.item.status }}</router-link></td>
-            <td class="text-xs-right"><router-link to="/investorInvestmentDetails/1">{{ props.item.docs }}</router-link></td>
-            <td class="text-xs-right"><router-link to="/investorInvestmentDetails/1">{{ props.item.notes }}</router-link></td>
+            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.category }}</router-link></td>
+            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.grouping }}</router-link></td>
+            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.status }}</router-link></td>
+            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.docs }}</router-link></td>
+            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.notes }}</router-link></td>
           </template>
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
             Your search for "{{ search }}" found no results.
@@ -55,11 +55,11 @@
         >
           <template slot="items" slot-scope="props">
             <td><router-link to="/investorInvestmentDetails/1">{{ props.item.name }}</router-link></td>
-            <td class="text-xs-right"><router-link to="/investorInvestmentDetails/1">{{ props.item.category }}</router-link></td>
-            <td class="text-xs-right"><router-link to="/investorInvestmentDetails/1">{{ props.item.grouping }}</router-link></td>
-            <td class="text-xs-right"><router-link to="/investorInvestmentDetails/1">{{ props.item.status }}</router-link></td>
-            <td class="text-xs-right"><router-link to="/investorInvestmentDetails/1">{{ props.item.docs }}</router-link></td>
-            <td class="text-xs-right"><router-link to="/investorInvestmentDetails/1">{{ props.item.notes }}</router-link></td>
+            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.category }}</router-link></td>
+            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.grouping }}</router-link></td>
+            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.status }}</router-link></td>
+            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.docs }}</router-link></td>
+            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.notes }}</router-link></td>
           </template>
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
             Your search for "{{ search }}" found no results.

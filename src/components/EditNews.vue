@@ -43,6 +43,9 @@
 
             <v-btn color="success" @click="update">Update</v-btn>
             <v-btn color="warning" to="/manageNews">Cancel</v-btn>
+            <v-container text-xs-right>
+              <v-btn color="error" >Delete News</v-btn>
+            </v-container>
           </form>
         </v-container>
       </v-flex>

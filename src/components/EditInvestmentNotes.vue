@@ -44,6 +44,9 @@
 
             <v-btn color="success" @click="submit">Submit</v-btn>
             <v-btn color="warning" to="/investorInvestmentDetails/1">Cancel</v-btn>
+            <v-container text-xs-right>
+              <v-btn color="error" >Delete Investment Note</v-btn>
+            </v-container>
           </form>
         </v-container>
       </v-flex>

@@ -1,6 +1,8 @@
 <template>
   <v-container>
-    <h1 class="text-xs-center">Manage Investments</h1>
+    <v-container text-xs-center>
+      <h1>Manage Investments</h1>
+    </v-container>
     <v-card>
       <v-card-title>
         Investments
@@ -15,16 +17,16 @@
       </v-card-title>
       <v-data-table
         :headers="headers"
-        :items="desserts"
+        :items="investments"
         :search="search"
       >
         <template to="/investmentDetails/1" slot="items" slot-scope="props">
           <td><router-link to="/investmentDetails/1">{{ props.item.name }}</router-link></td>
-          <td class="text-xs-right"><router-link to="/investmentDetails/1">{{ props.item.category }}</router-link></td>
-          <td class="text-xs-right"><router-link to="/investmentDetails/1">{{ props.item.grouping }}</router-link></td>
-          <td class="text-xs-right"><router-link to="/investmentDetails/1">{{ props.item.status }}</router-link></td>
-          <td class="text-xs-right"><router-link to="/investmentDetails/1">{{ props.item.docs }}</router-link></td>
-          <td class="text-xs-right"><router-link to="/investmentDetails/1">{{ props.item.notes }}</router-link></td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.category }}</router-link></td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.grouping }}</router-link></td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.status }}</router-link></td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.docs }}</router-link></td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.notes }}</router-link></td>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.
@@ -47,7 +49,7 @@ export default {
           { text: 'Docs', value: 'docs' },
           { text: 'Notes', value: 'notes' }
         ],
-        desserts: [
+        investments: [
           {
             name: 'Frozen Yogurt',
             category: 'Undeveloped Land',
