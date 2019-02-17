@@ -57,7 +57,7 @@ export default {
         {name: 'Home', icon: 'home', route: '/investorDashboard'},
         {name: 'News', icon: 'chat', route: '/investorNews'},
         {name: 'Full Report', icon: 'dashboard', route: '/investorReport'},
-        {name: 'Profile Settings', icon: 'settings', route: '/investorProfile/:id'}
+        {name: 'Profile Settings', icon: 'settings', route: '/investorProfile'}
       ],
     }
   },

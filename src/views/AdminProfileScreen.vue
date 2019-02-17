@@ -3,19 +3,18 @@
     <AdminNav />
     <br>
     <br>
-    <br>
-    <AdminInvestorDashboard />
+    <AdminProfile />
   </div>
 </template>
 
 <script>
   import AdminNav from '../components/AdminNav.vue'
-  import AdminInvestorDashboard from '../components/AdminInvestorDashboard.vue'
+  import AdminProfile from '../components/AdminProfile.vue'
 
   export default {
     components: {
       'AdminNav': AdminNav,
-      'AdminInvestorDashboard': AdminInvestorDashboard,
+      'AdminProfile': AdminProfile,
     }
   }
 </script>

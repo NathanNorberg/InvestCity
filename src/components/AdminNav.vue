@@ -61,7 +61,7 @@ export default {
         {name: 'Add Investment', icon: '', route: '/addInvestment'},
         {name: 'Manage Investors', icon: 'contacts', route: '/adminInvestorDashboard'},
         {name: 'Add Investor', icon: '', route: '/addInvestor'},
-        {name: 'Profile Settings', icon: 'settings', route: '/'}
+        {name: 'Admin Settings', icon: 'settings', route: '/adminProfile'}
       ],
     }
   },

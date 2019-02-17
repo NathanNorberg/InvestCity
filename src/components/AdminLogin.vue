@@ -19,7 +19,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="success" @click="login">Login</v-btn>
+            <v-btn to="/adminDashboard" color="success" >Login</v-btn>
+            <!-- <v-btn color="success" @click="login">Login</v-btn> -->
           </v-card-actions>
         </v-card>
       </v-flex>

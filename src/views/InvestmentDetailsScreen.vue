@@ -3,8 +3,6 @@
     <AdminNav />
     <br>
     <br>
-    <br>
-    <br>
     <InvestmentDetails />
   </div>
 </template>

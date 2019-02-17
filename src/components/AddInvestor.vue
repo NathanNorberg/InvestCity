@@ -123,7 +123,8 @@
                 required
               ></v-checkbox>
 
-            <v-btn color="success" @click="submit">submit</v-btn>
+            <v-btn color="success" @click="submit">Submit</v-btn>
+            <v-btn color="warning" to="/adminInvestorDashboard">Cancel</v-btn>
           </form>
         </v-container>
       </v-flex>

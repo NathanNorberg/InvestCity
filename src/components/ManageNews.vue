@@ -1,5 +1,9 @@
 <template>
   <v-container grid-list-md>
+    <v-container text-xs-center>
+      <v-btn color="grey lighten-5" to="/adminDashboard">Return to Dashboard</v-btn>
+    <v-btn color="success" to="/addNews">Add News</v-btn>
+  </v-container>
     <v-layout row wrap>
       <v-flex text-xs-center offset-xs1 xs10>
         <v-card dark color="secondary">
@@ -13,7 +17,7 @@
               <p class="text-xs-left"><h3>Title</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Body of the news update</p>
-              <v-btn class="text-xs-right" color="warning" to="/editNews/1">Edit News</v-btn>
+              <v-btn color="teal lighten-1" to="/editNews/1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>
@@ -25,7 +29,7 @@
               <p class="text-xs-left"><h3>Title</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Body of the news update</p>
-              <v-btn class="text-xs-right" color="warning" to="/editNews/1">Edit News</v-btn>
+              <v-btn class="text-xs-right" color="teal lighten-1" to="/editNews/1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>
@@ -37,7 +41,7 @@
               <p class="text-xs-left"><h3>Title</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Body of the news update</p>
-              <v-btn class="text-xs-right" color="warning" to="/editNews/1">Edit News</v-btn>
+              <v-btn class="text-xs-right" color="teal lighten-1" to="/editNews/1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>
@@ -49,7 +53,7 @@
               <p class="text-xs-left"><h3>Title</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Body of the news update</p>
-              <v-btn class="text-xs-right" color="warning" to="/editNews/1">Edit News</v-btn>
+              <v-btn class="text-xs-right" color="teal lighten-1" to="/editNews/1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>
@@ -61,7 +65,7 @@
               <p class="text-xs-left"><h3>Title</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Body of the news update</p>
-              <v-btn class="text-xs-right" color="warning" to="/editNews/1">Edit News</v-btn>
+              <v-btn class="text-xs-right" color="teal lighten-1" to="/editNews/1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>

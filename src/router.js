@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import InvestorLoginScreen from './views/InvestorLoginScreen.vue'
 /*Investor Routes */
 import InvestorDashboardScreen from './views/InvestorDashboardScreen.vue'
+import InvestorInvestmentDetailsScreen from './views/InvestorInvestmentDetailsScreen.vue'
 import InvestorProfileScreen from './views/InvestorProfileScreen.vue'
 import EditInvestorProfileScreen from './views/EditInvestorProfileScreen.vue'
 import InvestmentNotesScreen from './views/InvestmentNotesScreen.vue'
@@ -12,6 +13,8 @@ import InvestorReportScreen from './views/InvestorReportScreen.vue'
 /* Admin Routes */
 import AdminLoginScreen from './views/AdminLoginScreen.vue'
 import AdminDashboardScreen from './views/AdminDashboardScreen.vue'
+import AdminProfileScreen from './views/AdminProfileScreen.vue'
+import EditAdminProfileScreen from './views/EditAdminProfileScreen.vue'
 import AddNewsScreen from './views/AddNewsScreen.vue'
 import ManageNewsScreen from './views/ManageNewsScreen.vue'
 import EditNewsScreen from './views/EditNewsScreen.vue'
@@ -37,13 +40,16 @@ export default new Router({
     { path: '/', component: InvestorLoginScreen },
     /*Investor Routes */
     { path: '/investorDashboard', component: InvestorDashboardScreen },
-    { path: '/investorProfile/:id', component: InvestorProfileScreen },
-    { path: '/editInvestorProfile/:id', component: EditInvestorProfileScreen },
-    { path: '/investorNotes/investment/:id', component: InvestmentNotesScreen },
+    { path: '/investorInvestmentDetails/:id', component: InvestorInvestmentDetailsScreen },
+    { path: '/investorProfile', component: InvestorProfileScreen },
+    { path: '/editInvestorProfile', component: EditInvestorProfileScreen },
+    { path: '/investorNotes/:id', component: InvestmentNotesScreen },
     { path: '/investorNews', component: InvestorNewsScreen },
     { path: '/investorReport', component: InvestorReportScreen },
     /* Admin Routes */
     { path: '/adminLogin', component: AdminLoginScreen },
+    { path: '/adminProfile', component: AdminProfileScreen },
+    { path: '/editAdminProfile', component: EditAdminProfileScreen },
     { path: '/adminDashboard', component: AdminDashboardScreen },
     { path: '/addNews', component: AddNewsScreen },
     { path: '/manageNews', component: ManageNewsScreen },

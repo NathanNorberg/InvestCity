@@ -18,13 +18,13 @@
         :items="desserts"
         :search="search"
       >
-        <template slot="items" slot-scope="props">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.category }}</td>
-          <td class="text-xs-right">{{ props.item.grouping }}</td>
-          <td class="text-xs-right">{{ props.item.status }}</td>
-          <td class="text-xs-right">{{ props.item.docs }}</td>
-          <td class="text-xs-right">{{ props.item.notes }}</td>
+        <template to="/investmentDetails/1" slot="items" slot-scope="props">
+          <td><router-link to="/investmentDetails/1">{{ props.item.name }}</router-link></td>
+          <td class="text-xs-right"><router-link to="/investmentDetails/1">{{ props.item.category }}</router-link></td>
+          <td class="text-xs-right"><router-link to="/investmentDetails/1">{{ props.item.grouping }}</router-link></td>
+          <td class="text-xs-right"><router-link to="/investmentDetails/1">{{ props.item.status }}</router-link></td>
+          <td class="text-xs-right"><router-link to="/investmentDetails/1">{{ props.item.docs }}</router-link></td>
+          <td class="text-xs-right"><router-link to="/investmentDetails/1">{{ props.item.notes }}</router-link></td>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.

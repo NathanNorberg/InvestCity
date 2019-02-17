@@ -40,6 +40,7 @@
               ></v-checkbox>
 
             <v-btn color="success" @click="update">Update</v-btn>
+            <v-btn color="warning" to="/manageNews">Cancel</v-btn>
           </form>
         </v-container>
       </v-flex>

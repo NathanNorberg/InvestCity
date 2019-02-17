@@ -3,17 +3,17 @@
     <InvestorNav />
     <br>
     <br>
-    <InvestorDashboard />
+    <InvestorInvestmentDetails />
   </div>
 </template>
 
 <script>
   import InvestorNav from '../components/InvestorNav.vue'
-  import InvestorDashboard from '../components/InvestorDashboard.vue'
+  import InvestorInvestmentDetails from '../components/InvestorInvestmentDetails.vue'
   export default {
     components: {
       'InvestorNav': InvestorNav,
-      'InvestorDashboard': InvestorDashboard
+      'InvestorInvestmentDetails': InvestorInvestmentDetails,
     }
   }
 </script>

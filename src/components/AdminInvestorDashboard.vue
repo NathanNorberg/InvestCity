@@ -19,12 +19,12 @@
         :search="search"
       >
         <template slot="items" slot-scope="props">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.email }}</td>
-          <td class="text-xs-right">{{ props.item.entities }}</td>
-          <td class="text-xs-right">{{ props.item.state }}</td>
-          <td class="text-xs-right">{{ props.item.city }}</td>
-          <td class="text-xs-right">{{ props.item.status }}</td>
+          <td><router-link to="/investorDetails/1">{{ props.item.name }}</router-link></td>
+          <td class="text-xs-right"><router-link to="/investorDetails/1">{{ props.item.email }}</router-link></td>
+          <td class="text-xs-right"><router-link to="/investorDetails/1">{{ props.item.entities }}</router-link></td>
+          <td class="text-xs-right"><router-link to="/investorDetails/1">{{ props.item.state }}</router-link></td>
+          <td class="text-xs-right"><router-link to="/investorDetails/1">{{ props.item.city }}</router-link></td>
+          <td class="text-xs-right"><router-link to="/investorDetails/1">{{ props.item.status }}</router-link></td>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.
