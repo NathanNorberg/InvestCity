@@ -7,7 +7,8 @@ import InvestorDashboardScreen from './views/InvestorDashboardScreen.vue'
 import InvestorInvestmentDetailsScreen from './views/InvestorInvestmentDetailsScreen.vue'
 import InvestorProfileScreen from './views/InvestorProfileScreen.vue'
 import EditInvestorProfileScreen from './views/EditInvestorProfileScreen.vue'
-import InvestmentNotesScreen from './views/InvestmentNotesScreen.vue'
+import AddInvestmentNotesScreen from './views/AddInvestmentNotesScreen.vue'
+import EditInvestmentNotesScreen from './views/EditInvestmentNotesScreen.vue'
 import InvestorNewsScreen from './views/InvestorNewsScreen.vue'
 import InvestorReportScreen from './views/InvestorReportScreen.vue'
 /* Admin Routes */
@@ -43,7 +44,8 @@ export default new Router({
     { path: '/investorInvestmentDetails/:id', component: InvestorInvestmentDetailsScreen },
     { path: '/investorProfile', component: InvestorProfileScreen },
     { path: '/editInvestorProfile', component: EditInvestorProfileScreen },
-    { path: '/investorNotes/:id', component: InvestmentNotesScreen },
+    { path: '/addProjectNote/:id', component: AddInvestmentNotesScreen },
+    { path: '/editProjectNote/:id', component: EditInvestmentNotesScreen },
     { path: '/investorNews', component: InvestorNewsScreen },
     { path: '/investorReport', component: InvestorReportScreen },
     /* Admin Routes */

@@ -1,13 +1,15 @@
 <template>
   <v-container>
-    <h1 class="text-xs-center">Welcome Back Investor</h1>
+    <v-container text-xs-center>
+      <h1>Welcome Back Investor</h1>
+    </v-container>
     <v-container>
       <v-card>
         <v-card-title>
           Entity Name Here
           <v-spacer></v-spacer>
           <v-text-field
-            v-model="search"
+            v-model="entity1"
             append-icon="search"
             label="Search"
             single-line
@@ -17,7 +19,7 @@
         <v-data-table
           :headers="headers"
           :items="projects"
-          :search="search"
+          :search="entity1"
         >
           <template slot="items" slot-scope="props">
             <td><router-link to="/investorInvestmentDetails/1">{{ props.item.name }}</router-link></td>
@@ -39,7 +41,7 @@
           Entity Name Here
           <v-spacer></v-spacer>
           <v-text-field
-            v-model="search"
+            v-model="entity2"
             append-icon="search"
             label="Search"
             single-line
@@ -49,7 +51,7 @@
         <v-data-table
           :headers="headers"
           :items="projects"
-          :search="search"
+          :search="entity2"
         >
           <template slot="items" slot-scope="props">
             <td><router-link to="/investorInvestmentDetails/1">{{ props.item.name }}</router-link></td>
@@ -73,7 +75,8 @@
 export default {
     data () {
       return {
-        search: '',
+        entity1: '',
+        entity2: '',
         headers: [
           { text: 'Name', align: 'left', value: 'name' },
           { text: 'Category', value: 'category' },

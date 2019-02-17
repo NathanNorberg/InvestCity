@@ -1,5 +1,8 @@
 <template>
   <v-container grid-list-md>
+    <v-container text-xs-center>
+      <v-btn color="grey lighten-5" to="/investorDashboard">Return to Dashboard</v-btn>
+    </v-container>
     <v-layout row wrap>
       <v-flex text-xs-center offset-xs1 xs10>
         <v-card dark color="secondary">

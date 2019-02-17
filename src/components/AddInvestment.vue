@@ -1,8 +1,10 @@
 <template>
   <v-container>
+    <v-container text-xs-center>
+      <h1>Create New Investment Project</h1>
+    </v-container>
     <v-card>
       <v-flex>
-        <h1 class="text-xs-center">Create New Investment Project</h1>
         <v-container>
           <form>
             <v-select

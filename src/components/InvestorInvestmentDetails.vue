@@ -54,7 +54,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-btn color="success" to="/investorNotes/1">Add a Project Note</v-btn>
+    <v-btn color="success" to="/addProjectNote/1">Add a Project Note</v-btn>
 
 
     <v-layout row wrap>
@@ -79,7 +79,7 @@
           <v-card-text class="px-0">
             <v-container>
               <p>Pre filled with exisiting notes that have been added previously by the investor at a time before this moment that have been accumulated</p>
-              <v-btn text-xs-right color="teal lighten-1" to="/editInvestorNotes/1">Edit Note</v-btn>
+              <v-btn text-xs-right color="teal lighten-1" to="/editProjectNote/1">Edit Note</v-btn>
             </v-container>
           </v-card-text>
         </v-card>
@@ -102,7 +102,7 @@
         <v-card-text class="px-0">
           <v-container>
             <p>Pre filled with exisiting notes that have been added previously by the investor at a time before this moment that have been accumulated</p>
-            <v-btn text-xs-right color="teal lighten-1" to="/editInvestorNotes/1">Edit Note</v-btn>
+            <v-btn text-xs-right color="teal lighten-1" to="/editProjectNote/1">Edit Note</v-btn>
           </v-container>
         </v-card-text>
       </v-card>
@@ -125,7 +125,7 @@
       <v-card-text class="px-0">
         <v-container>
           <p>Pre filled with exisiting notes that have been added previously by the investor at a time before this moment that have been accumulated</p>
-          <v-btn text-xs-right color="teal lighten-1" to="/editInvestorNotes/1">Edit Note</v-btn>
+          <v-btn text-xs-right color="teal lighten-1" to="/editProjectNote/1">Edit Note</v-btn>
         </v-container>
       </v-card-text>
     </v-card>

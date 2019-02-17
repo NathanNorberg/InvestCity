@@ -3,19 +3,17 @@
     <InvestorNav />
     <br>
     <br>
-    <br>
-    <br>
-    <InvestmentNotes />
+    <EditInvestmentNotes />
   </div>
 </template>
 
 <script>
   import InvestorNav from '../components/InvestorNav.vue'
-  import InvestmentNotes from '../components/InvestmentNotes.vue'
+  import EditInvestmentNotes from '../components/EditInvestmentNotes.vue'
   export default {
     components: {
       'InvestorNav': InvestorNav,
-      'InvestmentNotes': InvestmentNotes
+      'EditInvestmentNotes': EditInvestmentNotes
     }
   }
 </script>

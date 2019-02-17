@@ -3,8 +3,6 @@
     <InvestorNav />
     <br>
     <br>
-    <br>
-    <br>
     <InvestorReport />
   </div>
 </template>

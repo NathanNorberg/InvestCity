@@ -1,8 +1,10 @@
 <template>
   <v-container>
+    <v-container text-xs-center>
+      <h1>Edit Investment Note</h1>
+    </v-container>
     <v-card>
       <v-flex>
-        <h1 class="text-xs-center">Add Investment Note</h1>
         <v-container>
           <form>
             <v-text-field
@@ -34,7 +36,7 @@
                 v-validate="'required'"
                 :error-messages="errors.collect('checkbox')"
                 value="1"
-                label="New Note Complete?"
+                label="Update Complete?"
                 data-vv-name="checkbox"
                 type="checkbox"
                 required
@@ -61,8 +63,8 @@ export default {
   },
 
   data: () => ({
-    noteTitle: '',
-    noteBody: '',
+    noteTitle: 'Pre Filled Title',
+    noteBody: 'Pre Filled Body with lots of cool notes',
     checkbox: null,
     dictionary: {
       attributes: {
