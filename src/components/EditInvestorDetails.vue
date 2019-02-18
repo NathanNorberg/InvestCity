@@ -125,7 +125,7 @@
                 required
               ></v-checkbox>
 
-            <v-btn color="success" @click="patch">Update</v-btn>
+            <v-btn color="success" @click="updateInvestor">Update</v-btn>
             <v-btn color="warning" to="/investorDetails/1">Cancel</v-btn>
             <v-container text-xs-right>
               <v-btn @click="deleteInvestor" >Delete Investor</v-btn>
@@ -247,7 +247,7 @@ export default {
   },
 
   methods: {
-    patch: function(){
+    updateInvestor: function(){
       this.$validator.validateAll()
       this.$http.patch('http://jsonplaceholder.typicode.com/posts/1',{
         name: this.investors.name,

@@ -9,57 +9,13 @@
           <v-card-text  class="px-0"><h1>CNI News</h1></v-card-text>
         </v-card>
       </v-flex>
-      <v-flex offset-xs1 xs10>
+      <v-flex v-for="(blog) in blogs" :key="blog.id" offset-xs1 xs10>
         <v-card>
           <v-card-text class="px-0">
             <v-container>
-              <p class="text-xs-left"><h3>Title</h3>
+              <p class="text-xs-left"><h3>{{ blog.title }}</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
-              <p class="text-xs-left"><p>Body of the news update</p>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex offset-xs1 xs10>
-        <v-card>
-          <v-card-text class="px-0">
-            <v-container>
-              <p class="text-xs-left"><h3>Title</h3>
-              <p class="text-xs-left"><p><i>(date)</i></p>
-              <p class="text-xs-left"><p>Body of the news update</p>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex offset-xs1 xs10>
-        <v-card>
-          <v-card-text class="px-0">
-            <v-container>
-              <p class="text-xs-left"><h3>Title</h3>
-              <p class="text-xs-left"><p><i>(date)</i></p>
-              <p class="text-xs-left"><p>Body of the news update</p>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex offset-xs1 xs10>
-        <v-card>
-          <v-card-text class="px-0">
-            <v-container>
-              <p class="text-xs-left"><h3>Title</h3>
-              <p class="text-xs-left"><p><i>(date)</i></p>
-              <p class="text-xs-left"><p>Body of the news update</p>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex offset-xs1 xs10>
-        <v-card>
-          <v-card-text class="px-0">
-            <v-container>
-              <p class="text-xs-left"><h3>Title</h3>
-              <p class="text-xs-left"><p><i>(date)</i></p>
-              <p class="text-xs-left"><p>Body of the news update</p>
+              <p class="text-xs-left"><p>{{ blog.body }}</p>
             </v-container>
           </v-card-text>
         </v-card>
@@ -70,6 +26,21 @@
 
 <script>
 export default {
+
+  data () {
+    return {
+        blogs: []
+    }
+},
+
+
+  created() {
+    this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
+        this.blogs = data.body.slice(0,10);
+    });
+  }
+
+
 }
 </script>
 

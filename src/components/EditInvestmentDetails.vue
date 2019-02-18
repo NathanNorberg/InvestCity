@@ -16,14 +16,15 @@
               data-vv-name="categories"
               required
             ></v-select>
-            <v-text-field
+            <v-select
               v-model="investment.grouping"
-              v-validate="'required|grouping'"
+              v-validate="'required'"
+              :items="investment.grouping"
               :error-messages="errors.collect('grouping')"
               label="Grouping"
               data-vv-name="grouping"
               required
-            ></v-text-field>
+            ></v-select>
             <v-text-field
             v-model="investment.name"
             v-validate="'required|max:50'"
@@ -228,7 +229,11 @@ data() {
         'Improved Land',
         'Mixed Use',
       ],
-      grouping: 'Prefilled',
+      grouping: [
+        'Bridge Loan',
+        'Land/Asset Purchase',
+        'Other'
+      ],
       name: 'Prefilled',
       briefDescription: 'Prefilled',
       select: null,

@@ -30,19 +30,7 @@
               ></v-textarea>
             </v-flex>
 
-
-              <v-checkbox
-                v-model="adminNews.checkbox"
-                v-validate="'required'"
-                :error-messages="errors.collect('checkbox')"
-                value="1"
-                label="News Form Complete?"
-                data-vv-name="checkbox"
-                type="checkbox"
-                required
-              ></v-checkbox>
-
-            <v-btn color="success" v-on:click.prevent="post">Add Investment</v-btn>
+            <v-btn color="success" v-on:click.prevent="addNews">Add News</v-btn>
             <v-btn color="warning" to="/manageNews">Cancel</v-btn>
           </form>
         </v-container>
@@ -52,37 +40,28 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VeeValidate from 'vee-validate'
 
-Vue.use(VeeValidate)
 
 export default {
-  $_veeValidate: {
-    validator: 'new'
-  },
 
   data (){
     return{
       adminNews:{
         newsTitle: '',
         newsBody: '',
-        checkbox: null,
       }
     }
   },
 
   mounted () {
-    this.$validator.localize('en', this.dictionary)
   },
 
   methods: {
-    submit () {
-      this.$http.post('http://jsonplaceholder.typicode.com/posts/1',{
+    addNews () {
+      this.$http.post('https://investcity-474c2.firebaseio.com/news.json').add({
         newsTitle: this.adminNews.newsTitle,
-        newsBody: this.adminNews.newsBody
-      }).then(function(data){
-        console.log(data)
+        newsBody: this.adminNews.newsBody,
+        timestamp: Date.now()
       })
     },
   }
