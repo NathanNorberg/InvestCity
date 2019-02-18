@@ -40,6 +40,7 @@
               data-vv-name="password"
               required
             ></v-text-field>
+            
             <v-text-field
               v-model="investors.confirmPassword"
               v-validate="'required|confirmPassword'"
@@ -48,23 +49,19 @@
               data-vv-name="confirmPassword"
               required
             ></v-text-field>
-            <v-select
-              v-model="investors.state"
+
+            <v-flex xs8>
+              <v-textarea
+              v-model="investors.address"
+              label="Address"
+              value=""
+              hint="Address"
               v-validate="'required'"
-              :items="investors.states"
-              :error-messages="errors.collect('state')"
-              label="State"
-              data-vv-name="state"
+              data-vv-name="address"
               required
-              ></v-select>
-              <v-text-field
-                v-model="investors.county"
-                v-validate="'required|county'"
-                :error-messages="errors.collect('county')"
-                label="County"
-                data-vv-name="county"
-                required
-              ></v-text-field>
+              ></v-textarea>
+            </v-flex>
+
               <v-text-field
                 v-model="investors.city"
                 v-validate="'required|city'"
@@ -73,17 +70,17 @@
                 data-vv-name="city"
                 required
               ></v-text-field>
-              <v-flex xs8>
-                <v-textarea
-                  v-model="investors.address"
-                  label="Address"
-                  value=""
-                  hint="Address"
-                  v-validate="'required'"
-                  data-vv-name="address"
-                  required
-                ></v-textarea>
-              </v-flex>
+
+              <v-select
+              v-model="investors.state"
+              v-validate="'required'"
+              :items="investors.states"
+              :error-messages="errors.collect('state')"
+              label="State"
+              data-vv-name="state"
+              required
+              ></v-select>
+
               <v-text-field
                 v-model="investors.contactNumber"
                 v-validate="'required|contactNumber'"

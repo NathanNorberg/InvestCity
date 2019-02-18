@@ -7,6 +7,7 @@
       <v-flex>
         <v-container>
           <form>
+
             <v-select
               v-model="investment.category"
               v-validate="'required'"
@@ -16,14 +17,17 @@
               data-vv-name="categories"
               required
             ></v-select>
-            <v-text-field
+
+            <v-select
               v-model="investment.grouping"
-              v-validate="'required|grouping'"
+              v-validate="'required'"
+              :items="investment.grouping"
               :error-messages="errors.collect('grouping')"
               label="Grouping"
               data-vv-name="grouping"
               required
-            ></v-text-field>
+            ></v-select>
+
             <v-text-field
             v-model="investment.name"
             v-validate="'required|max:50'"
@@ -33,6 +37,7 @@
             data-vv-name="name"
             required
             ></v-text-field>
+
             <v-flex xs8>
               <v-textarea
                 v-model="investment.briefDescription"
@@ -44,6 +49,7 @@
                 required
               ></v-textarea>
               </v-flex>
+
               <v-text-field
                 v-model="investment.purchasePrice"
                 v-validate="'required|purchasePrice'"
@@ -52,6 +58,7 @@
                 data-vv-name="purchasePrice"
                 required
               ></v-text-field>
+
               <v-flex xs12 sm6 md4>
                 <v-menu
                   ref="purchaseMenu"
@@ -78,23 +85,19 @@
                   </v-date-picker>
                 </v-menu>
               </v-flex>
-              <v-select
-                v-model="investment.state"
+
+              <v-flex xs8>
+                <v-textarea
+                v-model="investment.location"
+                label="Location"
+                value=""
+                hint="Location"
                 v-validate="'required'"
-                :items="investment.states"
-                :error-messages="errors.collect('state')"
-                label="State"
-                data-vv-name="state"
+                data-vv-name="location"
                 required
-              ></v-select>
-              <v-text-field
-                v-model="investment.county"
-                v-validate="'required|county'"
-                :error-messages="errors.collect('county')"
-                label="County"
-                data-vv-name="county"
-                required
-              ></v-text-field>
+                ></v-textarea>
+              </v-flex>
+
               <v-text-field
                 v-model="investment.city"
                 v-validate="'required|city'"
@@ -103,23 +106,41 @@
                 data-vv-name="city"
                 required
               ></v-text-field>
-              <v-flex xs8>
-                <v-textarea
-                  v-model="investment.location"
-                  label="Location"
-                  value=""
-                  hint="Location"
-                  v-validate="'required'"
-                  data-vv-name="location"
-                  required
-                ></v-textarea>
-              </v-flex>
+
+
+              <v-text-field
+              v-model="investment.county"
+              v-validate="'required|county'"
+              :error-messages="errors.collect('county')"
+              label="County"
+              data-vv-name="county"
+              required
+              ></v-text-field>
+
+              <v-select
+              v-model="investment.state"
+              v-validate="'required'"
+              :items="investment.states"
+              :error-messages="errors.collect('state')"
+              label="State"
+              data-vv-name="state"
+              required
+              ></v-select>
               <v-text-field
                 v-model="investment.projectSize"
                 v-validate="'required|projectSize'"
                 :error-messages="errors.collect('projectSize')"
                 label="Project Size"
                 data-vv-name="projectSize"
+                required
+              ></v-text-field>
+
+              <v-text-field
+                v-model="investment.sellingPrice"
+                v-validate="'required|sellingPrice'"
+                :error-messages="errors.collect('sellingPrice')"
+                label="Selling Price (In US Dollars)"
+                data-vv-name="sellingPrice"
                 required
               ></v-text-field>
 
@@ -158,6 +179,25 @@
                   </v-date-picker>
                 </v-menu>
               </v-flex>
+
+              <v-text-field
+                v-model="investment.grossReturn"
+                v-validate="'required|grossReturn'"
+                :error-messages="errors.collect('grossReturn')"
+                label="Gross Return (In US Dollars)"
+                data-vv-name="grossReturn"
+                required
+              ></v-text-field>
+
+              <v-text-field
+                v-model="investment.netInvestorReturn"
+                v-validate="'required|netInvestorReturn'"
+                :error-messages="errors.collect('netInvestorReturn')"
+                label="Net Investor Return (In US Dollars)"
+                data-vv-name="netInvestorReturn"
+                required
+              ></v-text-field>
+
               <v-flex xs8>
                 <v-textarea
                   v-model="investment.detailedDescription"
@@ -169,6 +209,7 @@
                   required
                 ></v-textarea>
               </v-flex>
+
               <v-flex xs8>
                 <v-textarea
                   v-model="investment.notesForInvestors"
@@ -224,11 +265,18 @@ export default {
           'Improved Land',
           'Mixed Use',
         ],
-        grouping: '',
+        grouping: [
+          'Bridge Loan',
+          'Land/Asset Purchase',
+          'Other'
+        ],
         name: '',
         briefDescription: '',
         select: null,
         purchasePrice: '',
+        sellingPrice: '',
+        grossReturn: '',
+        netInvestorReturn: '',
         purchaseDate: new Date().toISOString().substr(0, 10),
         purchaseMenu: false,
         purchaseModal: false,
@@ -346,7 +394,7 @@ export default {
         detailedDescription: this.investment.detailedDescription,
         notesForInvestors: this.investment.notesForInvestors,
       }).then(function(data){
-        console.log(data)
+        console.log(data);
       })
     },
   }

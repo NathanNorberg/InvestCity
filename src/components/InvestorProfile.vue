@@ -16,9 +16,9 @@
               <p class="text-xs-right">Entity Name:</p>
               <p class="text-xs-right">Email / Login:</p>
               <p class="text-xs-right">Password:</p>
-              <p class="text-xs-right">State:</p>
-              <p class="text-xs-right">County:</p>
+              <p class="text-xs-right">Address:</p>
               <p class="text-xs-right">City:</p>
+              <p class="text-xs-right">State:</p>
               <p class="text-xs-right">Contact Number:</p>
               <p class="text-xs-right">Mobile Number:</p>
             </v-container>
@@ -33,9 +33,9 @@
               <p class="text-xs-left"><strong>Entity Name:</strong> Pre-filled Entity Name Will Go Here</p>
               <p class="text-xs-left"><strong>Email / Login:</strong> Pre-filled Email / Login Will Go Here</p>
               <p class="text-xs-left"><strong>Password:</strong> Pre-filled Password Will Go Here</p>
-              <p class="text-xs-left"><strong>State:</strong> Pre-filled State Will Go Here</p>
-              <p class="text-xs-left"><strong>County:</strong> Pre-filled County Will Go Here</p>
+              <p class="text-xs-left"><strong>Address:</strong> Pre-filled Address Will Go Here</p>
               <p class="text-xs-left"><strong>City:</strong> Pre-filled City Will Go Here</p>
+              <p class="text-xs-left"><strong>State:</strong> Pre-filled State Will Go Here</p>
               <p class="text-xs-left"><strong>Contact Number:</strong> Pre-filled Contact Number Will Go Here</p>
               <p class="text-xs-left"><strong>Mobile Number:</strong> Pre-filled Mobile Number Will Go Here</p>
             </v-container>

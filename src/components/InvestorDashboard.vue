@@ -6,7 +6,7 @@
     <v-container>
       <v-card>
         <v-card-title>
-          Entity Name Here
+          <h3>Entity Name || Total Amount Invested:</h3>
           <v-spacer></v-spacer>
           <v-text-field
             v-model="entity1"
@@ -18,17 +18,18 @@
         </v-card-title>
         <v-data-table
           :headers="headers"
-          :items="projects"
+          :items="investments"
           :search="entity1"
         >
-          <template slot="items" slot-scope="props">
-            <td><router-link to="/investorInvestmentDetails/1">{{ props.item.name }}</router-link></td>
-            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.category }}</router-link></td>
-            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.grouping }}</router-link></td>
-            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.status }}</router-link></td>
-            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.docs }}</router-link></td>
-            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.notes }}</router-link></td>
-          </template>
+        <template to="/investmentDetails/1" slot="items" slot-scope="props">
+          <td><router-link to="/investmentDetails/1">{{ props.item.name }}</router-link></td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.category }}</router-link></td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.grouping }}</router-link></td>
+          <td class="text-xs-left">{{ props.item.acquisitionDate }}</td>
+          <td class="text-xs-left">{{ props.item.status }}</td>
+          <td class="text-xs-left">{{ props.item.soldDate }}</td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.docs }}</router-link></td>
+        </template>
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
             Your search for "{{ search }}" found no results.
           </v-alert>
@@ -38,7 +39,7 @@
     <v-container>
       <v-card>
         <v-card-title>
-          Entity Name Here
+          <h3>Entity Name || Total Amount Invested:</h3>
           <v-spacer></v-spacer>
           <v-text-field
             v-model="entity2"
@@ -50,17 +51,18 @@
         </v-card-title>
         <v-data-table
           :headers="headers"
-          :items="projects"
+          :items="investments"
           :search="entity2"
         >
-          <template slot="items" slot-scope="props">
-            <td><router-link to="/investorInvestmentDetails/1">{{ props.item.name }}</router-link></td>
-            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.category }}</router-link></td>
-            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.grouping }}</router-link></td>
-            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.status }}</router-link></td>
-            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.docs }}</router-link></td>
-            <td class="text-xs-left"><router-link to="/investorInvestmentDetails/1">{{ props.item.notes }}</router-link></td>
-          </template>
+        <template to="/investmentDetails/1" slot="items" slot-scope="props">
+          <td><router-link to="/investmentDetails/1">{{ props.item.name }}</router-link></td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.category }}</router-link></td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.grouping }}</router-link></td>
+          <td class="text-xs-left">{{ props.item.acquisitionDate }}</td>
+          <td class="text-xs-left">{{ props.item.status }}</td>
+          <td class="text-xs-left">{{ props.item.soldDate }}</td>
+          <td class="text-xs-left"><router-link to="/investmentDetails/1">{{ props.item.docs }}</router-link></td>
+        </template>
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
             Your search for "{{ search }}" found no results.
           </v-alert>
@@ -81,90 +83,101 @@ export default {
           { text: 'Name', align: 'left', value: 'name' },
           { text: 'Category', value: 'category' },
           { text: 'Grouping', value: 'grouping' },
+          { text: 'Acquisition Date', value: 'acquisitionDate' },
           { text: 'Status', value: 'status' },
+          { text: 'Sold Date', value: 'soldDate' },
           { text: 'Docs', value: 'docs' },
-          { text: 'Notes', value: 'notes' }
         ],
-        projects: [
+        investments: [
           {
             name: 'Frozen Yogurt',
             category: 'Undeveloped Land',
             grouping: 'Bridge Loan',
+            acquisitionDate: 'date',
             status: 'Current',
+            soldDate: 'Current',
             docs: 4.0,
-            notes: '1%'
           },
           {
             name: 'Ice cream sandwich',
             category: 'Mixed Use',
             grouping: 'M & I',
+            acquisitionDate: 'date',
             status: 'Sold',
-            docs: 4.3,
-            notes: '1%'
+            soldDate: 'Current',
+            docs: 4.0,
           },
           {
             name: 'Eclair',
             category: 'Finished Lots',
             grouping: '',
+            acquisitionDate: 'date',
             status: 'Current',
-            docs: 6.0,
-            notes: '7%'
+            soldDate: 'Current',
+            docs: 4.0,
           },
           {
             name: 'Cupcake',
             category: 'Commercial Property',
             grouping: 'Note Purchase',
+            acquisitionDate: 'date',
             status: 'Current',
-            docs: 4.3,
-            notes: '8%'
+            soldDate: 'Current',
+            docs: 4.0,
           },
           {
             name: 'Gingerbread',
             category: 'Improved Land',
             grouping: 'Bridge Loan Syndication',
+            acquisitionDate: 'date',
             status: 'Sold',
-            docs: 3.9,
-            notes: '16%'
+            soldDate: 'date',
+            docs: 4.0,
           },
           {
             name: 'Jelly bean',
             category: 'Finished Lots',
             grouping: '',
+            acquisitionDate: 'date',
             status: 'Sold',
-            docs: 0.0,
-            notes: '0%'
+            soldDate: 'date',
+            docs: 4.0,
           },
           {
             name: 'Lollipop',
             category: 'Industial Property',
             grouping: 'Bridge Loan',
-            status: 'Current',
-            docs: 0,
-            notes: '2%'
+            acquisitionDate: 'date',
+            status: 'Sold',
+            soldDate: 'date',
+            docs: 4.0,
           },
           {
             name: 'Honeycomb',
             category: 'Finished Lots',
             grouping: 'M & I',
+            acquisitionDate: 'date',
             status: 'Current',
-            docs: 6.5,
-            notes: '45%'
+            soldDate: 'Current',
+            docs: 4.0,
           },
           {
             name: 'Donut',
             category: 'Improved Lots',
             grouping: '',
+            acquisitionDate: 'date',
             status: 'Sold',
-            docs: 4.9,
-            notes: '22%'
+            soldDate: 'date',
+            docs: 4.0,
           },
           {
             name: 'KitKat',
             category: 'Undeveloped Land',
             grouping: 'Texas',
+            acquisitionDate: 'date',
             status: 'Current',
-            docs: 7,
-            notes: '6%'
+            soldDate: 'Current',
+            docs: 4.0,
           }
         ]
       }

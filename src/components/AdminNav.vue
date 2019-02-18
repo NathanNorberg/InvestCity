@@ -55,12 +55,12 @@ export default {
       mini: true,
       links: [
         {name: 'Home', icon: 'home', route: '/adminDashboard'},
-        {name: 'Manage News', icon: 'chat', route: '/manageNews'},
-        {name: 'Add News', icon: '', route: '/addNews'},
         {name: 'Manage Investments', icon: 'dashboard', route: '/adminInvestmentDashboard'},
         {name: 'Add Investment', icon: '', route: '/addInvestment'},
         {name: 'Manage Investors', icon: 'contacts', route: '/adminInvestorDashboard'},
         {name: 'Add Investor', icon: '', route: '/addInvestor'},
+        {name: 'Manage News', icon: 'chat', route: '/manageNews'},
+        {name: 'Add News', icon: '', route: '/addNews'},
         {name: 'Admin Settings', icon: 'settings', route: '/adminProfile'}
       ],
     }
