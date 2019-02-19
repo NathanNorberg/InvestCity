@@ -13,11 +13,10 @@
       color="primary"
     >
       <v-layout column align-center>
-        <v-flex class="mt-5">
-          <v-avatar size="250">
-            <!-- TODO: make avatar component dynamic from auth user -->
+        <v-flex class="mt-4">
+          <v-avatar size="150">
             <img
-              src="http://www.placepuppy.net/400/400"
+              src="../assets/CNI_Logo.png"
             >
           </v-avatar>
         </v-flex>
