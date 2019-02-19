@@ -6,7 +6,7 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form>
+          <form @submit="onSubmit">
             <v-text-field
             v-model="adminNews.newsTitle"
             v-validate="'required|max:50'"
@@ -30,7 +30,7 @@
               ></v-textarea>
             </v-flex>
 
-            <v-btn color="success" v-on:click.prevent="addNews">Add News</v-btn>
+            <v-btn color="success" type='submit'>Add News</v-btn>
             <v-btn color="warning" to="/manageNews">Cancel</v-btn>
           </form>
         </v-container>
@@ -41,30 +41,39 @@
 
 <script>
 
+import firebase  from '../firebase/init.js';
+import router from '../router'
+
 
 export default {
+  name: 'AddNews',
 
   data (){
-    return{
-      adminNews:{
-        newsTitle: '',
-        newsBody: '',
-      }
+    return {
+      ref: firebase.firestore().collection('adminNews'),
+      adminNews: {}
     }
   },
 
   mounted () {
   },
 
-  methods: {
-    addNews () {
-      this.$http.post('https://investcity-474c2.firebaseio.com/news.json').add({
-        newsTitle: this.adminNews.newsTitle,
-        newsBody: this.adminNews.newsBody,
-        timestamp: Date.now()
-      })
-    },
-  }
+    methods: {
+      onSubmit (evt) {
+        evt.preventDefault()
+
+        this.ref.add(this.adminNews).then((docRef) => {
+          this.adminNews.newsTitle = ''
+          this.adminNews.newsBody = ''
+          router.push({
+            name: 'ManageNewsScreen'
+          })
+        })
+        .catch((error) => {
+          alert("Error adding document: ", error);
+        });
+      }
+    }
 
 
 }
