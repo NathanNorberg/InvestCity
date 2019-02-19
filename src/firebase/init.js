@@ -1,16 +1,21 @@
-import firebase from 'firebase'
+import * as firebase from 'firebase';
 import firestore from 'firebase/firestore'
+
+const settings = {timestampsInSnapshots: true};
 
 // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyD4_Rq2DSle5HvWR42X_B6Gf2cPR2LUozQ",
-    authDomain: "investcity-474c2.firebaseapp.com",
-    databaseURL: "https://investcity-474c2.firebaseio.com",
-    projectId: "investcity-474c2",
-    storageBucket: "investcity-474c2.appspot.com",
-    messagingSenderId: "256323824756"
+    apiKey: "AIzaSyCUEmAM5tkECnlRTK_5k77uItKKgI-zIZs",
+    authDomain: "investcitycapstone.firebaseapp.com",
+    databaseURL: "https://investcitycapstone.firebaseio.com",
+    projectId: "investcitycapstone",
+    storageBucket: "investcitycapstone.appspot.com",
+    messagingSenderId: "1050640035854"
   };
-const firebaseApp = firebase.initializeApp(config);
-firebaseApp.firestore().settings({ timestampsInSnapshots: true })
 
-export default firebaseApp.firestore()
+
+  firebase.initializeApp(config);
+
+  firebase.firestore().settings(settings);
+
+  export default firebase;
