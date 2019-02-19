@@ -6,7 +6,7 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form>
+          <form @submit="onSubmit">
             <v-text-field
             v-model="investors.name"
             v-validate="'required|max:50'"
@@ -16,6 +16,7 @@
             data-vv-name="name"
             required
             ></v-text-field>
+
             <v-text-field
               v-model="investors.entityName"
               v-validate="'required'"
@@ -24,6 +25,7 @@
               data-vv-name="entityName"
               required
             ></v-text-field>
+
             <v-text-field
               v-model="investors.emailAndLogin"
               v-validate="'required|emailAndLogin'"
@@ -32,6 +34,7 @@
               data-vv-name="emailAndLogin"
               required
             ></v-text-field>
+
             <v-text-field
               v-model="investors.password"
               v-validate="'required|password'"
@@ -40,7 +43,7 @@
               data-vv-name="password"
               required
             ></v-text-field>
-            
+
             <v-text-field
               v-model="investors.confirmPassword"
               v-validate="'required|confirmPassword'"
@@ -74,7 +77,7 @@
               <v-select
               v-model="investors.state"
               v-validate="'required'"
-              :items="investors.states"
+              :items="investor.states"
               :error-messages="errors.collect('state')"
               label="State"
               data-vv-name="state"
@@ -99,6 +102,16 @@
                 required
               ></v-text-field>
 
+              <v-select
+              v-model="investors.states"
+              v-validate="'required'"
+              :items="investor.status"
+              :error-messages="errors.collect('state')"
+              label="Status"
+              data-vv-name="state"
+              required
+              ></v-select>
+
               <v-flex xs8>
                 <v-textarea
                   v-model="investors.notesForInvestors"
@@ -111,18 +124,8 @@
                 ></v-textarea>
               </v-flex>
 
-              <v-checkbox
-                v-model="investors.checkbox"
-                v-validate="'required'"
-                :error-messages="errors.collect('checkbox')"
-                value="1"
-                label="New Investor Form Complete?"
-                data-vv-name="checkbox"
-                type="checkbox"
-                required
-              ></v-checkbox>
 
-            <v-btn color="success" @click="submit">Submit</v-btn>
+            <v-btn color="success" type='submit'>Submit</v-btn>
             <v-btn color="warning" to="/adminInvestorDashboard">Cancel</v-btn>
           </form>
         </v-container>
@@ -132,25 +135,20 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VeeValidate from 'vee-validate'
 
-Vue.use(VeeValidate)
+import firebase  from '../firebase/init.js';
+import router from '../router'
+
 
 export default {
-  $_veeValidate: {
-    validator: 'new'
-  },
 
-  data(){
-    return{
-      investors:{
-        name: '',
-        select: null,
-        entityName: '',
-        emailAndLogin: '',
-        password: '',
-        confirmPassword: '',
+name: 'AddInvestor',
+
+data () {
+  return {
+    ref: firebase.firestore().collection('investors'),
+    investors: {},
+      investor:{
         states: [
           'Alabama',
           'Alaska',
@@ -203,17 +201,11 @@ export default {
           'Wisconsin',
           'Wyoming',
         ],
-        county: '',
-        city: '',
-        address: '',
-        contactNumber: '',
-        mobileNumber: '',
         status: [
           'Active',
           'Inactive',
         ],
         notesForInvestors: '',
-        checkbox: null,
         dictionary: {
           attributes: {
             // custom attributes
@@ -241,25 +233,33 @@ export default {
   },
 
   methods: {
-    post: function(){
-      this.$validator.validateAll()
-      this.$http.post('http://jsonplaceholder.typicode.com/posts',{
-        name: this.investors.name,
-        entityName: this.investors.entityName,
-        emailAndLogin: this.investors.emailAndLogin,
-        password: this.investors.password,
-        confirmPassword: this.investors.confirmPassword,
-        states: this.investors.states,
-        county: this.investors.county,
-        city: this.investors.city,
-        contactNumber: this.investors.contactNumber,
-        mobileNumber: this.investors.mobileNumber,
-        status: this.investors.status,
-        notesForInvestors: this.investors.notesForInvestors,
-      }).then(function(data){
-        console.log(data)
+
+    onSubmit (evt) {
+      evt.preventDefault()
+
+      this.ref.add(this.investors).then((docRef) => {
+        this.investors.name = ''
+        this.investors.entityName = ''
+        this.investors.emailAndLogin = ''
+        this.investors.password = ''
+        this.investors.confirmPassword = ''
+        this.investors.address = ''
+        this.investors.city = ''
+        this.investors.states = ''
+        this.investors.contactNumber = ''
+        this.investors.mobileNumber = ''
+        this.investors.status = ''
+        this.investors.notesForInvestors = ''
+        router.push({
+          name: 'AdminInvestorDashboardScreen'
+        })
       })
-    },
+      .catch((error) => {
+        alert("Error adding document: ", error);
+      });
+    }
+
+
   }
 }
 </script>

@@ -12,7 +12,7 @@ const settings = {timestampsInSnapshots: true};
     storageBucket: "investcitycapstone.appspot.com",
     messagingSenderId: "1050640035854"
   };
-
+// test
 
   firebase.initializeApp(config);
 
