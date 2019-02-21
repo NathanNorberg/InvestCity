@@ -10,14 +10,14 @@
           <v-card-text  class="px-0"><h1>CNI News</h1></v-card-text>
         </v-card>
       </v-flex>
-      <v-flex v-for="(news, key) in adminNews" :key="`news-${key}`" offset-xs1 xs10>
+      <v-flex  offset-xs1 xs10>
         <v-card>
-          <v-card-text class="px-0">
-            <v-container>
-              <p class="text-xs-left"><h3>{{ news.title }}</h3>
+          <v-card-text  class="px-0">
+            <v-container v-for="news in adminNews" :key="`${news.id}`">
+              <p class="text-xs-left"><h3>Title:{{ news.title }}</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
-              <p class="text-xs-left"><p>{{ news.body }}</p>
-              <router-link v-bind:to="'/editNews/' + news.idx"><v-btn color="teal lighten-1">Edit News</v-btn></router-link>
+              <p class="text-xs-left"><p>Blah{{ news.body }}</p>
+              <router-link :to="`/editNews/${news.id}`"><v-btn color="teal lighten-1">Edit News</v-btn></router-link>
             </v-container>
           </v-card-text>
         </v-card>
@@ -27,30 +27,24 @@
 </template>
 
 <script>
-
-import router from '../router'
+import axios from 'axios'
 
 export default {
-  props: ['adminNews'],
-  computed: {
-    users: function() {
-      return this.$store.getters.allAdminNews;
+    data(){
+      return{
+        adminNews: []
+      }
+    },
+    created() {
+      this.$store.dispatch('getAdminNews')
+    },
+    computed: {
+      adminNews(){
+        return this.$store.state.adminNews;
+      }
     }
-  },
-
-
-  // created() {
-  //   this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
-  //       this.blogs = data.body.slice(0,10);
-  //   });
-  // }
-  methods: {
-    details (news) {
-      router.push({ name: 'EditNewsScreen', params: { id: news.key }})
-    }
-  }
-
 }
+
 </script>
 
 <style scoped>

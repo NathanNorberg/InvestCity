@@ -183,23 +183,16 @@ export default {
   mounted () {
     this.$validator.localize('en', this.dictionary)
   },
+ created(){
+   this.$store.dispatch('getAllAdminSuper')
+ },
 
-  methods: {
-    investorProfileUpdate: function(){
-      this.$validator.validateAll()
-      this.$http.patch('http://jsonplaceholder.typicode.com/posts/1',{
-        adminName: this.admin.adminName,
-        emailAndLogin: this.admin.emailAndLogin,
-        password: this.admin.password,
-        confirmPassword: this.admin.confirmPassword,
-        states: this.admin.states,
-        city: this.admin.city,
-        contactNumber: this.admin.contactNumber,
-      }).then(function(data){
-        console.log(data)
-      })
-    },
-  }
+ computed: {
+   // admin(){
+   //   return this.$store.getters.getAdminByAdminId.localStorage.getItem('admin_id')
+   // }
+ }
+
 }
 </script>
 

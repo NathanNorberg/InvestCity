@@ -51,7 +51,7 @@ export default new Router({
     /* Admin Routes */
     { path: '/adminLogin', name: 'AdminLoginScreen', component: AdminLoginScreen },
     { path: '/adminProfile', name: 'AdminProfileScreen', component: AdminProfileScreen },
-    { path: '/editAdminProfile', name: 'EditAdminProfileScreen', component: EditAdminProfileScreen },
+    { path: '/editAdminProfile/:id', name: 'EditAdminProfileScreen', component: EditAdminProfileScreen },
     { path: '/adminDashboard', name: 'AdminDashboardScreen', component: AdminDashboardScreen },
     { path: '/addNews', name: 'AddNewsScreen', component: AddNewsScreen },
     { path: '/manageNews', name: 'ManageNewsScreen', component: ManageNewsScreen },

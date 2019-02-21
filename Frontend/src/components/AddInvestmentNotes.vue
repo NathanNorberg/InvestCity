@@ -33,7 +33,7 @@
 
 
             <v-btn color="success" type='submit'>Submit</v-btn>
-            <v-btn color="warning" to="/investorInvestmentDetails/1">Cancel</v-btn>
+            <v-btn color="warning" to="/manageNews">Cancel</v-btn>
           </form>
         </v-container>
       </v-flex>
@@ -42,17 +42,15 @@
 </template>
 
 <script>
-import firebase  from '../firebase/init.js';
-import router from '../router'
+import axios from 'axios'
 
 
 export default {
-  name: 'investorInvestmentNotes',
 
   data (){
     return {
-      ref: firebase.firestore().collection('investorInvestmentNotes'),
-      investorInvestmentNotes: {}
+      noteTitle: '',
+      noteBody: '',
     }
   },
   mounted () {
@@ -60,20 +58,18 @@ export default {
   },
 
   methods: {
-    onSubmit (evt) {
-      evt.preventDefault()
-
-      this.ref.add(this.investorInvestmentNotes).then((docRef) => {
-        this.investorInvestmentNotes.noteTitle = ''
-        this.investorInvestmentNotes.noteBody = ''
-        router.push({
-          name: 'investorDashboardScreen'
+    onSubmit() {
+       axios.post('http://localhost:8000/adminNews/addAdminNews',{
+        investor_id: localStorage.getItem('investor_id'),
+        noteTitle: this.noteTitle,
+        noteBody: this.noteBody
+        }).then( (response) => {
+          console.log(response);
+          this.$router.push('/manageNews')
+          }).catch( (error) => {
+          console.log(error);
         })
-      })
-      .catch((error) => {
-        alert("Error adding document: ", error);
-      });
-    }
+      }
   }
 
 

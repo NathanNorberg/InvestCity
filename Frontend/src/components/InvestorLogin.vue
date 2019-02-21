@@ -4,10 +4,10 @@
       <v-flex xs12 sm8 md4>
         <v-card>
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Login</v-toolbar-title>
+            <v-toolbar-title>Investor Login</v-toolbar-title>
           </v-toolbar>
-          <v-card-text>
-            <v-form>
+          <v-form @submit.prevent="login">
+            <v-card-text>
               <v-text-field
                 label="User Name"
               ></v-text-field>
@@ -15,13 +15,12 @@
                 label="Password"
                 type="password"
               ></v-text-field>
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="success" to="/investorDashboard">Login</v-btn>
-            <!-- <v-btn color="success" @click="login">Login</v-btn> -->
-          </v-card-actions>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn type='login' color="success" >Login</v-btn>
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-flex>
     </v-layout>
@@ -29,17 +28,36 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      username: '',
-      password: ''
-    }
-  },
-  methods: {
-    login: function() {
-      this.$store.dispatch('login');
+import axios from 'axios'
+  export default {
+     data(){
+       return{
+          name: "",
+          password: ""
+       }
+     },
+     methods: {
+      login () {
+      axios.post('http://localhost:8000/investorLogin', {
+      name: this.name,
+      password: this.password
+      })
+      .then(res => {
+        this.$store.state.isLoggedIn = true;
+        this.$store.state.investors = {
+          'token': res.data.token, 'investor_id': res.config.data, 'name': res.data.name
+        }
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('investor_id', res.data.investor.id);
+        localStorage.setItem('name', res.data.investor.name);
+
+        this.$router.push('/investorDashboard')
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Error logging in please try again');
+  });
+      }
     }
   }
-}
 </script>

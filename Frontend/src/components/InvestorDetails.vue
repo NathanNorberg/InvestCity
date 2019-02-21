@@ -8,7 +8,7 @@
     <v-layout row wrap>
       <v-flex xs12>
         <v-card dark color="primary">
-          <v-card-text class="px-0">Investor Name</v-card-text>
+          <v-card-text class="px-0">{{ investor.name }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex xs2>
@@ -33,16 +33,16 @@
         <v-card>
           <v-card-text class="px-0">
             <v-container>
-              <p class="text-xs-left"><strong>Investor Name:</strong> Pre-filled Investor Name Will Go Here</p>
-              <p class="text-xs-left"><strong>Entity Name:</strong> Pre-filled Entity Name Will Go Here</p>
-              <p class="text-xs-left"><strong>Email / Login:</strong> Pre-filled Email / Login Will Go Here</p>
-              <p class="text-xs-left"><strong>Password:</strong> Pre-filled Password Will Go Here</p>
-              <p class="text-xs-left"><strong>Address:</strong> Pre-filled Address Will Go Here</p>
-              <p class="text-xs-left"><strong>City:</strong> Pre-filled City Will Go Here</p>
-              <p class="text-xs-left"><strong>State:</strong> Pre-filled State Will Go Here</p>
-              <p class="text-xs-left"><strong>Contact Number:</strong> Pre-filled Contact Number Will Go Here</p>
-              <p class="text-xs-left"><strong>Mobile Number:</strong> Pre-filled Mobile Number Will Go Here</p>
-              <p class="text-xs-left"><strong>Investor Notes:</strong> Pre-filled Investor Notes (Internal Use Only) Will Go Here</p>
+              <p class="text-xs-left"><strong>Investor Name:</strong>{{ investor.name }}</p>
+              <p class="text-xs-left"><strong>Entity Name:</strong>{{ investor.entity }}</p>
+              <p class="text-xs-left"><strong>Email / Login:</strong>{{ investor.emailAndLogin }}</p>
+              <p class="text-xs-left"><strong>Password:</strong>{{ investor.password }}</p>
+              <p class="text-xs-left"><strong>Address:</strong>{{ investor.address }}</p>
+              <p class="text-xs-left"><strong>City:</strong>{{ investor.city }}</p>
+              <p class="text-xs-left"><strong>State:</strong>{{ investor.state }}</p>
+              <p class="text-xs-left"><strong>Contact Number:</strong>{{ investor.contactNumber }}</p>
+              <p class="text-xs-left"><strong>Mobile Number:</strong>{{ investor.mobileNumber }}</p>
+              <p class="text-xs-left"><strong>Investor Notes:</strong>{{ investor.investorNotes }}</p>
             </v-container>
           </v-card-text>
         </v-card>
@@ -52,7 +52,7 @@
       <v-layout row wrap>
         <v-flex xs12>
           <v-card dark color="primary">
-            <v-card-text class="px-0">Investments That NAME is Involved</v-card-text>
+            <v-card-text class="px-0">Investments That {{ investor.name }} is Involved</v-card-text>
           </v-card>
         </v-flex>
 
@@ -66,6 +66,14 @@
 
 <script>
 export default {
+  created () {
+    this.$store.dispatch('getAllInvestors')
+  },
+  computed: {
+      investors(){
+        return this.$store.getters.getInvestorByInvestorId(this.$route.params.id);
+      },
+    }
 }
 </script>
 

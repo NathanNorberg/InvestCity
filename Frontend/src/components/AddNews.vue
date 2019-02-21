@@ -6,9 +6,9 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form @submit="onSubmit">
+          <form>
             <v-text-field
-            v-model="adminNews.newsTitle"
+            v-model="newsTitle"
             v-validate="'required|max:50'"
             :counter="50"
             :error-messages="errors.collect('newsTitle')"
@@ -19,7 +19,7 @@
 
             <v-flex xs8>
               <v-textarea
-                v-model="adminNews.newsBody"
+                v-model="newsBody"
                 label="Body"
                 value=""
                 hint="Body"
@@ -30,7 +30,7 @@
               ></v-textarea>
             </v-flex>
 
-            <v-btn color="success" type='submit'>Add News</v-btn>
+            <v-btn color="success" @click="onSubmit" >Add News</v-btn>
             <v-btn color="warning" to="/manageNews">Cancel</v-btn>
           </form>
         </v-container>
@@ -40,41 +40,34 @@
 </template>
 
 <script>
-
-import firebase  from '../firebase/init.js';
-import router from '../router'
+import axios from 'axios'
 
 
 export default {
-  name: 'AddNews',
+
 
   data (){
     return {
-      ref: firebase.firestore().collection('adminNews'),
-      adminNews: {}
+      newsTitle: '',
+      newsBody: ''
     }
   },
 
   mounted () {
   },
 
-    methods: {
-      onSubmit (evt) {
-        evt.preventDefault()
-
-        this.ref.add(this.adminNews).then((docRef) => {
-          this.adminNews.newsTitle = ''
-          this.adminNews.newsBody = ''
-          router.push({
-            name: 'ManageNewsScreen'
-          })
-        })
-        .catch((error) => {
-          alert("Error adding document: ", error);
-        });
-      }
+  methods: {
+    onSubmit() {
+       return this.$store.dispatch('addAdminNews',{
+        newsTitle: this.newsTitle,
+        newsBody: this.newsBody,
+        }).then(
+      this.$router.push('/adminNews'))
+      .catch( (error) => {
+      console.log(error);
+    })
     }
-
+  }
 
 }
 </script>

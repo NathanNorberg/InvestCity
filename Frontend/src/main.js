@@ -1,20 +1,16 @@
 import Vue from 'vue'
-import VueFire from 'vuefire'
 import './plugins/vuetify'
-import VueResource from 'vue-resource'
 import App from './App.vue'
-import router from './router'
-import store from './store'
-
-Vue.use(VueResource);
-Vue.use(VueFire)
-
+import VueRouter from 'vue-router'
+import Router from './router'
+import { store } from './store'
 Vue.config.productionTip = false
 
+Vue.use(VueRouter)
 
 
 new Vue({
-  router,
+  router: Router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')

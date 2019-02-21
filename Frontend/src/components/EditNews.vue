@@ -6,7 +6,7 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form>
+          <form @delete="deleteNews"  @update="updateNews">
             <v-text-field
             v-model="newsTitle"
             v-validate="'required|max:50'"
@@ -41,10 +41,10 @@
                 required
               ></v-checkbox>
 
-            <v-btn color="success" @click="updateNews">Update</v-btn>
+            <v-btn color="success" type="update">Update</v-btn>
             <v-btn color="warning" to="/manageNews">Cancel</v-btn>
             <v-container text-xs-right>
-              <v-btn color="error" @click="deleteNews" >Delete News</v-btn>
+              <v-btn color="error" type="delete" >Delete News</v-btn>
             </v-container>
           </form>
         </v-container>
@@ -54,10 +54,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VeeValidate from 'vee-validate'
-
-Vue.use(VeeValidate)
+import axios from 'axios'
 
 export default {
   $_veeValidate: {
@@ -67,8 +64,8 @@ export default {
   data (){
     return{
       adminNews:{
-        newsTitle: 'Prefilled Title',
-        newsBody: 'Prefilled Body',
+        newsTitle: '',
+        newsBody: '',
         checkbox: null,
       }
     }
@@ -79,14 +76,17 @@ export default {
   },
 
   methods: {
-    updateNews () {
-      this.$http.post('http://jsonplaceholder.typicode.com/posts/1',{
-        newsTitle: this.adminNews.newsTitle,
-        newsBody: this.adminNews.newsBody
-      }).then(function(data){
-        console.log(data)
-      })
-    },
+    updateNews() {
+       axios.patch('http://localhost:8000/adminNews/editAdminNews/:id',{
+        newsTitle: this.newsTitle,
+        newsBody: this.newsBody,
+        }).then( (response) => {
+      console.log(response);
+      this.$router.push('/adminNews')
+    }).catch( (error) => {
+      console.log(error);
+    })
+  },
 
     deleteNews () {
 

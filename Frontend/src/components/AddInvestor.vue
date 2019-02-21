@@ -8,7 +8,7 @@
         <v-container>
           <form @submit="onSubmit">
             <v-text-field
-            v-model="investors.name"
+            v-model="name"
             v-validate="'required|max:50'"
             :counter="50"
             :error-messages="errors.collect('name')"
@@ -18,7 +18,7 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="investors.entityName"
+              v-model="entityName"
               v-validate="'required'"
               :error-messages="errors.collect('entityName')"
               label="Entity Name"
@@ -27,7 +27,7 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="investors.emailAndLogin"
+              v-model="emailAndLogin"
               v-validate="'required|emailAndLogin'"
               :error-messages="errors.collect('emailAndLogin')"
               label="Email / Login"
@@ -36,7 +36,7 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="investors.password"
+              v-model="password"
               v-validate="'required|password'"
               :error-messages="errors.collect('password')"
               label="Password"
@@ -45,7 +45,7 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="investors.confirmPassword"
+              v-model="confirmPassword"
               v-validate="'required|confirmPassword'"
               :error-messages="errors.collect('confirmPassword')"
               label="Confirm Password"
@@ -55,7 +55,7 @@
 
             <v-flex xs8>
               <v-textarea
-              v-model="investors.address"
+              v-model="address"
               label="Address"
               value=""
               hint="Address"
@@ -66,7 +66,7 @@
             </v-flex>
 
               <v-text-field
-                v-model="investors.city"
+                v-model="city"
                 v-validate="'required|city'"
                 :error-messages="errors.collect('city')"
                 label="City"
@@ -75,9 +75,9 @@
               ></v-text-field>
 
               <v-select
-              v-model="investors.state"
+              v-model="state"
               v-validate="'required'"
-              :items="investor.states"
+              :items="states"
               :error-messages="errors.collect('state')"
               label="State"
               data-vv-name="state"
@@ -85,7 +85,7 @@
               ></v-select>
 
               <v-text-field
-                v-model="investors.contactNumber"
+                v-model="contactNumber"
                 v-validate="'required|contactNumber'"
                 :error-messages="errors.collect('contactNumber')"
                 label="Contact Number"
@@ -94,7 +94,7 @@
               ></v-text-field>
 
               <v-text-field
-                v-model="investors.mobileNumber"
+                v-model="mobileNumber"
                 v-validate="'required|mobileNumber'"
                 :error-messages="errors.collect('mobileNumber')"
                 label="Mobile Number"
@@ -103,9 +103,9 @@
               ></v-text-field>
 
               <v-select
-              v-model="investors.states"
+              v-model="states"
               v-validate="'required'"
-              :items="investor.status"
+              :items="status"
               :error-messages="errors.collect('state')"
               label="Status"
               data-vv-name="state"
@@ -114,7 +114,7 @@
 
               <v-flex xs8>
                 <v-textarea
-                  v-model="investors.notesForInvestors"
+                  v-model="notesForInvestors"
                   label="Investor Notes (Internal Use Only):"
                   value=""
                   hint="Investor Notes (Internal Use Only):"
@@ -136,19 +136,22 @@
 
 <script>
 
-import firebase  from '../firebase/init.js';
-import router from '../router'
-
+import axios from 'axios'
 
 export default {
 
-name: 'AddInvestor',
 
 data () {
   return {
-    ref: firebase.firestore().collection('investors'),
-    investors: {},
-      investor:{
+        name: '',
+        entityName: '',
+        emailAndLogin: '',
+        confirmPassword: '',
+        password: '',
+        address: '',
+        city: '',
+        contactNumber: '',
+        mobileNumber: '',
         states: [
           'Alabama',
           'Alaska',
@@ -224,7 +227,6 @@ data () {
             }
           }
         }
-      }
     }
   },
 
@@ -234,30 +236,27 @@ data () {
 
   methods: {
 
-    onSubmit (evt) {
-      evt.preventDefault()
-
-      this.ref.add(this.investors).then((docRef) => {
-        this.investors.name = ''
-        this.investors.entityName = ''
-        this.investors.emailAndLogin = ''
-        this.investors.password = ''
-        this.investors.confirmPassword = ''
-        this.investors.address = ''
-        this.investors.city = ''
-        this.investors.states = ''
-        this.investors.contactNumber = ''
-        this.investors.mobileNumber = ''
-        this.investors.status = ''
-        this.investors.notesForInvestors = ''
-        router.push({
-          name: 'AdminInvestorDashboardScreen'
+    onSubmit() {
+       axios.post('http://localhost:8000/adminNews/addAdminNews',{
+        name: this.name,
+        entityName: this.entityName,
+        emailAndLogin: this.emailAndLogin,
+        password: this.password,
+        confirmPassword: this.confirmPassword,
+        address: this.address,
+        city: this.city,
+        states: this.states,
+        contactNumber: this.contactNumber,
+        mobileNumber: this.mobileNumber,
+        status: this.status,
+        notesForInvestors: this.notesForInvestors,
+        }).then( (response) => {
+          console.log(response);
+          this.$router.push('/adminInvestorDashboard')
+        }).catch( (error) => {
+          console.log(error);
         })
-      })
-      .catch((error) => {
-        alert("Error adding document: ", error);
-      });
-    }
+      }
 
 
   }

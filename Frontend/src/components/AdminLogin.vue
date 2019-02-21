@@ -6,8 +6,8 @@
           <v-toolbar dark color="primary">
             <v-toolbar-title>Admin Login</v-toolbar-title>
           </v-toolbar>
-          <v-card-text>
-            <v-form>
+          <v-form @submit.prevent="login">
+            <v-card-text>
               <v-text-field
                 label="User Name"
               ></v-text-field>
@@ -15,13 +15,13 @@
                 label="Password"
                 type="password"
               ></v-text-field>
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn to="/adminDashboard" color="success" >Login</v-btn>
-            <!-- <v-btn color="success" @click="login">Login</v-btn> -->
-          </v-card-actions>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn type='login' color="success" >Login</v-btn>
+              <!-- <v-btn color="success" @click="login">Login</v-btn> -->
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-flex>
     </v-layout>
@@ -29,17 +29,35 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      username: '',
-      password: ''
-    }
-  },
-  methods: {
-    login: function() {
-      this.$store.dispatch('login');
+import axios from 'axios'
+  export default {
+     data(){
+       return{
+          name: "",
+          password: ""
+       }
+     },
+     methods: {
+      login () {
+      axios.post('http://localhost:8000/adminLogin', {
+      name: this.name,
+      password: this.password
+      })
+      .then(res => {
+        this.$store.state.isLoggedIn = true;
+        this.$store.state.admin = {
+          'token': res.data.token, 'admin_id': res.config.data, 'name': res.data.name
+        }
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('admin_id', res.data.admin.id);
+        localStorage.setItem('name', res.data.admin.name);
+        this.$router.push('/adminDashboard')
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Error logging in please try again');
+  });
+      }
     }
   }
-}
 </script>
