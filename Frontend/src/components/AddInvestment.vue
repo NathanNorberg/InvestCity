@@ -6,10 +6,10 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form>
+          <form @submit="onSubmit">
 
             <v-select
-              v-model="investment.category"
+              v-model="investments.category"
               v-validate="'required'"
               :items="investment.category"
               :error-messages="errors.collect('categories')"
@@ -19,7 +19,7 @@
             ></v-select>
 
             <v-select
-              v-model="investment.grouping"
+              v-model="investments.grouping"
               v-validate="'required'"
               :items="investment.grouping"
               :error-messages="errors.collect('grouping')"
@@ -29,7 +29,7 @@
             ></v-select>
 
             <v-text-field
-            v-model="investment.name"
+            v-model="investments.name"
             v-validate="'required|max:50'"
             :counter="50"
             :error-messages="errors.collect('name')"
@@ -40,7 +40,7 @@
 
             <v-flex xs8>
               <v-textarea
-                v-model="investment.briefDescription"
+                v-model="investments.briefDescription"
                 label="Brief Description"
                 value=""
                 hint="Brief Description"
@@ -51,7 +51,7 @@
               </v-flex>
 
               <v-text-field
-                v-model="investment.purchasePrice"
+                v-model="investments.purchasePrice"
                 v-validate="'required|purchasePrice'"
                 :error-messages="errors.collect('purchasePrice')"
                 label="Purchase Price (In US Dollars)"
@@ -62,7 +62,7 @@
               <v-flex xs12 sm6 md4>
                 <v-menu
                   ref="purchaseMenu"
-                  v-model="investment.purchaseMenu"
+                  v-model="investments.purchaseMenu"
                   :close-on-content-click="false"
                   :nudge-right="40"
                   :return-value.sync="purchaseDate"
@@ -74,11 +74,11 @@
                 >
                   <v-text-field
                     slot="activator"
-                    v-model="investment.purchaseDate"
+                    v-model="investments.purchaseDate"
                     label="Date Purchased"
                     readonly
                   ></v-text-field>
-                  <v-date-picker v-model="investment.purchaseDate" no-title scrollable>
+                  <v-date-picker v-model="investments.purchaseDate" no-title scrollable>
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click="purchaseMenu = false">Cancel</v-btn>
                     <v-btn flat color="primary" @click="$refs.purchaseMenu.save(purchaseDate)">OK</v-btn>
@@ -88,7 +88,7 @@
 
               <v-flex xs8>
                 <v-textarea
-                v-model="investment.location"
+                v-model="investments.location"
                 label="Location"
                 value=""
                 hint="Location"
@@ -99,7 +99,7 @@
               </v-flex>
 
               <v-text-field
-                v-model="investment.city"
+                v-model="investments.city"
                 v-validate="'required|city'"
                 :error-messages="errors.collect('city')"
                 label="City"
@@ -109,7 +109,7 @@
 
 
               <v-text-field
-              v-model="investment.county"
+              v-model="investments.county"
               v-validate="'required|county'"
               :error-messages="errors.collect('county')"
               label="County"
@@ -118,7 +118,7 @@
               ></v-text-field>
 
               <v-select
-              v-model="investment.state"
+              v-model="investments.state"
               v-validate="'required'"
               :items="investment.states"
               :error-messages="errors.collect('state')"
@@ -127,7 +127,7 @@
               required
               ></v-select>
               <v-text-field
-                v-model="investment.projectSize"
+                v-model="investments.projectSize"
                 v-validate="'required|projectSize'"
                 :error-messages="errors.collect('projectSize')"
                 label="Project Size"
@@ -136,7 +136,7 @@
               ></v-text-field>
 
               <v-text-field
-                v-model="investment.sellingPrice"
+                v-model="investments.sellingPrice"
                 v-validate="'required|sellingPrice'"
                 :error-messages="errors.collect('sellingPrice')"
                 label="Selling Price (In US Dollars)"
@@ -145,7 +145,7 @@
               ></v-text-field>
 
               <v-select
-                v-model="investment.status"
+                v-model="investments.status"
                 v-validate="'required'"
                 :items="investment.status"
                 :error-messages="errors.collect('status')"
@@ -156,7 +156,7 @@
               <v-flex xs12 sm6 md4>
                 <v-menu
                   ref="soldMenu"
-                  v-model="investment.soldMenu"
+                  v-model="investments.soldMenu"
                   :close-on-content-click="false"
                   :nudge-right="40"
                   :return-value.sync="soldDate"
@@ -168,11 +168,11 @@
                 >
                   <v-text-field
                     slot="activator"
-                    v-model="investment.soldDate"
+                    v-model="investments.soldDate"
                     label="Date Sold"
                     readonly
                   ></v-text-field>
-                  <v-date-picker v-model="investment.soldDate" no-title scrollable>
+                  <v-date-picker v-model="investments.soldDate" no-title scrollable>
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click="soldMenu = false">Cancel</v-btn>
                     <v-btn flat color="primary" @click="$refs.soldMenu.save(soldDate)">OK</v-btn>
@@ -181,7 +181,7 @@
               </v-flex>
 
               <v-text-field
-                v-model="investment.grossReturn"
+                v-model="investments.grossReturn"
                 v-validate="'required|grossReturn'"
                 :error-messages="errors.collect('grossReturn')"
                 label="Gross Return (In US Dollars)"
@@ -190,7 +190,7 @@
               ></v-text-field>
 
               <v-text-field
-                v-model="investment.netInvestorReturn"
+                v-model="investments.netInvestorReturn"
                 v-validate="'required|netInvestorReturn'"
                 :error-messages="errors.collect('netInvestorReturn')"
                 label="Net Investor Return (In US Dollars)"
@@ -200,7 +200,7 @@
 
               <v-flex xs8>
                 <v-textarea
-                  v-model="investment.detailedDescription"
+                  v-model="investments.detailedDescription"
                   label="Detailed Description"
                   value=""
                   hint="Detailed Description"
@@ -212,7 +212,7 @@
 
               <v-flex xs8>
                 <v-textarea
-                  v-model="investment.notesForInvestors"
+                  v-model="investments.notesForInvestors"
                   label="Notes For Investors"
                   value=""
                   hint="Notes For Investors"
@@ -223,7 +223,7 @@
               </v-flex>
 
               <v-checkbox
-                v-model="investment.checkbox"
+                v-model="investments.checkbox"
                 v-validate="'required'"
                 :error-messages="errors.collect('checkbox')"
                 value="1"
@@ -233,7 +233,7 @@
                 required
               ></v-checkbox>
 
-            <v-btn color="success" v-on:click.prevent="post">Add Investment</v-btn>
+            <v-btn color="success" type='submit'>Add Investment</v-btn>
             <v-btn color="warning" to="/adminInvestmentDashboard">Cancel</v-btn>
           </form>
         </v-container>
@@ -243,18 +243,18 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VeeValidate from 'vee-validate'
+import firebase  from '../firebase/init.js';
+import router from '../router'
 
-Vue.use(VeeValidate)
 
 export default {
-  $_veeValidate: {
-    validator: 'new'
-  },
+  name: 'AddInvestment',
 
-  data() {
-    return{
+  data (){
+    return {
+      ref: firebase.firestore().collection('investments'),
+      investments: {},
+
       investment:{
         category: [
           'Undeveloped Land',
@@ -270,13 +270,7 @@ export default {
           'Land/Asset Purchase',
           'Other'
         ],
-        name: '',
-        briefDescription: '',
         select: null,
-        purchasePrice: '',
-        sellingPrice: '',
-        grossReturn: '',
-        netInvestorReturn: '',
         purchaseDate: new Date().toISOString().substr(0, 10),
         purchaseMenu: false,
         purchaseModal: false,
@@ -333,10 +327,6 @@ export default {
           'Wisconsin',
           'Wyoming',
         ],
-        county: '',
-        city: '',
-        location: '',
-        projectSize: '',
         status: [
           'Current',
           'Sold',
@@ -345,9 +335,6 @@ export default {
         soldMenu: false,
         soldModal: false,
         soldMenu2: false,
-        detailedDescription: '',
-        notesForInvestors: '',
-        checkbox: null,
         dictionary: {
           attributes: {
             // custom attributes
@@ -375,29 +362,38 @@ export default {
   },
 
   methods: {
-    post: function(){
-      this.$validator.validateAll()
-      this.$http.post('http://jsonplaceholder.typicode.com/posts',{
-        category: this.investment.category,
-        grouping: this.investment.grouping,
-        name: this.investment.name,
-        briefDescription: this.investment.briefDescription,
-        purchasePrice: this.investment.purchasePrice,
-        purchaseDate: this.investment.purchaseDate,
-        state: this.investment.state,
-        county: this.investment.county,
-        city: this.investment.city,
-        location: this.investment.location,
-        projectSize: this.investment.projectSize,
-        status: this.investment.status,
-        soldDate: this.investment.soldDate,
-        detailedDescription: this.investment.detailedDescription,
-        notesForInvestors: this.investment.notesForInvestors,
-      }).then(function(data){
-        console.log(data);
+    onSubmit (evt) {
+      evt.preventDefault()
+
+      this.ref.add(this.investments).then((docRef) => {
+        this.investments.category = ''
+        this.investments.grouping = ''
+        this.investments.name = ''
+        this.investments.briefDescription = ''
+        this.investments.purchasePrice = ''
+        this.investments.sellingPrice = ''
+        this.investments.grossReturn = ''
+        this.investments.netInvestorReturn = ''
+        this.investments.purchaseDate = ''
+        this.investments.state = ''
+        this.investments.county = ''
+        this.investments.city = ''
+        this.investments.location = ''
+        this.investments.projectSize = ''
+        this.investments.status = ''
+        this.investments.soldDate = ''
+        this.investments.detailedDescription = ''
+        this.investments.notesForInvestors = ''
+        router.push({
+          name: 'AdminInvestmentDashboardScreen'
+        })
       })
-    },
+      .catch((error) => {
+        alert("Error adding document: ", error);
+      });
+    }
   }
+
 }
 </script>
 

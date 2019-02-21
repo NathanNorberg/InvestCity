@@ -6,7 +6,7 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form>
+          <form @submit="onSubmit">
             <v-text-field
             v-model="investorInvestmentNotes.noteTitle"
             v-validate="'required|max:50'"
@@ -31,18 +31,8 @@
             </v-flex>
 
 
-              <v-checkbox
-                v-model="adminInvestmentNotes.checkbox"
-                v-validate="'required'"
-                :error-messages="errors.collect('checkbox')"
-                value="1"
-                label="New Note Complete?"
-                data-vv-name="checkbox"
-                type="checkbox"
-                required
-              ></v-checkbox>
 
-            <v-btn color="success" @click="submit">Submit</v-btn>
+            <v-btn color="success" type='submit'>Submit</v-btn>
             <v-btn color="warning" to="/investorInvestmentDetails/1">Cancel</v-btn>
           </form>
         </v-container>
@@ -52,41 +42,42 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VeeValidate from 'vee-validate'
+import firebase  from '../firebase/init.js';
+import router from '../router'
 
-Vue.use(VeeValidate)
 
 export default {
-  $_veeValidate: {
-    validator: 'new'
-  },
+  name: 'investorInvestmentNotes',
 
   data (){
-    return{
-      adminInvestmentNotes:{
-        noteTitle: '',
-        noteBody: '',
-        checkbox: null,
-      }
+    return {
+      ref: firebase.firestore().collection('investorInvestmentNotes'),
+      investorInvestmentNotes: {}
     }
   },
-
   mounted () {
     this.$validator.localize('en', this.dictionary)
   },
 
   methods: {
-    submit () {
-      this.$http.post('http://jsonplaceholder.typicode.com/posts/1',{
-        noteTitle: this.investorInvestmentNotes.noteTitle,
-        noteBody: this.investorInvestmentNotes.noteBody
-      }).then(function(data){
-        console.log(data)
-      })
-    },
+    onSubmit (evt) {
+      evt.preventDefault()
 
+      this.ref.add(this.investorInvestmentNotes).then((docRef) => {
+        this.investorInvestmentNotes.noteTitle = ''
+        this.investorInvestmentNotes.noteBody = ''
+        router.push({
+          name: 'investorDashboardScreen'
+        })
+      })
+      .catch((error) => {
+        alert("Error adding document: ", error);
+      });
+    }
   }
+
+
+
 }
 </script>
 
