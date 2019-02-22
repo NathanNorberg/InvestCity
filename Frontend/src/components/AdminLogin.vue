@@ -9,16 +9,18 @@
           <v-form @submit.prevent="login">
             <v-card-text>
               <v-text-field
-                label="User Name"
+                v-model='nameAndEmail'
+                label="nameAndEmail"
               ></v-text-field>
               <v-text-field
+                v-model="password"
                 label="Password"
                 type="password"
               ></v-text-field>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn type='login' color="success" >Login</v-btn>
+              <v-btn type='submit' color="success" >Login</v-btn>
               <!-- <v-btn color="success" @click="login">Login</v-btn> -->
             </v-card-actions>
           </v-form>
@@ -30,27 +32,32 @@
 
 <script>
 import axios from 'axios'
+import jwt from 'jsonwebtoken'
   export default {
      data(){
        return{
-          name: "",
+          nameAndEmail: "",
           password: ""
        }
      },
      methods: {
       login () {
+        console.log(this.nameAndEmail, this.password)
       axios.post('http://localhost:8000/adminLogin', {
-      name: this.name,
+      nameAndEmail: this.nameAndEmail,
       password: this.password
       })
       .then(res => {
-        this.$store.state.isLoggedIn = true;
-        this.$store.state.admin = {
-          'token': res.data.token, 'admin_id': res.config.data, 'name': res.data.name
-        }
+        console.log(res)
+        res.data = JSON.parse(res.data);
         localStorage.setItem('token', res.data.token)
-        localStorage.setItem('admin_id', res.data.admin.id);
-        localStorage.setItem('name', res.data.admin.name);
+        localStorage.setItem('admin_id', res.data.admin.id)
+        console.log('this is the res', res)
+        console.log('you logged in')
+        this.$store.state.isLoggedIn = true;
+        this.$store.state.auth = {
+          admin: jwt.decode(localStorage.getItem('token'))
+        }
         this.$router.push('/adminDashboard')
     })
     .catch(err => {

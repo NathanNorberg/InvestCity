@@ -13,7 +13,7 @@
       <v-flex  offset-xs1 xs10>
         <v-card>
           <v-card-text  class="px-0">
-            <v-container v-for="news in adminNews" :key="`${news.id}`">
+            <v-container v-for="news in adminNews"  :key="`${news.id}`">
               <p class="text-xs-left"><h3>Title:{{ news.title }}</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
               <p class="text-xs-left"><p>Blah{{ news.body }}</p>
@@ -27,22 +27,16 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
     data(){
       return{
-        adminNews: []
       }
     },
     created() {
-      this.$store.dispatch('getAdminNews')
+      this.$store.dispatch('getAdminNewsByAdminNewsId')
     },
-    computed: {
-      adminNews(){
-        return this.$store.state.adminNews;
-      }
-    }
+
 }
 
 </script>

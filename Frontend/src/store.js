@@ -7,6 +7,7 @@ Vue.use(Vuex, axios)
 export const store = new Vuex.Store({
     state: {
         admin: [],
+        adminSuper: [],
         adminMinor: [],
         auth: {},
         adminNews: [],
@@ -14,9 +15,10 @@ export const store = new Vuex.Store({
         investmentNotes: [],
         investmentInvestors: [],
         investors: [],
+        investor: [],
         investments: [],
         filteredSearch: "",
-        isLoggedIn: false
+        isLoggedIn: localStorage.getItem('token') || false
     },
     getters: {
         getAdminByAdminId: (state) => (admin_id) => {
@@ -28,80 +30,73 @@ export const store = new Vuex.Store({
         getInvestorsByInvestorId: (state) => (investor_id) => {
             return state.investors.filter(investor => investor.id == investor_id)[0];
         },
-        // getInvestmentInvestorsByInvestmentInvestorId: (state) => (invesmentInvestor_id) => {
-        //     return state.investmentInvestors.filter(investmentInvestors => investmentInvestors.id == investmentInvestors_id)[0];
-        // },
+
         getInvestmentByInvestmentId: (state) => (investment_id) => {
             return state.investments.filter(investment => investment.id == investment_id)[0];
         },
         getAdminNewsByAdminNewsId: (state) => (adminNews_id) => {
             return state.adminNews.filter(adminNews => adminNews.id == adminNews_id);
         },
-        // getInvestorInvestmentsByInvestmentInvestorsId: (state) => (investmentInvestors_id) => {
-        //     return state.investors.filter(investors => investors.id == investmentInvestors_id).map(investors => { return {...investors,
-                // name: state.investors.find(u => u.id == investmentInvestors.investor_id).name} })
-            //   }
-            // }
-          // }
+        getLoggedIn: state => state.isLoggedIn,
+
+        addAdminNews: (state) => (adminNew_id) => {
+          return state.adminNews.filter(adminNew => adminNew.id == adminNew_id)
+        }
+
     },
 
-        // getUserCommentsBySituationId: (state) => (situation_id) => {
-        //     return state.comments.filter(comment => comment.id == situation_id).map(comment => { return {...comment,
-        //         username: state.users.find(u => u.id == comment.user_id).username} })
-        // },
-        // getLoggedIn: state => state.isLoggedIn
     actions: {
-        getAllInvestors(context) {
+        getInvestors(context) {
             console.log('asdfasdfasdf')
             return axios.get('http:getAllInvestorEntities//localhost:8000/investors').then((results) => {
-                context.commit('getAllInvestors', results.data)
+                context.commit('getInvestors', results.data)
             })
           },
-        getAllAdminSuper(context) {
+        getAdminSuper(context) {
             console.log('asdfasdfasdf')
             return axios.get('http://localhost:8000/adminSuper').then((results) => {
-                context.commit('getAllAdminSuper', results.data)
+                context.commit('getAdminSuper', results.data)
             })
         },
-        getAllAdminMinors(context) {
+        getAdminMinors(context) {
             console.log('asdfasdfasdf')
             return axios.get('http://localhost:8000/adminMinor').then((results) => {
-                context.commit('getAllAdminMinors', results.data)
+                context.commit('getAdminMinors', results.data)
             })
         },
-        getAllInvestments(context) {
+        getInvestments(context) {
             console.log('asdfasdfasdf')
             return axios.get('http://localhost:8000/investments').then((results) => {
-                context.commit('getAllInvestments', results.data)
+                context.commit('getInvestments', results.data)
             })
         },
         getAdminNews(context) {
             console.log('asdfasdfasdf')
             return axios.get('http://localhost:8000/adminNews').then((results) => {
-                context.commit('getAllAdminNews', results.data)
+                context.commit('getAdminNews', results.data)
             })
         },
-        getAllinvestmentInvestors(context) {
+        getinvestmentInvestors(context) {
             console.log('asdfasdfasdf')
             return axios.get('http://localhost:8000/investmentInvestors').then((results) => {
-                context.commit('getAllinvestmentInvestors', results.data)
+                context.commit('getinvestmentInvestors', results.data)
             })
         },
-        getAllInvestorInvestmentNotes(context) {
+        getInvestorInvestmentNotes(context) {
             console.log('asdfasdfasdf')
             return axios.get('http://localhost:8000/investorInvestmentNotes').then((results) => {
-                context.commit('getAllInvestorInvestmentNotes', results.data)
+                context.commit('getInvestorInvestmentNotes', results.data)
             })
         },
-        getAllInvestorEntities(context) {
+        getInvestorEntities(context) {
             console.log('Investor Entities')
             return axios.get('http://localhost:8000/investorEntities').then((results) => {
-                context.commit('getAllInvestorEntities', results.data)
+                context.commit('getInvestorEntities', results.data)
             })
         },
 
         addAdminNews(context, payload){
-          return axios.post('http://localhost:8000/adminNews/addAdminNews').then((results) => {
+          return axios.post('http://localhost:8000/adminNews/addAdminNews', payload).then((results) => {
             context.commit('addAdminNews', results.data)
           })
         }
@@ -110,8 +105,8 @@ export const store = new Vuex.Store({
         getAllInvestors(state, investors){
             state.investors = investors;
         },
-        getAllAdminSuper(state, admin){
-            state.admin = admin;
+        getAllAdminSuper(state, adminSuper){
+            state.adminSuper = adminSuper;
         },
         getAllAdminMinors(state, adminMinor){
             state.adminMinor = adminMinor;
@@ -119,8 +114,8 @@ export const store = new Vuex.Store({
         getAllInvestments(state, investments){
             state.investments = investments;
         },
-        getAllAdminNews(state, adminNews){
-            state.adminNews = adminNews;
+        addAdminNews(state, adminNew){
+            state.adminNews = [...state.adminNews, adminNew];
         },
         getAllinvestmentInvestors(state, investmentInvestors){
             state.investmentInvestors = investmentInvestors;
