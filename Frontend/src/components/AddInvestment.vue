@@ -6,37 +6,26 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form @submit="onSubmit">
 
 
             <v-select
               v-model="category"
-              v-validate="'required'"
-              :items="category"
-              :error-messages="errors.collect('categories')"
+              :items="categories"
               label="Category"
-              data-vv-name="categories"
-              required
+              value=''
             ></v-select>
 
             <v-select
               v-model="grouping"
-              v-validate="'required'"
-              :items="grouping"
-              :error-messages="errors.collect('grouping')"
+              :items="groupings"
               label="Grouping"
-              data-vv-name="grouping"
-              required
+              value=''
             ></v-select>
 
             <v-text-field
-            v-model="name"
-            v-validate="'required|max:50'"
-            :counter="50"
-            :error-messages="errors.collect('name')"
-            label="Project Name"
-            data-vv-name="name"
-            required
+              v-model="name"
+              label="Project Name"
+              value=''
             ></v-text-field>
 
             <v-flex xs8>
@@ -45,25 +34,20 @@
                 label="Brief Description"
                 value=""
                 hint="Brief Description"
-                v-validate="'required'"
-                data-vv-name="briefDescription"
-                required
               ></v-textarea>
               </v-flex>
 
               <v-text-field
                 v-model="purchasePrice"
-                v-validate="'required|purchasePrice'"
-                :error-messages="errors.collect('purchasePrice')"
                 label="Purchase Price (In US Dollars)"
-                data-vv-name="purchasePrice"
-                required
+                value=''
               ></v-text-field>
 
               <v-flex xs12 sm6 md4>
                 <v-menu
                   ref="purchaseMenu"
                   v-model="purchaseMenu"
+                  value=''
                   :close-on-content-click="false"
                   :nudge-right="40"
                   :return-value.sync="purchaseDate"
@@ -93,81 +77,54 @@
                 label="Location"
                 value=""
                 hint="Location"
-                v-validate="'required'"
-                data-vv-name="location"
-                required
                 ></v-textarea>
               </v-flex>
 
               <v-text-field
                 v-model="city"
-                v-validate="'required|city'"
-                :error-messages="errors.collect('city')"
                 label="City"
-                data-vv-name="city"
-                required
+                value=''
               ></v-text-field>
 
 
               <v-text-field
               v-model="county"
-              v-validate="'required|county'"
-              :error-messages="errors.collect('county')"
               label="County"
-              data-vv-name="county"
-              required
+              value=''
               ></v-text-field>
 
-              <v-select
-              v-model="state"
-              v-validate="'required'"
-              :items="states"
-              :error-messages="errors.collect('state')"
-              label="State"
-              data-vv-name="state"
-              required
-              ></v-select>
+
 
               <v-select
               v-model="state"
-              v-validate="'required'"
               :items="states"
-              :error-messages="errors.collect('state')"
               label="State"
-              data-vv-name="state"
-              required
+              value=''
               ></v-select>
+
               <v-text-field
                 v-model="projectSize"
-                v-validate="'required|projectSize'"
-                :error-messages="errors.collect('projectSize')"
                 label="Project Size"
-                data-vv-name="projectSize"
-                required
+                value=''
               ></v-text-field>
 
               <v-text-field
                 v-model="sellingPrice"
-                v-validate="'required|sellingPrice'"
-                :error-messages="errors.collect('sellingPrice')"
+                value=''
                 label="Selling Price (In US Dollars)"
-                data-vv-name="sellingPrice"
-                required
               ></v-text-field>
 
               <v-select
                 v-model="status"
-                v-validate="'required'"
-                :items="status"
-                :error-messages="errors.collect('status')"
+                :items="statuses"
                 label="Status"
-                data-vv-name="status"
-                required
+                value=''
               ></v-select>
               <v-flex xs12 sm6 md4>
                 <v-menu
                   ref="soldMenu"
                   v-model="soldMenu"
+                  value=''
                   :close-on-content-click="false"
                   :nudge-right="40"
                   :return-value.sync="soldDate"
@@ -193,20 +150,14 @@
 
               <v-text-field
                 v-model="grossReturn"
-                v-validate="'required|grossReturn'"
-                :error-messages="errors.collect('grossReturn')"
                 label="Gross Return (In US Dollars)"
-                data-vv-name="grossReturn"
-                required
+                value=''
               ></v-text-field>
 
               <v-text-field
                 v-model="netInvestorReturn"
-                v-validate="'required|netInvestorReturn'"
-                :error-messages="errors.collect('netInvestorReturn')"
                 label="Net Investor Return (In US Dollars)"
-                data-vv-name="netInvestorReturn"
-                required
+                value=''
               ></v-text-field>
 
               <v-flex xs8>
@@ -215,9 +166,6 @@
                   label="Detailed Description"
                   value=""
                   hint="Detailed Description"
-                  v-validate="'required'"
-                  data-vv-name="detailedDescription"
-                  required
                 ></v-textarea>
               </v-flex>
 
@@ -227,26 +175,11 @@
                   label="Notes For Investors"
                   value=""
                   hint="Notes For Investors"
-                  v-validate="'required'"
-                  data-vv-name="notesForInvestors"
-                  required
                 ></v-textarea>
               </v-flex>
 
-              <v-checkbox
-                v-model="checkbox"
-                v-validate="'required'"
-                :error-messages="errors.collect('checkbox')"
-                value="1"
-                label="New Project Form Complete?"
-                data-vv-name="checkbox"
-                type="checkbox"
-                required
-              ></v-checkbox>
-
-            <v-btn color="success" type='submit'>Add Investment</v-btn>
+            <v-btn color="success" @click='submitInvestment'>Add Investment</v-btn>
             <v-btn color="warning" to="/adminInvestmentDashboard">Cancel</v-btn>
-          </form>
         </v-container>
       </v-flex>
     </v-card>
@@ -254,7 +187,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 
 export default {
@@ -263,7 +195,7 @@ export default {
   data (){
     return {
 
-        category: [
+        categories: [
           'Undeveloped Land',
           'Finished Lots',
           'Income Producing Property',
@@ -272,12 +204,14 @@ export default {
           'Improved Land',
           'Mixed Use',
         ],
-        grouping: [
+        groupings: [
           'Bridge Loan',
           'Land/Asset Purchase',
           'Other'
         ],
         name: '',
+        category: '',
+        grouping: '',
         briefDescription: '',
         select: null,
         purchasePrice: '',
@@ -340,10 +274,15 @@ export default {
           'Wisconsin',
           'Wyoming',
         ],
-        status: [
+        statuses: [
           'Current',
           'Sold',
         ],
+        state: '',
+        county: '',
+        city: '',
+        location: '',
+        status: '',
         projectSize: '',
         detailedDescription: '',
         notesForInvestors: '',
@@ -351,34 +290,14 @@ export default {
         soldMenu: false,
         soldModal: false,
         soldMenu2: false,
-        dictionary: {
-          attributes: {
-            // custom attributes
-          },
-          custom: {
-            name: {
-              required: () => 'Name can not be empty',
-              max: 'The name field may not be greater than 50 characters'
-              // custom messages
-            },
-            state: {
-              required: 'Select field is required'
-            },
-            Category: {
-              required: 'Select field is required'
-            }
-          }
-        }
+
     }
   },
 
-  mounted () {
-    this.$validator.localize('en', this.dictionary)
-  },
 
   methods: {
-    onSubmit() {
-       axios.post('http://localhost:8000/investments/addInvestment',{
+    submitInvestment() {
+       return this.$store.dispatch('addInvestment',{
         category: this.category,
         grouping: this.grouping,
         name: this.name,
@@ -397,13 +316,10 @@ export default {
         soldDate: this.soldDate,
         detailedDescription: this.detailedDescription,
         notesForInvestors:this.notesForInvestors
-        }).then( (response) => {
-      console.log(response);
-      this.$router.push('/adminInvestmentDashboard')
-    }).catch( (error) => {
-      console.log(error);
+      }).then(()=>{
+      this.$router.push('/adminInvestmentDashboard');
+      alert("Your Investment Has been added");
     })
-
     }
   }
 

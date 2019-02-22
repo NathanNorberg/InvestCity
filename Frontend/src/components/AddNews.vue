@@ -4,8 +4,8 @@
       <h1>Create News</h1>
     </v-container>
     <v-card>
+      <v-flex>
         <v-container>
-          <form @submit="onSubmit">
             <v-text-field
               v-model="newsTitle"
               label='Title'
@@ -23,10 +23,10 @@
               ></v-textarea>
             </v-flex>
 
-            <v-btn color="success" type='submit' >Add News</v-btn>
+            <v-btn color="success" @click='submitNews' >Add News</v-btn>
             <v-btn color="warning" to="/manageNews">Cancel</v-btn>
-          </form>
         </v-container>
+      </v-flex>
     </v-card>
   </v-container>
 </template>
@@ -46,12 +46,12 @@ export default {
 
 
   methods: {
-    onSubmit() {
+    submitNews() {
        return this.$store.dispatch('addAdminNews',{
         newsTitle: this.newsTitle,
         newsBody: this.newsBody,
         }).then(()=>{
-        this.$Router.push('/manageNews');
+        this.$router.push('/manageNews');
         alert("Your News Has been added");
       })
     }

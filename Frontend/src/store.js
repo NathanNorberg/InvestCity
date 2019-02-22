@@ -15,30 +15,37 @@ export const store = new Vuex.Store({
         investmentNotes: [],
         investmentInvestors: [],
         investors: [],
-        investor: [],
         investments: [],
         filteredSearch: "",
         isLoggedIn: localStorage.getItem('token') || false
     },
     getters: {
+      getLoggedIn: state => state.isLoggedIn,
+
         getAdminByAdminId: (state) => (admin_id) => {
             return state.admin.filter(admin => admin.id == admin_id)[0];
         },
         getAdminMinorByAdminMinorId: (state) => (adminMinor_id) => {
             return state.adminMinor.filter(adminMinor => adminMinor.id == adminMinor_id)[0];
         },
+
         getInvestorsByInvestorId: (state) => (investor_id) => {
             return state.investors.filter(investor => investor.id == investor_id)[0];
         },
-
-        getInvestmentByInvestmentId: (state) => (investment_id) => {
-            return state.investments.filter(investment => investment.id == investment_id)[0];
+        addInvestors: (state) => (investor_id) => {
+          return state.investors.filter(investor => investor.id == investor_id)
         },
+
+        getInvestmentByInvestmentId: (state) => (investments_id) => {
+            return state.investments.filter(investments => investments.id == investments_id)[0];
+        },
+        addInvestment: (state) => (investment_id) => {
+          return state.investments.filter(investment => investment.id == investment_id)
+        },
+
         getAdminNewsByAdminNewsId: (state) => (adminNews_id) => {
-            return state.adminNews.filter(adminNews => adminNews.id == adminNews_id);
+          return state.adminNews.filter(adminNews => adminNews.id == adminNews_id);
         },
-        getLoggedIn: state => state.isLoggedIn,
-
         addAdminNews: (state) => (adminNew_id) => {
           return state.adminNews.filter(adminNew => adminNew.id == adminNew_id)
         }
@@ -47,8 +54,8 @@ export const store = new Vuex.Store({
 
     actions: {
         getInvestors(context) {
-            console.log('asdfasdfasdf')
-            return axios.get('http:getAllInvestorEntities//localhost:8000/investors').then((results) => {
+            console.log('Getting Investors')
+            return axios.get('http://localhost:8000/investors').then((results) => {
                 context.commit('getInvestors', results.data)
             })
           },
@@ -99,25 +106,43 @@ export const store = new Vuex.Store({
           return axios.post('http://localhost:8000/adminNews/addAdminNews', payload).then((results) => {
             context.commit('addAdminNews', results.data)
           })
-        }
+        },
+
+        addInvestors(context, payload){
+          return axios.post('http://localhost:8000/investors/addInvestors', payload).then((results) => {
+            context.commit('addInvestors', results.data)
+          })
+        },
+        addInvestment(context, payload){
+          return axios.post('http://localhost:8000/investments/addInvestment', payload).then((results) => {
+            context.commit('addInvestment', results.data)
+          })
+        },
     },
     mutations: {
-        getAllInvestors(state, investors){
-            state.investors = investors;
-        },
+
         getAllAdminSuper(state, adminSuper){
             state.adminSuper = adminSuper;
         },
         getAllAdminMinors(state, adminMinor){
             state.adminMinor = adminMinor;
         },
-        getAllInvestments(state, investments){
+        getInvestments(state, investments){
             state.investments = investments;
+        },
+        getInvestors(state, investors){
+            state.investors = investors;
+        },
+        addInvestment(state, investment){
+            state.investments = [...state.investments, investment];
         },
         addAdminNews(state, adminNew){
             state.adminNews = [...state.adminNews, adminNew];
         },
-        getAllinvestmentInvestors(state, investmentInvestors){
+        addInvestors(state, investor){
+            state.investors = [...state.investors, investor];
+        },
+        getAllInvestmentInvestors(state, investmentInvestors){
             state.investmentInvestors = investmentInvestors;
         },
         getAllInvestorInvestmentNotes(state, investmentNotes){

@@ -17,16 +17,18 @@
       </v-card-title>
       <v-data-table
         :headers="headers"
-        :items="desserts"
+        :items="investors"
         :search="search"
       >
         <template slot="items" slot-scope="props">
-          <td><router-link :to="`/investorDetails/${investor.id}`">{{ investor.name }}</router-link></td>
-          <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.email }}</router-link></td>
-          <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.entity }}</router-link></td>
-          <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.city }}</router-link></td>
-          <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.state }}</router-link></td>
-          <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.status }}</router-link></td>
+          <div v-for="investor in investors" :key="`${investor.id}`">
+            <td><router-link :to="`/investorDetails/${investor.id}`">{{ investor.name }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.email }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.entity }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.city }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.state }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.status }}</router-link></td>
+          </div>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.
@@ -49,14 +51,15 @@ export default {
           { text: 'City', value: 'city' },
           { text: 'Status', value: 'status' }
         ],
-        created () {
-          this.$store.dispatch('getAllInvestors')
-        },
-        computed: {
-          investors(){
-            return this.$store.state.investors;
-          }
-        }
+
+      }
+    },
+    created () {
+      this.$store.dispatch('getInvestors')
+    },
+    computed: {
+      investors(){
+        return this.$store.state.investors;
       }
     }
   }

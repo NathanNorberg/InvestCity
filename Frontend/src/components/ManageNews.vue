@@ -13,11 +13,11 @@
       <v-flex  offset-xs1 xs10>
         <v-card>
           <v-card-text  class="px-0">
-            <v-container v-for="news in adminNews"  :key="`${news.id}`">
-              <p class="text-xs-left"><h3>Title:{{ news.title }}</h3>
+            <v-container v-for="adminNew in adminNews"  :key="`${adminNew.id}`">
+              <p class="text-xs-left"><h3>Title:{{ adminNew.title }}</h3>
               <p class="text-xs-left"><p><i>(date)</i></p>
-              <p class="text-xs-left"><p>Blah{{ news.body }}</p>
-              <router-link :to="`/editNews/${news.id}`"><v-btn color="teal lighten-1">Edit News</v-btn></router-link>
+              <p class="text-xs-left"><p>Blah{{ adminNew.body }}</p>
+              <router-link :to="`/editNews/${adminNew.id}`"><v-btn color="teal lighten-1">Edit News</v-btn></router-link>
             </v-container>
           </v-card-text>
         </v-card>
@@ -34,7 +34,7 @@ export default {
       }
     },
     created() {
-      this.$store.dispatch('getAdminNewsByAdminNewsId')
+      this.$store.dispatch('getAdminNews')
     },
 
 }

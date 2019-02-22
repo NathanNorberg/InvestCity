@@ -6,51 +6,34 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form @submit="onSubmit">
             <v-text-field
             v-model="name"
-            v-validate="'required|max:50'"
-            :counter="50"
-            :error-messages="errors.collect('name')"
             label="Investor Name"
-            data-vv-name="name"
-            required
+            value=""
             ></v-text-field>
 
             <v-text-field
               v-model="entityName"
-              v-validate="'required'"
-              :error-messages="errors.collect('entityName')"
               label="Entity Name"
-              data-vv-name="entityName"
-              required
+              value=""
             ></v-text-field>
 
             <v-text-field
               v-model="emailAndLogin"
-              v-validate="'required|emailAndLogin'"
-              :error-messages="errors.collect('emailAndLogin')"
               label="Email / Login"
-              data-vv-name="emailAndLogin"
-              required
+              value=""
             ></v-text-field>
 
             <v-text-field
               v-model="password"
-              v-validate="'required|password'"
-              :error-messages="errors.collect('password')"
               label="Password"
-              data-vv-name="password"
-              required
+              value=""
             ></v-text-field>
 
             <v-text-field
               v-model="confirmPassword"
-              v-validate="'required|confirmPassword'"
-              :error-messages="errors.collect('confirmPassword')"
               label="Confirm Password"
-              data-vv-name="confirmPassword"
-              required
+              value=""
             ></v-text-field>
 
             <v-flex xs8>
@@ -59,57 +42,39 @@
               label="Address"
               value=""
               hint="Address"
-              v-validate="'required'"
-              data-vv-name="address"
-              required
               ></v-textarea>
             </v-flex>
 
               <v-text-field
                 v-model="city"
-                v-validate="'required|city'"
-                :error-messages="errors.collect('city')"
                 label="City"
-                data-vv-name="city"
-                required
+                value=""
               ></v-text-field>
 
               <v-select
               v-model="state"
-              v-validate="'required'"
               :items="states"
-              :error-messages="errors.collect('state')"
               label="State"
-              data-vv-name="state"
-              required
+              value=""
               ></v-select>
 
               <v-text-field
                 v-model="contactNumber"
-                v-validate="'required|contactNumber'"
-                :error-messages="errors.collect('contactNumber')"
                 label="Contact Number"
-                data-vv-name="contactNumber"
-                required
+                value=""
               ></v-text-field>
 
               <v-text-field
                 v-model="mobileNumber"
-                v-validate="'required|mobileNumber'"
-                :error-messages="errors.collect('mobileNumber')"
                 label="Mobile Number"
-                data-vv-name="mobileNumber"
-                required
+                value=""
               ></v-text-field>
 
               <v-select
-              v-model="states"
-              v-validate="'required'"
-              :items="status"
-              :error-messages="errors.collect('state')"
+              v-model="status"
+              :items="investorStatus"
               label="Status"
-              data-vv-name="state"
-              required
+              value=""
               ></v-select>
 
               <v-flex xs8>
@@ -118,16 +83,12 @@
                   label="Investor Notes (Internal Use Only):"
                   value=""
                   hint="Investor Notes (Internal Use Only):"
-                  v-validate="'required'"
-                  data-vv-name="notesForInvestors"
-                  required
                 ></v-textarea>
               </v-flex>
 
 
-            <v-btn color="success" type='submit'>Submit</v-btn>
+            <v-btn color="success" @click='submitInvestor'>Submit</v-btn>
             <v-btn color="warning" to="/adminInvestorDashboard">Cancel</v-btn>
-          </form>
         </v-container>
       </v-flex>
     </v-card>
@@ -136,22 +97,20 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
 
 
 data () {
   return {
-        name: '',
-        entityName: '',
-        emailAndLogin: '',
-        confirmPassword: '',
-        password: '',
-        address: '',
-        city: '',
-        contactNumber: '',
-        mobileNumber: '',
+        name: "",
+        entityName: "",
+        emailAndLogin: "",
+        password: "",
+        confirmPassword: "",
+        address: "",
+        city: "",
+        contactNumber: "",
+        mobileNumber: "",
         states: [
           'Alabama',
           'Alaska',
@@ -204,40 +163,21 @@ data () {
           'Wisconsin',
           'Wyoming',
         ],
-        status: [
+        state: "",
+        investorStatus: [
           'Active',
           'Inactive',
         ],
-        notesForInvestors: '',
-        dictionary: {
-          attributes: {
-            // custom attributes
-          },
-          custom: {
-            name: {
-              required: () => 'Name can not be empty',
-              max: 'The name field may not be greater than 50 characters'
-              // custom messages
-            },
-            state: {
-              required: 'Select field is required'
-            },
-            Category: {
-              required: 'Select field is required'
-            }
-          }
-        }
-    }
+        status: "",
+        notesForInvestors: ""
+      }
   },
 
-  mounted () {
-    this.$validator.localize('en', this.dictionary)
-  },
 
   methods: {
 
-    onSubmit() {
-       axios.post('http://localhost:8000/adminNews/addAdminNews',{
+    submitInvestor() {
+       return this.$store.dispatch('addInvestors',{
         name: this.name,
         entityName: this.entityName,
         emailAndLogin: this.emailAndLogin,
@@ -245,22 +185,20 @@ data () {
         confirmPassword: this.confirmPassword,
         address: this.address,
         city: this.city,
-        states: this.states,
+        state: this.state,
         contactNumber: this.contactNumber,
         mobileNumber: this.mobileNumber,
         status: this.status,
         notesForInvestors: this.notesForInvestors,
-        }).then( (response) => {
-          console.log(response);
-          this.$router.push('/adminInvestorDashboard')
-        }).catch( (error) => {
-          console.log(error);
+        }).then(()=>{
+          this.$router.push('/adminInvestorDashboard');
+          alert("Your Investor Has been added");
         })
       }
+    }
 
 
   }
-}
 </script>
 
 <style scoped>
