@@ -21,14 +21,14 @@
         :search="search"
       >
         <template slot="items" slot-scope="props">
-          <div v-for="investor in investors" :key="`${investor.id}`">
+          <tr v-for="investor in investors" :key="`${investor.id}`">
             <td><router-link :to="`/investorDetails/${investor.id}`">{{ investor.name }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.email }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.entity }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.emailAndLogin }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`"><p v-for="ent in entities" :key="`${investor.id}`">{{ ent.name }}</p></router-link></td>
             <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.city }}</router-link></td>
             <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.state }}</router-link></td>
             <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.status }}</router-link></td>
-          </div>
+          </tr>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.
@@ -56,11 +56,15 @@ export default {
     },
     created () {
       this.$store.dispatch('getInvestors')
+      this.$store.dispatch('getInvestorEntities')
     },
     computed: {
       investors(){
         return this.$store.state.investors;
-      }
+      },
+      entities(){
+        return this.$store.getters.getEntitiesByInvestorId(this.$route.params.id);
+      },
     }
   }
   </script>

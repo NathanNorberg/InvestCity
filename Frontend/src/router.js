@@ -27,6 +27,7 @@ import InvestmentDetailsScreen from './views/InvestmentDetailsScreen.vue'
 import EditInvestmentDetailsScreen from './views/EditInvestmentDetailsScreen.vue'
   /* Add, View, Edit Investors */
 import AddInvestorScreen from './views/AddInvestorScreen.vue'
+import AddInvestorEntityScreen from './views/AddInvestorEntityScreen.vue'
 import AdminInvestorDashboardScreen from './views/AdminInvestorDashboardScreen.vue'
 import InvestorDetailsScreen from './views/InvestorDetailsScreen.vue'
 import EditInvestorDetailsScreen from './views/EditInvestorDetailsScreen.vue'
@@ -64,6 +65,7 @@ export default new Router({
     { path: '/editInvestmentDetails/:id', name: 'EditInvestmentDetailsScreen', component: EditInvestmentDetailsScreen },
       /* Add, View, Edit Investors */
     { path: '/addInvestor', name: 'AddInvestorScreen', component: AddInvestorScreen },
+    { path: '/addInvestorEntity/:id', name: 'AddInvestorEntityScreen', component: AddInvestorEntityScreen },
     { path: '/adminInvestorDashboard', name: 'AdminInvestorDashboardScreen', component: AdminInvestorDashboardScreen },
     { path: '/investorDetails/:id', name: 'InvestorDetailsScreen', component: InvestorDetailsScreen },
     { path: '/editInvestorDetails/:id', name: 'EditInvestorDetailsScreen', component: EditInvestorDetailsScreen },

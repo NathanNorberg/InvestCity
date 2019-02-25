@@ -20,17 +20,17 @@
         :items="investments"
         :search="search"
       >
-      <div v-for="investment in investments" :key="`${investment.id}`">
         <template  slot="items" slot-scope="props">
-          <td><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.name }}</router-link></td>
-          <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.category }}</router-link></td>
-          <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.grouping }}</router-link></td>
-          <td class="text-xs-left">{{ investment.acquisitionDate }}</td>
-          <td class="text-xs-left">{{ investment.status }}</td>
-          <td class="text-xs-left">{{ investment.soldDate }}</td>
-          <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.docs }}</router-link></td>
+          <tr v-for="investment in investments" :key="`${investment.id}`">
+            <td><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.name }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.category }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.grouping }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.purchaseDate }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.status }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.soldDate }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.docs }}</router-link></td>
+          </tr>
         </template>
-      </div>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.
         </v-alert>
@@ -55,14 +55,14 @@ export default {
         ]
       }
     },
-      created () {
-        this.$store.dispatch('getAllInvestments')
-      },
-      computed: {
-        investments(){
-          return this.$store.state.investments;
-        }
+    created () {
+      this.$store.dispatch('getInvestments')
+    },
+    computed: {
+      investments(){
+        return this.$store.state.investments;
       }
+    }
   }
 </script>
 

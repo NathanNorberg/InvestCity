@@ -8,6 +8,9 @@ Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 
+Vue.filter('snippet', function(value){
+  return value.slice(0,10);
+});
 
 new Vue({
   router: Router,

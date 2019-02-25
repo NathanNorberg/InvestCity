@@ -10,14 +10,14 @@
           <v-card-text  class="px-0"><h1>CNI News</h1></v-card-text>
         </v-card>
       </v-flex>
-      <v-flex  offset-xs1 xs10>
+      <v-flex v-for="adminNew in adminNews"  :key="`${adminNew.id}`"  offset-xs1 xs10>
         <v-card>
           <v-card-text  class="px-0">
-            <v-container v-for="adminNew in adminNews"  :key="`${adminNew.id}`">
-              <p class="text-xs-left"><h3>Title:{{ adminNew.title }}</h3>
-              <p class="text-xs-left"><p><i>(date)</i></p>
-              <p class="text-xs-left"><p>Blah{{ adminNew.body }}</p>
-              <router-link :to="`/editNews/${adminNew.id}`"><v-btn color="teal lighten-1">Edit News</v-btn></router-link>
+            <v-container >
+              <p class="text-xs-left"><h3>Title: {{ adminNew.newsTitle }}</h3>
+              <p class="text-xs-left"><p><i>Date: {{ adminNew.created_at | snippet }}</i></p>
+              <p class="text-xs-left"><p>{{ adminNew.newsBody }}</p>
+              <v-btn :to="`/editNews/${adminNew.id}`" color="teal lighten-1">Edit News</v-btn>
             </v-container>
           </v-card-text>
         </v-card>
@@ -33,10 +33,14 @@ export default {
       return{
       }
     },
-    created() {
+    created () {
       this.$store.dispatch('getAdminNews')
     },
-
+    computed: {
+      adminNews(){
+        return this.$store.state.adminNews;
+      }
+    }
 }
 
 </script>
