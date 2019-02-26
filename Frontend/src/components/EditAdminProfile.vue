@@ -129,7 +129,7 @@ export default {
  methods: {
    updateProfile(e) {
      e.preventDefault()
-     return this.$store.dispatch('editAdminNews',{
+     return this.$store.dispatch('editAdminProfile',{
        id: this.$route.params.id,
        name: this.adminSupers.name,
        emailAndLogin: this.adminSupers.emailAndLogin,

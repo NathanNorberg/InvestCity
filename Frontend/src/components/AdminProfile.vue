@@ -8,17 +8,10 @@
 
       <v-flex text-xs-center xs12>
         <v-card dark color="primary">
-          <v-card-text  class="px-0">Admin Profile</v-card-text>
+          <v-card-text  class="px-0">{{ adminSuper.name }}'s Profile</v-card-text>
         </v-card>
       </v-flex>
 
-      <v-layout row wrap>
-        <v-flex xs12>
-          <v-card dark color="primary">
-            <v-card-text class="px-0">{{ adminSuper.name }}</v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
 
       <v-container fluid grid-list-md>
         <v-layout row wrap>

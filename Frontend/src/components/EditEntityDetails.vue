@@ -178,9 +178,6 @@ export default {
     }
   },
 
-  methods: {
-
-  }
 
 }
 </script>

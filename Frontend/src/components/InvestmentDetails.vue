@@ -65,10 +65,10 @@
           <v-card>
             <v-card-text class="px-0">
               <v-container>
-                <p class="text-xs-left"><strong>Investor Name: {{ investmentInvestor.investor }}</strong></p>
-                <p class="text-xs-left"><strong>Entity Name: {{ investmentInvestor.investorEntity }}</strong></p>
-                <p class="text-xs-left"><strong>Amount Invested: ${{ investmentInvestor.capitalInvested }}</strong></p>
-                <v-btn color="error" @click="deleteInvestmentInvestor" >Remove Investor</v-btn>
+                <p class="text-xs-left"><strong>Investor Name:</strong> {{ getInvestor(investmentInvestor.investor_id).name }}</p>
+                <p class="text-xs-left"><strong>Entity Name:</strong> {{ getEntity(investmentInvestor.investorEntity_id).name }}</p>
+                <p class="text-xs-left"><strong>Amount Invested:</strong> ${{ investmentInvestor.capitalInvested }}</p>
+                <v-btn color="error" @click="deleteInvestmentInvestor(investmentInvestor.id)" >Remove Investor</v-btn>
               </v-container>
             </v-card-text>
           </v-card>
@@ -150,11 +150,16 @@ export default {
         alert("Your Investor Has been added");
       })
     },
+    getInvestor(id){
+      return this.$store.getters.getInvestorsByInvestorId(id)
+    },
+    getEntity(id){
+      return this.$store.getters.getEntitiesByEntityId(id)
+    },
 
-    deleteInvestmentInvestor (e) {
-      e.preventDefault()
+    deleteInvestmentInvestor (id) {
       return this.$store.dispatch('deleteInvestmentInvestor', {
-        id: this.$route.params.id //Change to be the id of the investmentInvestor
+        id: id //Change to be the id of the investmentInvestor
       }).then(() =>{
         alert("Your Investor Has Been Deleted");
         this.$router.push('/investmentDetails/'+this.$route.params.id);

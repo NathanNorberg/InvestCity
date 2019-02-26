@@ -231,6 +231,7 @@ export const store = new Vuex.Store({
         },
 
         addInvestmentInvestor(context, payload){
+          console.log(payload);
           return axios.post('http://localhost:8000/investmentInvestors/addInvestmentInvestor', payload).then((results) => {
             context.commit('addInvestmentInvestor', results.data)
           })
@@ -249,18 +250,25 @@ export const store = new Vuex.Store({
           })
         },
 
+        editAdminProfile(context, payload){
+          console.log(payload)
+          return axios.patch('http://localhost:8000/adminSuper/editAdminSuper/'+payload.id, payload).then((results) => {
+            context.commit('EditAdminProfile', results.data)
+          })
+        },
+
     },
     mutations: {
 
-        getAdminSupers(state, adminSuper){
+        getAdminSupers(state, adminSupers){
             state.adminSupers = adminSupers;
         },
-        editAdminSuper(state, investment){
+        editAdminProfile(state, adminSuper){
             state.adminSupers = [...state.adminSupers, adminSuper];
         },
 
         getAllAdminMinors(state, adminMinor){
-            state.adminMinors = adminMinors;
+            state.adminMinor = adminMinor;
         },
         getEntities(state, entities){
           state.entities = entities;
