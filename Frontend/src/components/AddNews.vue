@@ -47,12 +47,12 @@ export default {
 
   methods: {
     submitNews() {
-       return this.$store.dispatch('addAdminNews',{
+       return this.$store.dispatch('addAdminNews', {
         newsTitle: this.newsTitle,
         newsBody: this.newsBody,
         }).then(()=>{
-        this.$router.push('/manageNews');
-        alert("Your News Has been added");
+          this.$router.push('/manageNews');
+          alert("Your News Has been added");
       })
     }
   }

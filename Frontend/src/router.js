@@ -31,6 +31,10 @@ import AddInvestorEntityScreen from './views/AddInvestorEntityScreen.vue'
 import AdminInvestorDashboardScreen from './views/AdminInvestorDashboardScreen.vue'
 import InvestorDetailsScreen from './views/InvestorDetailsScreen.vue'
 import EditInvestorDetailsScreen from './views/EditInvestorDetailsScreen.vue'
+/* View, Edit Investor Entity */
+import EntityDetailsScreen from './views/EntityDetailsScreen.vue'
+import EditEntityDetailsScreen from './views/EditEntityDetailsScreen.vue'
+
 
 Vue.use(Router)
 
@@ -51,7 +55,7 @@ export default new Router({
     { path: '/investorReport', name: 'InvestorReportScreen', component: InvestorReportScreen },
     /* Admin Routes */
     { path: '/adminLogin', name: 'AdminLoginScreen', component: AdminLoginScreen },
-    { path: '/adminProfile', name: 'AdminProfileScreen', component: AdminProfileScreen },
+    { path: '/adminProfile/:id', name: 'AdminProfileScreen', component: AdminProfileScreen },
     { path: '/editAdminProfile/:id', name: 'EditAdminProfileScreen', component: EditAdminProfileScreen },
     { path: '/adminDashboard', name: 'AdminDashboardScreen', component: AdminDashboardScreen },
     { path: '/addNews', name: 'AddNewsScreen', component: AddNewsScreen },
@@ -69,6 +73,10 @@ export default new Router({
     { path: '/adminInvestorDashboard', name: 'AdminInvestorDashboardScreen', component: AdminInvestorDashboardScreen },
     { path: '/investorDetails/:id', name: 'InvestorDetailsScreen', component: InvestorDetailsScreen },
     { path: '/editInvestorDetails/:id', name: 'EditInvestorDetailsScreen', component: EditInvestorDetailsScreen },
+      /* View, Edit Investors */
+    { path: '/entityDetails/:id', name: 'EntityDetailsScreen', component: EntityDetailsScreen },
+    { path: '/editEntityDetails/:id', name: 'EditEntityDetailsScreen', component: EditEntityDetailsScreen },
+
 
   ]
 })

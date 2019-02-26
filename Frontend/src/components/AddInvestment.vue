@@ -213,7 +213,6 @@ export default {
         category: '',
         grouping: '',
         briefDescription: '',
-        select: null,
         purchasePrice: '',
         sellingPrice: '',
         grossReturn: '',

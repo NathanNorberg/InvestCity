@@ -6,14 +6,15 @@
     <v-card>
       <v-flex>
         <v-container>
+          <form >
             <v-text-field
-            v-model="adminNews.newsTitle"
+            v-model="investorInvestments.newsTitle"
             label="News Title"
             ></v-text-field>
 
             <v-flex xs8>
               <v-textarea
-                v-model="adminNews.newsBody"
+                v-model="investorInvestments.newsBody"
                 label="Body"
                 hint="Body"
                 value=''
@@ -21,11 +22,12 @@
             </v-flex>
 
 
-            <v-btn color="success" @click="updateNews">Update</v-btn>
+            <v-btn color="success" @click="updateInvestmentInvestor">Update Investor</v-btn>
             <v-btn color="warning" to="/manageNews">Cancel</v-btn>
             <v-container text-xs-right>
-              <v-btn color="error" @click="deleteNews" >Delete News</v-btn>
+              <v-btn color="error" @click="deleteInvestmentInvestor" >Delete Investor</v-btn>
             </v-container>
+          </form>
         </v-container>
       </v-flex>
     </v-card>
@@ -49,7 +51,7 @@ export default {
   },
 
   methods: {
-    updateNews(e) {
+    updateInvestmentInvestor(e) {
       e.preventDefault()
       return this.$store.dispatch('editAdminNews',{
         id: this.$route.params.id,
@@ -60,7 +62,7 @@ export default {
           this.$router.push('/manageNews');
       })
     },
-    deleteNews (e) {
+    deleteInvestmentInvestor (e) {
       e.preventDefault()
       return this.$store.dispatch('deleteAdminNews', {
         id: this.$route.params.id
@@ -71,8 +73,8 @@ export default {
   }
 },
   computed: {
-    adminNews(){
-      return this.$store.state.adminNews.length ? this.$store.state.adminNews.filter(news => news.id == this.$route.params.id)[0] : {};
+    investmentInvestors(){
+      return this.$store.state.investmentInvestors.length ? this.$store.state.investmentInvestors.filter(investInvestor => investInvestor.id == this.$route.params.id)[0] : {};
     }
   },
 

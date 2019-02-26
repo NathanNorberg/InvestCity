@@ -6,131 +6,72 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form>
             <v-text-field
             v-model="investors.name"
-            v-validate="'required|max:50'"
-            :counter="50"
-            :error-messages="errors.collect('name')"
             label="Investor Name"
-            data-vv-name="name"
-            required
-            ></v-text-field>
-            <v-text-field
-              v-model="investors.entityName"
-              v-validate="'required'"
-              :error-messages="errors.collect('entityName')"
-              label="Entity Name"
-              data-vv-name="entityName"
-              required
+            value=''
             ></v-text-field>
             <v-text-field
               v-model="investors.emailAndLogin"
-              v-validate="'required|emailAndLogin'"
-              :error-messages="errors.collect('emailAndLogin')"
               label="Email / Login"
-              data-vv-name="emailAndLogin"
-              required
+              value=''
             ></v-text-field>
             <v-text-field
               v-model="investors.password"
-              v-validate="'required|password'"
-              :error-messages="errors.collect('password')"
               label="Password"
-              data-vv-name="password"
-              required
+              value=''
             ></v-text-field>
             <v-text-field
               v-model="investors.confirmPassword"
-              v-validate="'required|confirmPassword'"
-              :error-messages="errors.collect('confirmPassword')"
               label="Confirm Password"
-              data-vv-name="confirmPassword"
-              required
+              value=''
             ></v-text-field>
+            <v-flex xs8>
+              <v-textarea
+              v-model="investors.address"
+              label="Address"
+              hint="Address"
+              value=''
+              ></v-textarea>
+              <v-text-field
+              v-model="investors.city"
+              label="City"
+              value=''
+              ></v-text-field>
             <v-select
               v-model="investors.state"
-              v-validate="'required'"
-              :items="investors.states"
-              :error-messages="errors.collect('state')"
+              :items="states"
               label="State"
-              data-vv-name="state"
-              required
+              value=''
               ></v-select>
-              <v-text-field
-                v-model="investors.county"
-                v-validate="'required|county'"
-                :error-messages="errors.collect('county')"
-                label="County"
-                data-vv-name="county"
-                required
-              ></v-text-field>
-              <v-text-field
-                v-model="investors.city"
-                v-validate="'required|city'"
-                :error-messages="errors.collect('city')"
-                label="City"
-                data-vv-name="city"
-                required
-              ></v-text-field>
-              <v-flex xs8>
-                <v-textarea
-                  v-model="investors.address"
-                  label="Address"
-                  value=""
-                  hint="Address"
-                  v-validate="'required'"
-                  data-vv-name="address"
-                  required
-                ></v-textarea>
               </v-flex>
               <v-text-field
                 v-model="investors.contactNumber"
-                v-validate="'required|contactNumber'"
-                :error-messages="errors.collect('contactNumber')"
                 label="Contact Number"
-                data-vv-name="contactNumber"
-                required
+                value=''
               ></v-text-field>
 
               <v-text-field
                 v-model="investors.mobileNumber"
-                v-validate="'required|mobileNumber'"
-                :error-messages="errors.collect('mobileNumber')"
                 label="Mobile Number"
-                data-vv-name="mobileNumber"
-                required
+                value=''
               ></v-text-field>
 
               <v-flex xs8>
                 <v-textarea
                   v-model="investors.notesForInvestors"
                   label="Investor Notes (Internal Use Only):"
-                  value=""
                   hint="Investor Notes (Internal Use Only):"
-                  v-validate="'required'"
-                  data-vv-name="notesForInvestors"
-                  required
+                  value=''
                 ></v-textarea>
               </v-flex>
 
-              <v-checkbox
-                v-model="investors.checkbox"
-                v-validate="'required'"
-                :error-messages="errors.collect('checkbox')"
-                value="1"
-                label="Investor Update Complete?"
-                data-vv-name="checkbox"
-                type="checkbox"
-                required
-              ></v-checkbox>
 
             <v-btn color="success" @click="updateInvestor">Update</v-btn>
-            <v-btn color="warning" to="/investorDetails/1">Cancel</v-btn>
+            <v-btn color="warning" :to="`/investorDetails/${investors.id}`" >Cancel</v-btn>
             <v-container text-xs-right>
-              <v-btn @click="deleteInvestor" >Delete Investor</v-btn>
+              <v-btn color='error' @click="deleteThisInvestor" >Delete Investor</v-btn>
             </v-container>
-          </form>
         </v-container>
       </v-flex>
     </v-card>
@@ -138,22 +79,13 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VeeValidate from 'vee-validate'
-
-Vue.use(VeeValidate)
 
 export default {
-  $_veeValidate: {
-    validator: 'new'
-  },
 
   data(){
     return{
-      investors:{
         name: '',
         select: null,
-        entityName: '',
         emailAndLogin: '',
         password: '',
         confirmPassword: '',
@@ -209,7 +141,6 @@ export default {
           'Wisconsin',
           'Wyoming',
         ],
-        county: '',
         city: '',
         address: '',
         contactNumber: '',
@@ -219,61 +150,52 @@ export default {
           'Inactive',
         ],
         notesForInvestors: '',
-        checkbox: null,
-        dictionary: {
-          attributes: {
-            // custom attributes
-          },
-          custom: {
-            name: {
-              required: () => 'Name can not be empty',
-              max: 'The name field may not be greater than 50 characters'
-              // custom messages
-            },
-            state: {
-              required: 'Select field is required'
-            },
-            Category: {
-              required: 'Select field is required'
-            }
-          }
-        }
-      }
     }
   },
 
-  mounted () {
-    this.$validator.localize('en', this.dictionary)
+  created(){
+    this.$store.dispatch('getInvestors')
   },
 
   methods: {
-    updateInvestor: function(){
-      this.$validator.validateAll()
-      this.$http.patch('http://jsonplaceholder.typicode.com/posts/1',{
+    updateInvestor(e) {
+      e.preventDefault()
+      return this.$store.dispatch('editInvestor',{
+        id: this.$route.params.id,
         name: this.investors.name,
         entityName: this.investors.entityName,
         emailAndLogin: this.investors.emailAndLogin,
         password: this.investors.password,
         confirmPassword: this.investors.confirmPassword,
         states: this.investors.states,
-        county: this.investors.county,
         city: this.investors.city,
         contactNumber: this.investors.contactNumber,
         mobileNumber: this.investors.mobileNumber,
         status: this.investors.status,
         notesForInvestors: this.investors.notesForInvestors,
-      }).then(function(data){
-        console.log(data)
-      })
-    },
+      }).then(()=>{
+        alert("Your Investor Has Been Updated");
+        this.$router.push('/investorDetails/'+this.$route.params.id);
+    })
+  },
 
-    deleteInvestor () {
-
-      console.log('Delete Has been fired')
-
-    }
-
+    deleteThisInvestor (e) {
+      e.preventDefault()
+      return this.$store.dispatch('deleteInvestor', {
+        id: this.$route.params.id
+      }).then(() =>{
+        alert("Your Investor Has Been Deleted");
+        this.$router.push('/adminInvestorDashboard');
+    })
   }
+
+  },
+
+  computed: {
+    investors(){
+      return this.$store.state.investors.length ? this.$store.state.investors.filter(investor => investor.id == this.$route.params.id)[0] : {};
+    }
+  },
 }
 </script>
 

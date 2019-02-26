@@ -54,20 +54,21 @@
         </v-card>
       </v-flex>
       <v-container fluid grid-list-md>
-        <v-layout row wrap>
+        <v-layout v-for="investmentInvestor in investmentInvestors"  :key="`${investmentInvestor.id}`" row wrap>
         <v-flex d-flex xs1>
           <v-card dark color="secondary">
             <v-card-text class="px-0">
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex d-flex xs11>
+        <v-flex  d-flex xs11>
           <v-card>
             <v-card-text class="px-0">
               <v-container>
-                <p class="text-xs-left"><strong>Investor Name:</strong></p>
-                <p class="text-xs-left"><strong>Entity Name:</strong></p>
-                <p class="text-xs-left"><strong>Amount Invested: $</strong></p>
+                <p class="text-xs-left"><strong>Investor Name: {{ investmentInvestor.investor }}</strong></p>
+                <p class="text-xs-left"><strong>Entity Name: {{ investmentInvestor.investorEntity }}</strong></p>
+                <p class="text-xs-left"><strong>Amount Invested: ${{ investmentInvestor.capitalInvested }}</strong></p>
+                <v-btn color="error" @click="deleteInvestmentInvestor" >Remove Investor</v-btn>
               </v-container>
             </v-card-text>
           </v-card>
@@ -77,13 +78,29 @@
   </v-container>
   <v-container>
     <v-flex xs12 sm4 d-flex>
-      <v-select label="Investor" v-model="investor" value='' outline :items="intestors"></v-select>
+      <v-select
+        label="Investor"
+        v-model="investor"
+        value=''
+        outline
+        :items="investors">
+      </v-select>
     </v-flex>
     <v-flex xs12 sm4 d-flex>
-      <v-select label="Investor Entity" value='' v-model="investorEntity" outline :items="intestors"></v-select>
+      <v-select
+        label="Investor Entity"
+        value=''
+        v-model="investorEntity"
+        outline
+        :items="getEntities(investor)">
+      </v-select>
     </v-flex>
     <v-flex xs12 sm4 d-flex>
-      <v-text-field v-model="investmentAmount" label="Amount Invested" value=''></v-text-field>
+      <v-text-field
+        v-model="capitalInvested"
+        label="Amount Invested"
+        value=''>
+      </v-text-field>
     </v-flex>
     <v-btn color="success" @click='submitInvestor'>Add Investor</v-btn>
   </v-container>
@@ -96,7 +113,7 @@ export default {
     return {
       investor: '',
       investorEntity: '',
-      investmentAmount: ''
+      capitalInvested: ''
     }
   },
 
@@ -105,7 +122,7 @@ export default {
     this.$store.dispatch('getInvestments')
     this.$store.dispatch('getInvestmentInvestors')
     this.$store.dispatch('getInvestors')
-    this.$store.dispatch('getInvestorEntities')
+    this.$store.dispatch('getEntities')
   },
   computed: {
       investment(){
@@ -117,18 +134,38 @@ export default {
       investors(){
          return this.$store.state.investors.map(investor => {return {text:investor.name, value: investor.id}})
        },
+       investInvestors(){
+         return this.$store.state.investmentInvestors;
+       }
     },
     methods: {
       submitInvestor() {
-         return this.$store.dispatch('addInvestorEntity',{
-          investment_id: this.investment_id,
-          investor_id: this.investor_id,
-          investorEntity_id: this.investorEntity_id,
+         return this.$store.dispatch('addInvestmentInvestor',{
+          investment_id: this.$route.params.id,
+          investor_id: this.investor,
+          investorEntity_id: this.investorEntity,
           capitalInvested: this.capitalInvested,
         }).then(()=>{
-        this.$router.push('/adminInvestmentDashboard');
+        this.$router.push('/investmentDetails/'+this.$route.params.id); //re render page
         alert("Your Investor Has been added");
       })
+    },
+
+    deleteInvestmentInvestor (e) {
+      e.preventDefault()
+      return this.$store.dispatch('deleteInvestmentInvestor', {
+        id: this.$route.params.id //Change to be the id of the investmentInvestor
+      }).then(() =>{
+        alert("Your Investor Has Been Deleted");
+        this.$router.push('/investmentDetails/'+this.$route.params.id);
+    })
+  },
+      getEntities(id){
+        console.log('id is', id);
+        if(!id){
+          return [];
+        }
+        return this.$store.getters.getEntitiesByInvestorId(id).map(ent => {return {text:ent.name, value: ent.id}});
       }
     }
 }

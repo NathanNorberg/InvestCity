@@ -21,14 +21,14 @@
         :search="search"
       >
         <template  slot="items" slot-scope="props">
-          <tr v-for="investment in investments" :key="`${investment.id}`">
-            <td><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.name }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.category }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.grouping }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.purchaseDate }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.status }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.soldDate }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investmentDetails/${investment.id}`">{{ investment.docs }}</router-link></td>
+          <tr :key="`${props.item.id}`">
+            <td><router-link :to="`/investmentDetails/${props.item.id}`">{{ props.item.name }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${props.item.id}`">{{ props.item.category }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${props.item.id}`">{{ props.item.grouping }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${props.item.id}`">{{ props.item.purchaseDate }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${props.item.id}`">{{ props.item.status }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${props.item.id}`">{{ props.item.soldDate }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investmentDetails/${props.item.id}`">{{ props.item.docs }}</router-link></td>
           </tr>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">

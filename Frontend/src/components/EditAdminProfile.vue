@@ -8,79 +8,43 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form>
 
             <v-text-field
-              v-model="admin.emailAndLogin"
-              v-validate="'required|emailAndLogin'"
-              :error-messages="errors.collect('emailAndLogin')"
+              v-model="adminSupers.name"
+              label="Name"
+            ></v-text-field>
+
+            <v-text-field
+              v-model="adminSupers.emailAndLogin"
               label="Email / Login"
-              data-vv-name="emailAndLogin"
-              required
             ></v-text-field>
 
             <v-text-field
-              v-model="admin.password"
-              v-validate="'required|password'"
-              :error-messages="errors.collect('password')"
+              v-model="adminSupers.password"
               label="Password"
-              data-vv-name="password"
-              required
-            ></v-text-field>
-
-            <v-text-field
-              v-model="admin.confirmPassword"
-              v-validate="'required|confirmPassword'"
-              :error-messages="errors.collect('confirmPassword')"
-              label="Confirm Password"
-              data-vv-name="confirmPassword"
-              required
             ></v-text-field>
 
               <v-text-field
-                v-model="admin.city"
-                v-validate="'required|city'"
-                :error-messages="errors.collect('city')"
+                v-model="adminSupers.city"
                 label="City"
-                data-vv-name="city"
-                required
               ></v-text-field>
 
 
                 <v-select
-                v-model="admin.state"
-                v-validate="'required'"
-                :items="admin.states"
-                :error-messages="errors.collect('state')"
+                v-model="adminSupers.state"
+                :items="states"
                 label="State"
-                data-vv-name="state"
-                required
                 ></v-select>
 
               <v-text-field
-                v-model="admin.contactNumber"
-                v-validate="'required|contactNumber'"
-                :error-messages="errors.collect('contactNumber')"
+                v-model="adminSupers.contactNumber"
                 label="Contact Number"
-                data-vv-name="contactNumber"
-                required
               ></v-text-field>
 
 
-              <v-checkbox
-                v-model="admin.checkbox"
-                v-validate="'required'"
-                :error-messages="errors.collect('checkbox')"
-                value="1"
-                label="Update Complete?"
-                data-vv-name="checkbox"
-                type="checkbox"
-                required
-              ></v-checkbox>
 
-              <v-btn color="success" @click="submit">Update</v-btn>
-              <v-btn color="warning" to="/adminProfile">Cancel</v-btn>
-          </form>
+              <v-btn color="success" @click="updateProfile">Update Profile</v-btn>
+              <v-btn color="warning" to="/adminDashboard">Cancel</v-btn>
         </v-container>
       </v-flex>
     </v-card>
@@ -94,18 +58,12 @@ import VeeValidate from 'vee-validate'
 Vue.use(VeeValidate)
 
 export default {
-  $_veeValidate: {
-    validator: 'new'
-  },
 
   data(){
     return{
-      admin:{
-        select: null,
-        adminName: '',
+        name: '',
         emailAndLogin: '',
         password: '',
-        confirmPassword: '',
         states: [
           'Alabama',
           'Alaska',
@@ -159,39 +117,39 @@ export default {
           'Wyoming',
         ],
         city: '',
+        state: '',
         contactNumber: '',
-        checkbox: null,
-        dictionary: {
-          attributes: {
-            // custom attributes
-          },
-          custom: {
-            name: {
-              required: () => 'Name can not be empty',
-              max: 'The name field may not be greater than 50 characters'
-              // custom messages
-            },
-            state: {
-              required: 'Select field is required'
-            },
-          }
-        }
-      }
     }
   },
 
-  mounted () {
-    this.$validator.localize('en', this.dictionary)
-  },
  created(){
-   this.$store.dispatch('getAllAdminSuper')
+   this.$store.dispatch('getAdminSupers')
  },
 
+ methods: {
+   updateProfile(e) {
+     e.preventDefault()
+     return this.$store.dispatch('editAdminNews',{
+       id: this.$route.params.id,
+       name: this.adminSupers.name,
+       emailAndLogin: this.adminSupers.emailAndLogin,
+       password: this.adminSupers.password,
+       city: this.adminSupers.city,
+       state: this.adminSupers.state,
+       contactNumber: this.adminSupers.contactNumber,
+       }).then(()=>{
+         alert("Your Profile Has Been Updated");
+         this.$router.push('/adminDashboard');
+     })
+   },
+},
+
+
  computed: {
-   // admin(){
-   //   return this.$store.getters.getAdminByAdminId.localStorage.getItem('admin_id')
-   // }
- }
+   adminSupers(){
+     return this.$store.state.adminSupers.length ? this.$store.state.adminSupers.filter(adminSuper => adminSuper.id == this.$route.params.id)[0] : {};
+   }
+ },
 
 }
 </script>

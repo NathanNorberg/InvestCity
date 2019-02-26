@@ -21,13 +21,13 @@
         :search="search"
       >
         <template slot="items" slot-scope="props">
-          <tr v-for="investor in investors" :key="`${investor.id}`">
-            <td><router-link :to="`/investorDetails/${investor.id}`">{{ investor.name }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.emailAndLogin }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`"><p v-for="ent in entities" :key="`${investor.id}`">{{ ent.name }}</p></router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.city }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.state }}</router-link></td>
-            <td class="text-xs-left"><router-link :to="`/investorDetails/${investor.id}`">{{ investor.status }}</router-link></td>
+          <tr :key="`${props.item.id}`">
+            <td><router-link :to="`/investorDetails/${props.item.id}`">{{ props.item.name }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${props.item.id}`">{{ props.item.emailAndLogin }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${props.item.id}`"><p v-for="ent in entities(props.item.id)" :key="`${ent.id}`">{{ ent.name }}</p></router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${props.item.id}`">{{ props.item.city }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${props.item.id}`">{{ props.item.state }}</router-link></td>
+            <td class="text-xs-left"><router-link :to="`/investorDetails/${props.item.id}`">{{ props.item.status }}</router-link></td>
           </tr>
         </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
@@ -56,15 +56,17 @@ export default {
     },
     created () {
       this.$store.dispatch('getInvestors')
-      this.$store.dispatch('getInvestorEntities')
+      this.$store.dispatch('getEntities')
     },
     computed: {
       investors(){
         return this.$store.state.investors;
       },
-      entities(){
-        return this.$store.getters.getEntitiesByInvestorId(this.$route.params.id);
-      },
+    },
+    methods:{
+      entities(id){
+        return this.$store.getters.getEntitiesByInvestorId(id);
+      }
     }
   }
   </script>

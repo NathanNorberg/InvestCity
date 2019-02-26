@@ -6,199 +6,182 @@
     <v-card>
       <v-flex>
         <v-container>
-          <form>
-            <v-select
-              v-model="investment.category"
-              v-validate="'required'"
-              :items="investment.category"
-              :error-messages="errors.collect('categories')"
-              label="Category"
-              data-vv-name="categories"
-              required
-            ></v-select>
-            <v-select
-              v-model="investment.grouping"
-              v-validate="'required'"
-              :items="investment.grouping"
-              :error-messages="errors.collect('grouping')"
-              label="Grouping"
-              data-vv-name="grouping"
-              required
-            ></v-select>
-            <v-text-field
-            v-model="investment.name"
-            v-validate="'required|max:50'"
-            :counter="50"
-            :error-messages="errors.collect('name')"
+          <v-select
+            v-model="investments.category"
+            :items="categories"
+            label="Category"
+            value=''
+          ></v-select>
+
+          <v-select
+            v-model="investments.grouping"
+            :items="groupings"
+            label="Grouping"
+            value=''
+          ></v-select>
+
+          <v-text-field
+            v-model="investments.name"
             label="Project Name"
-            data-vv-name="name"
-            required
+            value=''
+          ></v-text-field>
+
+          <v-flex xs8>
+            <v-textarea
+              v-model="investments.briefDescription"
+              label="Brief Description"
+              value=""
+              hint="Brief Description"
+            ></v-textarea>
+            </v-flex>
+
+            <v-text-field
+              v-model="investments.purchasePrice"
+              label="Purchase Price (In US Dollars)"
+              value=''
             ></v-text-field>
+
+            <v-flex xs12 sm6 md4>
+              <v-menu
+                ref="purchaseMenu"
+                v-model="investments.purchaseMenu"
+                value=''
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="purchaseDate"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                min-width="290px"
+              >
+                <v-text-field
+                  slot="activator"
+                  v-model="investments.purchaseDate"
+                  label="Date Purchased"
+                  readonly
+                ></v-text-field>
+                <v-date-picker v-model="investments.purchaseDate" no-title scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn flat color="primary" @click="purchaseMenu = false">Cancel</v-btn>
+                  <v-btn flat color="primary" @click="$refs.purchaseMenu.save(purchaseDate)">OK</v-btn>
+                </v-date-picker>
+              </v-menu>
+            </v-flex>
+
             <v-flex xs8>
               <v-textarea
-                v-model="investment.briefDescription"
-                label="Brief Description"
-                value=""
-                hint="Brief Description"
-                v-validate="'required'"
-                data-vv-name="briefDescription"
-                required
+              v-model="investments.location"
+              label="Location"
+              value=""
+              hint="Location"
               ></v-textarea>
-              </v-flex>
-              <v-text-field
-                v-model="investment.purchasePrice"
-                v-validate="'required|purchasePrice'"
-                :error-messages="errors.collect('purchasePrice')"
-                label="Purchase Price (In US Dollars)"
-                data-vv-name="purchasePrice"
-                required
-              ></v-text-field>
-              <v-flex xs12 sm6 md4>
-                <v-menu
-                  ref="purchaseMenu"
-                  v-model="investment.purchaseMenu"
-                  :close-on-content-click="false"
-                  :nudge-right="40"
-                  :return-value.sync="purchaseDate"
-                  lazy
-                  transition="scale-transition"
-                  offset-y
-                  full-width
-                  min-width="290px"
-                >
-                  <v-text-field
-                    slot="activator"
-                    v-model="investment.purchaseDate"
-                    label="Date Purchased"
-                    readonly
-                  ></v-text-field>
-                  <v-date-picker v-model="investment.purchaseDate" no-title scrollable>
-                    <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="purchaseMenu = false">Cancel</v-btn>
-                    <v-btn flat color="primary" @click="$refs.purchaseMenu.save(purchaseDate)">OK</v-btn>
-                  </v-date-picker>
-                </v-menu>
-              </v-flex>
-              <v-select
-                v-model="investment.state"
-                v-validate="'required'"
-                :items="investment.states"
-                :error-messages="errors.collect('state')"
-                label="State"
-                data-vv-name="state"
-                required
-              ></v-select>
-              <v-text-field
-                v-model="investment.county"
-                v-validate="'required|county'"
-                :error-messages="errors.collect('county')"
-                label="County"
-                data-vv-name="county"
-                required
-              ></v-text-field>
-              <v-text-field
-                v-model="investment.city"
-                v-validate="'required|city'"
-                :error-messages="errors.collect('city')"
-                label="City"
-                data-vv-name="city"
-                required
-              ></v-text-field>
-              <v-flex xs8>
-                <v-textarea
-                  v-model="investment.location"
-                  label="Location"
-                  value=""
-                  hint="Location"
-                  v-validate="'required'"
-                  data-vv-name="location"
-                  required
-                ></v-textarea>
-              </v-flex>
-              <v-text-field
-                v-model="investment.projectSize"
-                v-validate="'required|projectSize'"
-                :error-messages="errors.collect('projectSize')"
-                label="Project Size"
-                data-vv-name="projectSize"
-                required
-              ></v-text-field>
+            </v-flex>
 
-              <v-select
-                v-model="investment.status"
-                v-validate="'required'"
-                :items="investment.status"
-                :error-messages="errors.collect('status')"
-                label="Status"
-                data-vv-name="status"
-                required
-              ></v-select>
-              <v-flex xs12 sm6 md4>
-                <v-menu
-                  ref="soldMenu"
-                  v-model="investment.soldMenu"
-                  :close-on-content-click="false"
-                  :nudge-right="40"
-                  :return-value.sync="soldDate"
-                  lazy
-                  transition="scale-transition"
-                  offset-y
-                  full-width
-                  min-width="290px"
-                >
-                  <v-text-field
-                    slot="activator"
-                    v-model="investment.soldDate"
-                    label="Date Sold"
-                    readonly
-                  ></v-text-field>
-                  <v-date-picker v-model="investment.soldDate" no-title scrollable>
-                    <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="soldMenu = false">Cancel</v-btn>
-                    <v-btn flat color="primary" @click="$refs.soldMenu.save(soldDate)">OK</v-btn>
-                  </v-date-picker>
-                </v-menu>
-              </v-flex>
-              <v-flex xs8>
-                <v-textarea
-                  v-model="investment.detailedDescription"
-                  label="Detailed Description"
-                  value=""
-                  hint="Detailed Description"
-                  v-validate="'required'"
-                  data-vv-name="detailedDescription"
-                  required
-                ></v-textarea>
-              </v-flex>
-              <v-flex xs8>
-                <v-textarea
-                  v-model="investment.notesForInvestors"
-                  label="Notes For Investors"
-                  value=""
-                  hint="Notes For Investors"
-                  v-validate="'required'"
-                  data-vv-name="notesForInvestors"
-                  required
-                ></v-textarea>
-              </v-flex>
+            <v-text-field
+              v-model="investments.city"
+              label="City"
+              value=''
+            ></v-text-field>
 
-              <v-checkbox
-                v-model="investment.checkbox"
-                v-validate="'required'"
-                :error-messages="errors.collect('checkbox')"
-                value="1"
-                label="Update Project?"
-                data-vv-name="checkbox"
-                type="checkbox"
-                required
-              ></v-checkbox>
+
+            <v-text-field
+            v-model="investments.county"
+            label="County"
+            value=''
+            ></v-text-field>
+
+
+
+            <v-select
+            v-model="investments.state"
+            :items="states"
+            label="State"
+            value=''
+            ></v-select>
+
+            <v-text-field
+              v-model="investments.projectSize"
+              label="Project Size"
+              value=''
+            ></v-text-field>
+
+            <v-text-field
+              v-model="investments.sellingPrice"
+              value=''
+              label="Selling Price (In US Dollars)"
+            ></v-text-field>
+
+            <v-select
+              v-model="investments.status"
+              :items="statuses"
+              label="Status"
+              value=''
+            ></v-select>
+            <v-flex xs12 sm6 md4>
+              <v-menu
+                ref="soldMenu"
+                v-model="investments.soldMenu"
+                value=''
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="soldDate"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                min-width="290px"
+              >
+                <v-text-field
+                  slot="activator"
+                  v-model="investments.soldDate"
+                  label="Date Sold"
+                  readonly
+                ></v-text-field>
+                <v-date-picker v-model="investments.soldDate" no-title scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn flat color="primary" @click="soldMenu = false">Cancel</v-btn>
+                  <v-btn flat color="primary" @click="$refs.soldMenu.save(soldDate)">OK</v-btn>
+                </v-date-picker>
+              </v-menu>
+            </v-flex>
+
+            <v-text-field
+              v-model="investments.grossReturn"
+              label="Gross Return (In US Dollars)"
+              value=''
+            ></v-text-field>
+
+            <v-text-field
+              v-model="investments.netInvestorReturn"
+              label="Net Investor Return (In US Dollars)"
+              value=''
+            ></v-text-field>
+
+            <v-flex xs8>
+              <v-textarea
+                v-model="investments.detailedDescription"
+                label="Detailed Description"
+                value=""
+                hint="Detailed Description"
+              ></v-textarea>
+            </v-flex>
+
+            <v-flex xs8>
+              <v-textarea
+                v-model="investments.notesForInvestors"
+                label="Notes For Investors"
+                value=""
+                hint="Notes For Investors"
+              ></v-textarea>
+            </v-flex>
+
 
             <v-btn color="success" @click="updateInvestment">Update</v-btn>
-            <v-btn color="warning" to="/investmentDetails/1">Cancel</v-btn>
+            <v-btn color="warning" :to="`/investmentDetails/${investments.id}`">Cancel</v-btn>
             <v-container text-xs-right>
               <v-btn color="error" @click="deleteInvestment">Delete Investment Project</v-btn>
             </v-container>
-          </form>
         </v-container>
       </v-flex>
     </v-card>
@@ -207,20 +190,12 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VeeValidate from 'vee-validate'
-
-Vue.use(VeeValidate)
 
 export default {
-  $_veeValidate: {
-    validator: 'new'
-  },
 
 data() {
   return{
-    investment:{
-      category: [
+      categories: [
         'Undeveloped Land',
         'Finished Lots',
         'Income Producing Property',
@@ -229,15 +204,18 @@ data() {
         'Improved Land',
         'Mixed Use',
       ],
-      grouping: [
+      groupings: [
         'Bridge Loan',
         'Land/Asset Purchase',
         'Other'
       ],
-      name: 'Prefilled',
-      briefDescription: 'Prefilled',
-      select: null,
-      purchasePrice: 'Prefilled',
+      name: '',
+      grouping: '',
+      category: '',
+      briefDescription: '',
+      grossReturn: '',
+      netInvestorReturn: '',
+      purchasePrice: '',
       purchaseDate: new Date().toISOString().substr(0, 10),
       purchaseMenu: false,
       purchaseModal: false,
@@ -294,11 +272,14 @@ data() {
         'Wisconsin',
         'Wyoming',
       ],
-      county: 'Prefilled',
-      city: 'Prefilled',
-      location: 'Prefilled',
-      projectSize: 'Prefilled',
-      status: [
+      county: '',
+      city: '',
+      state: '',
+      location: '',
+      projectSize: '',
+      sellingPrice: '',
+      status: '',
+      statuses: [
         'Current',
         'Sold',
       ],
@@ -306,65 +287,60 @@ data() {
       soldMenu: false,
       soldModal: false,
       soldMenu2: false,
-      detailedDescription: 'Prefilled',
-      notesForInvestors: 'Prefilled',
-      checkbox: null,
-      dictionary: {
-        attributes: {
-          // custom attributes
-        },
-        custom: {
-          name: {
-            required: () => 'Name can not be empty',
-            max: 'The name field may not be greater than 50 characters'
-            // custom messages
-          },
-          state: {
-            required: 'Select field is required'
-          },
-          Category: {
-            required: 'Select field is required'
-          }
-        }
-      }
-    }
+      detailedDescription: '',
+      notesForInvestors: '',
   }
 },
 
-  mounted () {
-    this.$validator.localize('en', this.dictionary)
+
+created(){
+  this.$store.dispatch('getInvestments')
+},
+
+methods: {
+  updateInvestment(e) {
+    e.preventDefault()
+    return this.$store.dispatch('editInvestment',{
+      id: this.$route.params.id,
+      category: this.investments.category,
+      grouping: this.investments.grouping,
+      name: this.investments.name,
+      briefDescription: this.investments.briefDescription,
+      purchasePrice: this.investments.purchasePrice,
+      sellingPrice: this.investments.sellingPrice,
+      grossReturn: this.investments.grossReturn,
+      netInvestorReturn: this.investments.netInvestorReturn,
+      purchaseDate: this.investments.purchaseDate,
+      state: this.investments.state,
+      county: this.investments.county,
+      city: this.investments.city,
+      location: this.investments.location,
+      projectSize: this.investments.projectSize,
+      status: this.investments.status,
+      soldDate: this.investments.soldDate,
+      detailedDescription: this.investments.detailedDescription,
+      notesForInvestors:this.investments.notesForInvestors
+      }).then(()=>{
+        alert("Your Investment Has Been Updated");
+        this.$router.push('/adminInvestmentDashboard');
+    })
+  },
+  deleteInvestment (e) {
+    e.preventDefault()
+    return this.$store.dispatch('deleteInvestment', {
+      id: this.$route.params.id
+    }).then(() =>{
+      alert("Your Investment Has Been Deleted");
+      this.$router.push('/adminInvestmentDashboard');
+    })
+    }
+  },
+  computed: {
+    investments(){
+      return this.$store.state.investments.length ? this.$store.state.investments.filter(investment => investment.id == this.$route.params.id)[0] : {};
+    }
   },
 
-  methods: {
-    updateInvestment: function(){
-      this.$validator.validateAll()
-      this.$http.patch('http://jsonplaceholder.typicode.com/posts/1',{
-        category: this.investment.category,
-        grouping: this.investment.grouping,
-        name: this.investment.name,
-        briefDescription: this.investment.briefDescription,
-        purchasePrice: this.investment.purchasePrice,
-        purchaseDate: this.investment.purchaseDate,
-        state: this.investment.state,
-        county: this.investment.county,
-        city: this.investment.city,
-        location: this.investment.location,
-        projectSize: this.investment.projectSize,
-        status: this.investment.status,
-        soldDate: this.investment.soldDate,
-        detailedDescription: this.investment.detailedDescription,
-        notesForInvestors: this.investment.notesForInvestors,
-      }).then(function(data){
-        console.log(data)
-      })
-    },
-
-    deleteInvestment () {
-
-      console.log('Delete Has been fired')
-
-    }
-  }
 }
 </script>
 

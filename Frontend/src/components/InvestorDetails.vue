@@ -13,7 +13,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    
+
     <v-container fluid grid-list-md>
       <v-layout row wrap>
       <v-flex d-flex xs1>
@@ -37,7 +37,7 @@
           <v-card-text class="px-0">
             <v-container>
               <p class="text-xs-left"><strong>Investor Name:</strong> {{ investor.name }}</p>
-              <p class="text-xs-left"><strong>Entity Name:</strong></p><p v-for="ent in entities" :key="`${investor.id}`"> {{ ent.name }}</p>
+              <p class="text-xs-left"><strong>Entity Name:</strong></p><p v-for="ent in entities" :key="`${investor.id}`" > <router-link :to="`/entityDetails/${ent.id}`">{{ ent.name }}</router-link></p>
               <p class="text-xs-left"><strong>Email / Login:</strong> {{ investor.emailAndLogin }}</p>
               <p class="text-xs-left"><strong>Password:</strong> {{ investor.password }}</p>
               <p class="text-xs-left"><strong>Address:</strong> {{ investor.address }}</p>
@@ -76,7 +76,7 @@ export default {
   },
   created () {
     this.$store.dispatch('getInvestors')
-    this.$store.dispatch('getInvestorEntities')
+    this.$store.dispatch('getEntities')
   },
   computed: {
       investor(){

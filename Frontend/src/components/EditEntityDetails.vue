@@ -1,62 +1,66 @@
 <template>
   <v-container>
     <v-container text-xs-center>
-      <h1>Add New Entity For {{ investor.name }}</h1>
+      <h1>Update Entity Information For {{ entities.name }}</h1>
     </v-container>
     <v-card>
       <v-flex>
         <v-container>
             <v-text-field
-              v-model="name"
+              v-model="entities.name"
               label='Entity Name'
               value=''
-            ></v-text-field>
+              ></v-text-field>
 
-            <v-flex xs8>
-              <v-textarea
-                v-model="entityNotes"
+              <v-flex xs8>
+                <v-textarea
+                v-model="entities.entityNotes"
                 label="Entity Notes"
                 value=''
-              ></v-textarea>
-            </v-flex>
+                ></v-textarea>
+              </v-flex>
 
             <v-flex xs8>
               <v-textarea
-              v-model="address"
+              v-model="entities.address"
               label="Address"
-              value=""
               hint="Address"
+              value=''
               ></v-textarea>
             </v-flex>
 
               <v-text-field
-                v-model="city"
+                v-model="entities.city"
                 label="City"
-                value=""
+                value=''
               ></v-text-field>
 
               <v-select
-              v-model="state"
+              v-model="entities.state"
               :items="states"
               label="State"
-              value=""
+              value=''
               ></v-select>
 
               <v-text-field
-                v-model="contactNumber"
+                v-model="entities.contactNumber"
                 label="Contact Number"
-                value=""
+                value=''
               ></v-text-field>
 
               <v-text-field
-                v-model="mobileNumber"
+                v-model="entities.mobileNumber"
                 label="Mobile Number"
-                value=""
+                value=''
               ></v-text-field>
 
 
-            <v-btn color="success" @click='addEntity' >Add Entity</v-btn>
-            <v-btn color="warning" :to="`/investorDetails/${investor.id}`">Cancel</v-btn>
+            <v-btn color="success" @click="updateEntity" >Update Entity</v-btn>
+            <v-btn color="warning" :to="`/entityDetails/${entities.id}`">Cancel</v-btn>
+            <v-container text-xs-right>
+              <v-btn color="error" @click="deleteEntity" >Delete Entity</v-btn>
+            </v-container>
+
         </v-container>
       </v-flex>
     </v-card>
@@ -132,31 +136,50 @@ export default {
       entityNotes: ""
     }
   },
-  created () {
-    this.$store.dispatch('getInvestors')
+
+  created(){
+    this.$store.dispatch('getEntities')
   },
-  computed: {
-      investor(){
-        return this.$store.getters.getInvestorsByInvestorId(this.$route.params.id);
-      },
-    },
 
   methods: {
-    addEntity() {
-       return this.$store.dispatch('addInvestorEntity',{
-        investor_id: this.$route.params.id,
-        name: this.name,
-        address: this.address,
-        city: this.city,
-        state: this.state,
-        contactNumber: this.contactNumber,
-        mobileNumber: this.mobileNumber,
-        entityNotes: this.entityNotes,
-        }).then(()=>{
-        this.$router.push("/adminInvestorDashboard");
-        alert("Your Entity Has been added");
-      })
+    updateEntity(e) {
+      e.preventDefault()
+      return this.$store.dispatch('editInvestorEntity',{
+        id: this.$route.params.id,
+        name: this.entities.name,
+        address: this.entities.address,
+        city: this.entities.city,
+        state: this.entities.state,
+        contactNumber: this.entities.contactNumber,
+        mobileNumber: this.entities.mobileNumber,
+        entityNotes: this.entities.entityNotes,
+      }).then(()=>{
+        alert("Your Entity Has Been Updated");
+        this.$router.push('/adminInvestorDashboard');
+    })
+  },
+
+  deleteEntity(e) {
+    e.preventDefault()
+    return this.$store.dispatch('deleteInvestorEntity', {
+      id: this.$route.params.id
+    }).then(() =>{
+      alert("Your Entity Has Been Deleted");
+      this.$router.push('/adminInvestorDashboard');
+  })
+},
+
+  },
+
+
+  computed: {
+    entities(){
+      return this.$store.state.entities.length ? this.$store.state.entities.filter(entity => entity.id == this.$route.params.id)[0] : {};
     }
+  },
+
+  methods: {
+
   }
 
 }

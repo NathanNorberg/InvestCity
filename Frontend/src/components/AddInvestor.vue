@@ -13,12 +13,6 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="entityName"
-              label="Entity Name"
-              value=""
-            ></v-text-field>
-
-            <v-text-field
               v-model="emailAndLogin"
               label="Email / Login"
               value=""
@@ -103,7 +97,6 @@ export default {
 data () {
   return {
         name: "",
-        entityName: "",
         emailAndLogin: "",
         password: "",
         confirmPassword: "",
