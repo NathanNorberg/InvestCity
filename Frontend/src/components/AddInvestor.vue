@@ -66,7 +66,7 @@
 
               <v-select
               v-model="status"
-              :items="investorStatus"
+              :items="statuses"
               label="Status"
               value=""
               ></v-select>
@@ -157,7 +157,7 @@ data () {
           'Wyoming',
         ],
         state: "",
-        investorStatus: [
+        statuses: [
           'Active',
           'Inactive',
         ],

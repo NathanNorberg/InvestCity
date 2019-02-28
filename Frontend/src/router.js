@@ -33,6 +33,7 @@ import InvestorDetailsScreen from './views/InvestorDetailsScreen.vue'
 import EditInvestorDetailsScreen from './views/EditInvestorDetailsScreen.vue'
 /* View, Edit Investor Entity */
 import EntityDetailsScreen from './views/EntityDetailsScreen.vue'
+import InvestorEntityScreen from './views/InvestorEntityScreen.vue'
 import EditEntityDetailsScreen from './views/EditEntityDetailsScreen.vue'
 
 
@@ -47,8 +48,9 @@ export default new Router({
     /*Investor Routes */
     { path: '/investorDashboard', name: 'InvestorDashboardScreen', component: InvestorDashboardScreen },
     { path: '/investorInvestmentDetails/:id', name: 'InvestorInvestmentDetailsScreen', component: InvestorInvestmentDetailsScreen },
-    { path: '/investorProfile', name: 'InvestorProfileScreen', component: InvestorProfileScreen },
-    { path: '/editInvestorProfile', name: 'EditInvestorProfileScreen', component: EditInvestorProfileScreen },
+    { path: '/investorProfile/:id', name: 'InvestorProfileScreen', component: InvestorProfileScreen },
+    { path: '/investorEntity/:id', name: 'InvestorEntityScreen', component: InvestorEntityScreen },
+    { path: '/editInvestorProfile/:id', name: 'EditInvestorProfileScreen', component: EditInvestorProfileScreen },
     { path: '/addProjectNote/:id', name: 'AddInvestmentNotesScreen', component: AddInvestmentNotesScreen },
     { path: '/editProjectNote/:id', name: 'EditInvestmentNotesScreen', component: EditInvestmentNotesScreen },
     { path: '/investorNews', name: 'InvestorNewsScreen', component: InvestorNewsScreen },

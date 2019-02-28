@@ -35,7 +35,6 @@
       <v-spacer></v-spacer>
       <v-divider></v-divider>
       <v-list>
-        <!-- Link 1 -->
         <v-list-tile v-for="link in links" :key="`nav-${link.name}`" router :to="link.route">
           <v-list-tile-action>
             <v-icon>{{ link.icon }}</v-icon>
@@ -57,7 +56,7 @@ export default {
         {name: 'Home', icon: 'home', route: '/investorDashboard'},
         {name: 'News', icon: 'chat', route: '/investorNews'},
         {name: 'Full Report', icon: 'dashboard', route: '/investorReport'},
-        {name: 'Profile Settings', icon: 'settings', route: '/investorProfile'}
+        {name: 'Profile Settings', icon: 'settings', route: '/investorProfile/'+localStorage.getItem('investor_id')}
       ],
     }
   },

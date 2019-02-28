@@ -3,7 +3,6 @@
     <Header />
     <br>
     <br>
-    <br>
     <InvestorLogin />
   </div>
 </template>

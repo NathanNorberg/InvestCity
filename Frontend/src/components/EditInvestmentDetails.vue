@@ -118,6 +118,7 @@
               label="Status"
               value=''
             ></v-select>
+
             <v-flex xs12 sm6 md4>
               <v-menu
                 ref="soldMenu"
@@ -176,6 +177,15 @@
               ></v-textarea>
             </v-flex>
 
+
+            <v-flex xs8>
+              <v-textarea
+                v-model="investments.fullReportNotes"
+                label="Full Report Notes"
+                value=""
+                hint="Full Report Notes"
+              ></v-textarea>
+            </v-flex>
 
             <v-btn color="success" @click="updateInvestment">Update</v-btn>
             <v-btn color="warning" :to="`/investmentDetails/${investments.id}`">Cancel</v-btn>
@@ -289,6 +299,7 @@ data() {
       soldMenu2: false,
       detailedDescription: '',
       notesForInvestors: '',
+      fullReportNotes: '',
   }
 },
 
@@ -319,7 +330,8 @@ methods: {
       status: this.investments.status,
       soldDate: this.investments.soldDate,
       detailedDescription: this.investments.detailedDescription,
-      notesForInvestors:this.investments.notesForInvestors
+      notesForInvestors:this.investments.notesForInvestors,
+      fullReportNotes: this.investments.fullReportNotes
       }).then(()=>{
         alert("Your Investment Has Been Updated");
         this.$router.push('/adminInvestmentDashboard');

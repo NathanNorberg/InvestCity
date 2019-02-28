@@ -178,6 +178,15 @@
                 ></v-textarea>
               </v-flex>
 
+              <v-flex xs8>
+                <v-textarea
+                  v-model="fullReportNotes"
+                  label="Full Report Notes"
+                  value=""
+                  hint="Full Report Notes"
+                ></v-textarea>
+                </v-flex>
+
             <v-btn color="success" @click='submitInvestment'>Add Investment</v-btn>
             <v-btn color="warning" to="/adminInvestmentDashboard">Cancel</v-btn>
         </v-container>
@@ -284,6 +293,7 @@ export default {
         status: '',
         projectSize: '',
         detailedDescription: '',
+        fullReportNotes: '',
         notesForInvestors: '',
         soldDate: new Date().toISOString().substr(0, 10),
         soldMenu: false,
@@ -314,12 +324,15 @@ export default {
         status: this.status,
         soldDate: this.soldDate,
         detailedDescription: this.detailedDescription,
-        notesForInvestors:this.notesForInvestors
+        notesForInvestors:this.notesForInvestors,
+        fullReportNotes: this.fullReportNotes
       }).then(()=>{
       this.$router.push('/adminInvestmentDashboard');
       alert("Your Investment Has been added");
     })
-    }
+  },
+
+  
   }
 
 }

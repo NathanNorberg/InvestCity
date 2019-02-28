@@ -45,7 +45,7 @@
     </v-navigation-drawer>
   </nav>
 </template>
-
+<!-- to={"/user/"+localStorage.getItem('user_id')} -->
 <script>
 export default {
   data() {
@@ -60,7 +60,7 @@ export default {
         {name: 'Add Investor', icon: '', route: '/addInvestor'},
         {name: 'Manage News', icon: 'chat', route: '/manageNews'},
         {name: 'Add News', icon: '', route: '/addNews'},
-        {name: 'Admin Settings', icon: 'settings', route: '/adminProfile/1'}
+        {name: 'Admin Settings', icon: 'settings', route: '/adminProfile/'+localStorage.getItem('admin_id')}
       ],
     }
   },

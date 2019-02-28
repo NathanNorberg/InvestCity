@@ -45,6 +45,7 @@
               <p class="text-xs-left"><strong>State:</strong> {{ investor.state }}</p>
               <p class="text-xs-left"><strong>Contact Number:</strong> {{ investor.contactNumber }}</p>
               <p class="text-xs-left"><strong>Mobile Number:</strong> {{ investor.mobileNumber }}</p>
+              <p class="text-xs-left"><strong>Status:</strong> {{ investor.status }}</p>
               <p class="text-xs-left"><strong>Investor Notes:</strong> {{ investor.notesForInvestors }}</p>
             </v-container>
           </v-card-text>

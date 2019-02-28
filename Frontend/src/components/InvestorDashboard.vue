@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-container text-xs-center>
-      <h1>Welcome Back Investor</h1>
+      <h1>Welcome Back {{ investors.name }}</h1>
     </v-container>
     <v-container>
       <v-card>
@@ -77,111 +77,33 @@
 export default {
     data () {
       return {
-        entity1: '',
-        entity2: '',
-        headers: [
-          { text: 'Name', align: 'left', value: 'name' },
-          { text: 'Category', value: 'category' },
-          { text: 'Grouping', value: 'grouping' },
-          { text: 'Acquisition Date', value: 'acquisitionDate' },
-          { text: 'Status', value: 'status' },
-          { text: 'Sold Date', value: 'soldDate' },
-          { text: 'Docs', value: 'docs' },
-        ],
-        investments: [
-          {
-            name: 'Frozen Yogurt',
-            category: 'Undeveloped Land',
-            grouping: 'Bridge Loan',
-            acquisitionDate: 'date',
-            status: 'Current',
-            soldDate: 'Current',
-            docs: 4.0,
-          },
-          {
-            name: 'Ice cream sandwich',
-            category: 'Mixed Use',
-            grouping: 'M & I',
-            acquisitionDate: 'date',
-            status: 'Sold',
-            soldDate: 'Current',
-            docs: 4.0,
-          },
-          {
-            name: 'Eclair',
-            category: 'Finished Lots',
-            grouping: '',
-            acquisitionDate: 'date',
-            status: 'Current',
-            soldDate: 'Current',
-            docs: 4.0,
-          },
-          {
-            name: 'Cupcake',
-            category: 'Commercial Property',
-            grouping: 'Note Purchase',
-            acquisitionDate: 'date',
-            status: 'Current',
-            soldDate: 'Current',
-            docs: 4.0,
-          },
-          {
-            name: 'Gingerbread',
-            category: 'Improved Land',
-            grouping: 'Bridge Loan Syndication',
-            acquisitionDate: 'date',
-            status: 'Sold',
-            soldDate: 'date',
-            docs: 4.0,
-          },
-          {
-            name: 'Jelly bean',
-            category: 'Finished Lots',
-            grouping: '',
-            acquisitionDate: 'date',
-            status: 'Sold',
-            soldDate: 'date',
-            docs: 4.0,
-          },
-          {
-            name: 'Lollipop',
-            category: 'Industial Property',
-            grouping: 'Bridge Loan',
-            acquisitionDate: 'date',
-            status: 'Sold',
-            soldDate: 'date',
-            docs: 4.0,
-          },
-          {
-            name: 'Honeycomb',
-            category: 'Finished Lots',
-            grouping: 'M & I',
-            acquisitionDate: 'date',
-            status: 'Current',
-            soldDate: 'Current',
-            docs: 4.0,
-          },
-          {
-            name: 'Donut',
-            category: 'Improved Lots',
-            grouping: '',
-            acquisitionDate: 'date',
-            status: 'Sold',
-            soldDate: 'date',
-            docs: 4.0,
-          },
-          {
-            name: 'KitKat',
-            category: 'Undeveloped Land',
-            grouping: 'Texas',
-            acquisitionDate: 'date',
-            status: 'Current',
-            soldDate: 'Current',
-            docs: 4.0,
-          }
-        ]
       }
-    }
+    },
+
+
+  created () {
+    this.$store.dispatch('getEntities')
+    this.$store.dispatch('getInvestments')
+    this.$store.dispatch('getInvestmentInvestors')
+    this.$store.dispatch('getInvestors')
+  },
+  computed: {
+      entities(){
+        return this.$store.getters.getEntitiesByInvestorId(1);
+      },
+      investment(){
+         return this.$store.state.investments.map(investment => {return {text:investment.name, value: investment.id}})
+       },
+      investors(){
+       return this.$store.state.investors;
+     },
+   },
+
+   methods: {
+     getInvestment(id){
+
+     }
+   }
   }
 </script>
 

@@ -35,12 +35,17 @@
                   <p class="text-xs-left"><strong>State:</strong> {{ investment.state }}</p>
                   <p class="text-xs-left"><strong>Project Size:</strong> {{ investment.projectSize }}</p>
                   <p class="text-xs-left"><strong>Status:</strong> {{ investment.status }}</p>
-                  <p class="text-xs-left"><strong>Date Sold:</strong> {{ investment.soldDate }}</p>
-                  <p class="text-xs-left"><strong>Selling Price:</strong> ${{ investment.sellingPrice }}</p>
-                  <p class="text-xs-left"><strong>Gross Return:</strong> ${{ investment.grossReturn }}</p>
-                  <p class="text-xs-left"><strong>Net Investor Return:</strong> ${{ investment.netInvestorReturn }}</p>
+                  <p v-if="investment.status == 'Current'" class="text-xs-left"><strong>Date Sold:</strong> N/A</p>
+                  <p v-else class="text-xs-left"><strong>Date Sold:</strong> {{ investment.soldDate }}</p>
+                  <p v-if="investment.status == 'Current'" class="text-xs-left"><strong>Selling Price:</strong> N/A</p>
+                  <p v-else class="text-xs-left"><strong>Selling Price:</strong> ${{ investment.sellingPrice }}</p>
+                  <p v-if="investment.status == 'Current'" class="text-xs-left"><strong>Gross Return:</strong> N/A</p>
+                  <p v-else class="text-xs-left"><strong>Gross Return:</strong> ${{ investment.grossReturn }}</p>
+                  <p v-if="investment.status == 'Current'" class="text-xs-left"><strong>Net Investor Return:</strong> N/A</p>
+                  <p v-else class="text-xs-left"><strong>Net Investor Return:</strong> ${{ investment.netInvestorReturn }}</p>
                   <p class="text-xs-left"><strong>Detailed Description:</strong> {{ investment.detailedDescription }}</p>
                   <p class="text-xs-left"><strong>Notes For Investors:</strong> {{ investment.notesForInvestors }}</p>
+                  <p class="text-xs-left"><strong>Full Report Notes:</strong> {{ investment.fullReportNotes }}</p>
                 </v-container>
               </v-card-text>
             </v-card>
@@ -146,8 +151,8 @@ export default {
           investorEntity_id: this.investorEntity,
           capitalInvested: this.capitalInvested,
         }).then(()=>{
-        this.$router.push('/investmentDetails/'+this.$route.params.id); //re render page
-        alert("Your Investor Has been added");
+          alert("Your Investor Has been added");
+        window.location.reload() //re render page
       })
     },
     getInvestor(id){
@@ -162,7 +167,7 @@ export default {
         id: id //Change to be the id of the investmentInvestor
       }).then(() =>{
         alert("Your Investor Has Been Deleted");
-        this.$router.push('/investmentDetails/'+this.$route.params.id);
+        window.location.reload()
     })
   },
       getEntities(id){

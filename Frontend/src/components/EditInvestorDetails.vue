@@ -57,6 +57,14 @@
                 value=''
               ></v-text-field>
 
+              <v-select
+              v-model="investors.status"
+              :items="statuses"
+              label="Status"
+              value=""
+              ></v-select>
+
+
               <v-flex xs8>
                 <v-textarea
                   v-model="investors.notesForInvestors"
@@ -145,7 +153,8 @@ export default {
         address: '',
         contactNumber: '',
         mobileNumber: '',
-        status: [
+        status: '',
+        statuses: [
           'Active',
           'Inactive',
         ],

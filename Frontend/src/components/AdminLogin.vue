@@ -10,7 +10,7 @@
             <v-card-text>
               <v-text-field
                 v-model='emailAndLogin'
-                label="emailAndLogin"
+                label="Email"
               ></v-text-field>
               <v-text-field
                 v-model="password"
@@ -19,6 +19,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
+              <v-btn  to="/" color="grey lighten-5" >Investor</v-btn>
               <v-btn @click="adminLogin" color="success" >Login</v-btn>
               <!-- <v-btn color="success" @click="login">Login</v-btn> -->
             </v-card-actions>
