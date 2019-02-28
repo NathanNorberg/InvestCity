@@ -40,6 +40,8 @@ export const store = new Vuex.Store({
             return state.entities.filter(entity => entity.id == entity_id)[0];
         },
 
+
+
         getEntitiesByInvestorId: (state) => (investor_id) => {
             return state.entities.filter(entity => entity.investor_id == investor_id).map(entity => {
               return {...entity, investor: state.investors.filter(investor => investor.id == entity.investor_id[0])};
@@ -49,6 +51,12 @@ export const store = new Vuex.Store({
             return state.investmentInvestors.filter(investmentInvestor => investmentInvestor.investment_id == investment_id).map(investmentInvestor => {
               return {...investmentInvestor, investment: state.investments.filter(investment => investment.id == investmentInvestor.investment_id[0])};
             });
+        },
+
+        getInvestmentbyInvestmentInvestorEntityId: (state) => (investorEntity_id) => {
+          return state.investmentInvestors.filter(investment => investment.investorEntity_id == investorEntity_id).map(investmentInv => {
+            return state.investments.filter(inv => inv.id == investmentInv.investment_id)[0];
+          });
         },
 
 

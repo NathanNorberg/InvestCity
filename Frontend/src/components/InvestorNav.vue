@@ -24,10 +24,10 @@
         <v-flex>
           <v-list>
             <v-list-tile-title>
-              Name Here
+              {{ investor.name }}
             </v-list-tile-title>
             <v-list-tile-sub-title>
-              Something Else?
+            
             </v-list-tile-sub-title>
           </v-list>
         </v-flex>
@@ -60,10 +60,20 @@ export default {
       ],
     }
   },
+  created () {
+
+    this.$store.dispatch('getInvestors')
+
+  },
+
   computed: {
     auth() {
       return this.$store.state.users.byId[1]
-    }
-  }
+    },
+       investor(){
+         return this.$store.getters.getInvestorsByInvestorId(parseInt(localStorage.getItem('investor_id')));
+       },
+   },
+
 }
 </script>

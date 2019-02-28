@@ -1,59 +1,55 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <v-btn color="grey lighten-5" to="/investorDashboard">Return to Dashboard</v-btn>
-    <v-layout row wrap>
-      <v-flex xs12>
-        <v-card dark color="primary">
-          <v-card-text class="px-0">Investment Name</v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex xs2>
-        <v-card dark color="secondary">
-          <v-card-text class="px-0">
-            <v-container>
-              <p class="text-xs-right">Category:</p>
-              <p class="text-xs-right">Grouping:</p>
-              <p class="text-xs-right">Project Name:</p>
-              <p class="text-xs-right">Brief Description:</p>
-              <p class="text-xs-right">Purchase Price:</p>
-              <p class="text-xs-right">Date Purchased:</p>
-              <p class="text-xs-right">State:</p>
-              <p class="text-xs-right">County:</p>
-              <p class="text-xs-right">City:</p>
-              <p class="text-xs-right">Location:</p>
-              <p class="text-xs-right">Project Size:</p>
-              <p class="text-xs-right">Status:</p>
-              <p class="text-xs-right">Date Sold:</p>
-              <p class="text-xs-right">Detailed Description:</p>
-              <p class="text-xs-right">Notes For Investors:</p>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-      <v-flex xs10>
-        <v-card>
-          <v-card-text class="px-0">
-            <v-container>
-              <p class="text-xs-left">Pre-filled Category Information Here</p>
-              <p class="text-xs-left">Pre-filled Grouping Information Here</p>
-              <p class="text-xs-left">Pre-filled Project Name Here</p>
-              <p class="text-xs-left">Pre-filled Brief Description Here</p>
-              <p class="text-xs-left">Pre-filled Purchase Price Here</p>
-              <p class="text-xs-left">Pre-filled Date Purchase Here</p>
-              <p class="text-xs-left">Pre-filled State Information Here</p>
-              <p class="text-xs-left">Pre-filled County Information Here</p>
-              <p class="text-xs-left">Pre-filled City Information Here</p>
-              <p class="text-xs-left">Pre-filled Location Information Here</p>
-              <p class="text-xs-left">Pre-filled Project Size Information Here</p>
-              <p class="text-xs-left">Pre-filled Status Here</p>
-              <p class="text-xs-left">Pre-filled Date Sold Here</p>
-              <p class="text-xs-left">Pre-filled Detailed Description Here</p>
-              <p class="text-xs-left">Pre-filled Notes For Investors Here</p>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-    </v-layout>
+    <v-container grid-list-md text-xs-center>
+      <v-btn color="grey lighten-5" to="/adminInvestmentDashboard">Return to Investment Dashboard</v-btn>
+      <v-btn color="teal lighten-1" :to="`/editInvestmentDetails/${investment.id}`">Edit Investment Information</v-btn>
+      <v-layout row wrap>
+        <v-flex xs12>
+          <v-card dark color="primary">
+            <v-card-text class="px-0">{{ investment.name }}</v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+
+        <v-container fluid grid-list-md>
+          <v-layout row wrap>
+          <v-flex d-flex xs1>
+            <v-card dark color="secondary">
+              <v-card-text class="px-0">
+              </v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex d-flex xs11>
+            <v-card>
+              <v-card-text class="px-0">
+                <v-container>
+                  <p class="text-xs-left"><strong>Category:</strong> {{ investment.category }}</p>
+                  <p class="text-xs-left"><strong>Grouping:</strong> {{ investment.grouping }}</p>
+                  <p class="text-xs-left"><strong>Project Name:</strong> {{ investment.name }}</p>
+                  <p class="text-xs-left"><strong>Brief Description:</strong> {{ investment.briefDescription }}</p>
+                  <p class="text-xs-left"><strong>Purchase Price:</strong> ${{ investment.purchasePrice }}</p>
+                  <p class="text-xs-left"><strong>Date Purchased:</strong> {{ investment.purchaseDate }}</p>
+                  <p class="text-xs-left"><strong>Location:</strong> {{ investment.location }}</p>
+                  <p class="text-xs-left"><strong>City:</strong> {{ investment.city }}</p>
+                  <p class="text-xs-left"><strong>County:</strong> {{ investment.county }}</p>
+                  <p class="text-xs-left"><strong>State:</strong> {{ investment.state }}</p>
+                  <p class="text-xs-left"><strong>Project Size:</strong> {{ investment.projectSize }}</p>
+                  <p class="text-xs-left"><strong>Status:</strong> {{ investment.status }}</p>
+                  <p v-if="investment.status == 'Current'" class="text-xs-left"><strong>Date Sold:</strong> N/A</p>
+                  <p v-else class="text-xs-left"><strong>Date Sold:</strong> {{ investment.soldDate }}</p>
+                  <p v-if="investment.status == 'Current'" class="text-xs-left"><strong>Selling Price:</strong> N/A</p>
+                  <p v-else class="text-xs-left"><strong>Selling Price:</strong> ${{ investment.sellingPrice }}</p>
+                  <p v-if="investment.status == 'Current'" class="text-xs-left"><strong>Gross Return:</strong> N/A</p>
+                  <p v-else class="text-xs-left"><strong>Gross Return:</strong> ${{ investment.grossReturn }}</p>
+                  <p v-if="investment.status == 'Current'" class="text-xs-left"><strong>Net Investor Return:</strong> N/A</p>
+                  <p v-else class="text-xs-left"><strong>Net Investor Return:</strong> ${{ investment.netInvestorReturn }}</p>
+                  <p class="text-xs-left"><strong>Detailed Description:</strong> {{ investment.detailedDescription }}</p>
+                  <p class="text-xs-left"><strong>Notes For Investors:</strong> {{ investment.notesForInvestors }}</p>
+                </v-container>
+              </v-card-text>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
     <v-btn color="success" to="/addProjectNote/1">Add a Project Note</v-btn>
 
 
@@ -138,6 +134,24 @@
 
 <script>
 export default {
+
+  created () {
+    this.$store.dispatch('getInvestments')
+  },
+
+  computed: {
+      investment(){
+        return this.$store.getters.getInvestmentByInvestmentId(this.$route.params.id);
+      },
+    },
+
+  methods: {
+    getInvestor(id){
+      return this.$store.getters.getInvestorsByInvestorId(id)
+    },
+  }
+
+
 }
 </script>
 
