@@ -6,6 +6,7 @@ import InvestorLoginScreen from './views/InvestorLoginScreen.vue'
 import InvestorDashboardScreen from './views/InvestorDashboardScreen.vue'
 import InvestorInvestmentDetailsScreen from './views/InvestorInvestmentDetailsScreen.vue'
 import InvestorProfileScreen from './views/InvestorProfileScreen.vue'
+import InvestorViewEntityScreen from './views/InvestorViewEntityScreen.vue'
 import EditInvestorProfileScreen from './views/EditInvestorProfileScreen.vue'
 import AddInvestmentNotesScreen from './views/AddInvestmentNotesScreen.vue'
 import EditInvestmentNotesScreen from './views/EditInvestmentNotesScreen.vue'
@@ -49,7 +50,7 @@ export default new Router({
     { path: '/investorDashboard', name: 'InvestorDashboardScreen', component: InvestorDashboardScreen },
     { path: '/investorInvestmentDetails/:id', name: 'InvestorInvestmentDetailsScreen', component: InvestorInvestmentDetailsScreen },
     { path: '/investorProfile/:id', name: 'InvestorProfileScreen', component: InvestorProfileScreen },
-    { path: '/investorEntity/:id', name: 'InvestorEntityScreen', component: InvestorEntityScreen },
+    { path: '/investorViewEntity/:id', name: 'InvestorViewEntityScreen', component: InvestorViewEntityScreen },
     { path: '/editInvestorProfile/:id', name: 'EditInvestorProfileScreen', component: EditInvestorProfileScreen },
     { path: '/addProjectNote/:id', name: 'AddInvestmentNotesScreen', component: AddInvestmentNotesScreen },
     { path: '/editProjectNote/:id', name: 'EditInvestmentNotesScreen', component: EditInvestmentNotesScreen },
@@ -74,6 +75,7 @@ export default new Router({
     { path: '/addInvestorEntity/:id', name: 'AddInvestorEntityScreen', component: AddInvestorEntityScreen },
     { path: '/adminInvestorDashboard', name: 'AdminInvestorDashboardScreen', component: AdminInvestorDashboardScreen },
     { path: '/investorDetails/:id', name: 'InvestorDetailsScreen', component: InvestorDetailsScreen },
+    { path: '/investorEntity/:id', name: 'InvestorEntityScreen', component: InvestorEntityScreen },
     { path: '/editInvestorDetails/:id', name: 'EditInvestorDetailsScreen', component: EditInvestorDetailsScreen },
       /* View, Edit Investors */
     { path: '/entityDetails/:id', name: 'EntityDetailsScreen', component: EntityDetailsScreen },

@@ -36,7 +36,7 @@
           <v-card-text class="px-0">
             <v-container>
               <p class="text-xs-left"><strong>Investor Name:</strong> {{ investor.name }}</p>
-              <p class="text-xs-left"><strong>Entity Name:</strong></p><p v-for="ent in entities" :key="`${investor.id}`" > <router-link :to="`/investorEntity/${ent.id}`">{{ ent.name }}</router-link></p>
+              <p class="text-xs-left"><strong>Entity Name:</strong></p><p v-for="ent in entities" :key="`${investor.id}`" > <router-link :to="`/investorViewEntity/${ent.id}`">{{ ent.name }}</router-link></p>
               <p class="text-xs-left"><strong>Email / Login:</strong> {{ investor.emailAndLogin }}</p>
               <p class="text-xs-left"><strong>Password:</strong> {{ investor.password }}</p>
               <p class="text-xs-left"><strong>Address:</strong> {{ investor.address }}</p>

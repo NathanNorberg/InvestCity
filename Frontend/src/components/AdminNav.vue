@@ -16,7 +16,7 @@
         <v-flex class="mt-4">
           <v-avatar size="150">
             <img
-              src="../assets/CNI_Logo.png"
+              src="../assets/CNI_Circle.png"
             >
           </v-avatar>
         </v-flex>
