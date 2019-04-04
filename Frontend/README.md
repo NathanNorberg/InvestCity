@@ -47,10 +47,10 @@ Admin:
 
 
 ## What technologies do you plan to use?
-* Firebase
+* Node
 * Vue
+* Vuex
 * Vuetify
-* Chartjs
 
 ## Prioritized Feature list (Label stretch features with STRETCH)
 * Create Investor
